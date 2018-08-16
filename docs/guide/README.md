@@ -7,9 +7,9 @@ Handsfree.js is a computer vision JavaScript library designed to help you add he
 - Approximates how far from the screen you are
 - Has a plugin architecture, allowing the community to share functionality
 
-As you work with handsfree.js, keep the following in mind:
-
-> Anything - _**literally anything**_ - that you can do on a mobile device right now with one finger is possible to do handsfree with handsfree.js 🐵
+::: tip 🐵 As you work with handsfree.js, keep the following in mind:
+Anything - <i>literally anything</i> - that you can do on a mobile device right now with one finger is possible to do handsfree with handsfree.js!
+:::
 
 ## How It Works
 
@@ -26,6 +26,6 @@ const handsfree = new HandsfreeModule({autoStart: true, debug: 'sidebar-containe
 
 Because of how easy it is to work with `handsfree`, all of the examples on this site are designed to be run within [your browser's JavaScript console](https://webmasters.stackexchange.com/a/77337). Simply type `handsfree.start()` to run the demo on the page!
 
-::: tip 🐵 A note about these demos
+::: tip 🐵 A note about these demos:
 This site is designed to be read sequentially, with each section building on the last. As you navigate around, the `handsfree` state travels with you. If you refresh the page or accidently add breaking code, simply type `handsfree.start()` to "reset" the state.
 :::

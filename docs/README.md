@@ -3,7 +3,7 @@ sidebar: false
 ---
 <div class="roomy text-center">
   <p>
-    <img src="https://media.giphy.com/media/1YfCgZlRFN9JqfrtRC/giphy.gif">
+    <img src="https://media.giphy.com/media/55vsITBRKRlaosFK7I/giphy.gif" height=200>
   </p>
   <h1>handsfree.js</h1>
   <blockquote style="text-align: left">Add client side, multi-user, head-tracked-from-afar mouse cursors and handsfree user interfaces to your projects just...like...✨...that!</blockquote>
