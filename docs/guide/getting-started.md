@@ -73,4 +73,11 @@ handsfree.update({debug: true})
 handsfree.start()
 ```
 
-<button class="action-button">Try it out</button>
+<demo>
+if (typeof handsfree === 'undefined') {
+  window.handsfree = new HandsfreeModule({debug: true, autostart: true})
+} else {
+  window.handsfree.update({debug: true})
+  window.handsfree.start()
+}
+</demo>
