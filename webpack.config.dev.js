@@ -6,7 +6,6 @@ module.exports = merge(webpackConfig, {
   devtool: 'inline-source-map',
 
   output: {
-    globalObject: 'this',
     pathinfo: true,
     publicPath: '/',
     filename: '[name].js',

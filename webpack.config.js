@@ -64,7 +64,6 @@ module.exports = {
        */
       {
         test: /\.css$/,
-        exclude: /(node_modules)/,
         use: [
           'style-loader',
           {
@@ -79,7 +78,6 @@ module.exports = {
        */
       {
         test: /\.styl/,
-        exclude: /(node_modules)/,
         use: [
           'style-loader',
           {
