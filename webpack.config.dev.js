@@ -9,7 +9,7 @@ module.exports = merge(webpackConfig, {
     pathinfo: true,
     publicPath: '/',
     filename: '[name].js',
-    library: 'Handsfree'
+    library: 'HandsfreeModule'
   },
 
   devServer: {
