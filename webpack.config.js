@@ -12,7 +12,7 @@ const dirSrc = path.join(__dirname, 'src')
 
 // Settings
 const IS_DEV = (process.env.NODE_ENV === 'dev')
-const appHtmlTitle = 'Ozzy\'s Webpack Boilerplate'
+const appHtmlTitle = 'Handsfree.js'
 
 /**
  * Webpack Configuration
@@ -20,7 +20,7 @@ const appHtmlTitle = 'Ozzy\'s Webpack Boilerplate'
 module.exports = {
   // Entry scripts
   entry: {
-    handsfree: './src/Handsfree.js',
+    handsfree: ['babel-polyfill', './src/Handsfree.js'],
     sandbox: './sandbox/index.js'
   },
 
@@ -48,7 +48,7 @@ module.exports = {
   ],
 
   module: {
-  rules: [
+    rules: [
       /**
        * Babel
        */
@@ -64,6 +64,7 @@ module.exports = {
        */
       {
         test: /\.css$/,
+        exclude: /(node_modules)/,
         use: [
           'style-loader',
           {
@@ -78,6 +79,7 @@ module.exports = {
        */
       {
         test: /\.styl/,
+        exclude: /(node_modules)/,
         use: [
           'style-loader',
           {
@@ -99,6 +101,7 @@ module.exports = {
        */
       {
         test: /\.(jpe?g|png|gif)$/,
+        exclude: /(node_modules)/,
         loader: 'file-loader',
         options: {name: '[path][name].[ext]'}
       }

@@ -1,6 +1,6 @@
 {
   "name": "handsfree",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Add client side, multi-user, head-tracked-from-afar mouse cursors and handsfree user interfaces to your projects just...like...✨...that!",
   "main": "dist/handsfree.js",
   "scripts": {
@@ -40,6 +40,7 @@
     "babel-core": "^6.26.3",
     "babel-jest": "^23.4.2",
     "babel-loader": "^7.1.5",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
