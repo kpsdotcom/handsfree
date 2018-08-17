@@ -42,3 +42,26 @@ You must then require `handsfree` in your scripts with:
 ```js
 const HandsfreeModule = require('handsfree')
 ```
+
+## Instantiating
+After following one of the install steps above, you'll then have a `HandsfreeModule` class which you can instantiate with:
+
+```js
+let settings = {
+  // your starting settings here
+}
+const handsfree = new HandsfreeModule(settings)
+```
+
+::: tip 🐵 Instantiate once per webcam
+For the vast majority of applications, you'll only need one `handsfree` instance. However, there may be cases where you'll want to run multiple webcams on a single page (for example, to have both the front or back camera on a mobile).
+:::
+
+## Try It Out
+Speaking of webcams, let's try the most basic example! Open your console and type the following:
+
+```js
+handsfree = new HandsfreeModule()
+```
+
+<button class="action-button">Try it out</button>

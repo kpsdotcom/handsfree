@@ -40,3 +40,13 @@ yarn docs:build   # Build the docs
 The module entry point is `/src/Handsfree.js`, and would is a great place to start.
 
 We also provide `/sandbox/index.pug` and `/sandbox/index.js` for experimenting with the project as you develop. **Please do not commit files in /sandbox/**, it's a convenience folder for everyone with sane boilerplate code. The [Pug (formerly Jade)](https://pugjs.org/api/getting-started.html) file is essentially HTML without the XML sugar.
+
+## Documentation
+
+The documentation site is located in `/docs/` and uses [VuePress](https://vuepress.vuejs.org/). The following is a collection of custom components available within the documentation:
+
+### &lt;demo>`code`&lt;/demo>
+
+Creates a demo button that when clicked runs `eval(code)`:
+
+<img src="https://i.imgur.com/04m95cO.png" width=200>
