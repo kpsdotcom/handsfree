@@ -14,7 +14,8 @@ module.exports = {
       {text: 'Twitter', link: 'https://twitter.com/labofoz'}
     ],
 
-    repo: 'labofoz/seeclarke.js',
+    repo: 'handsfreejs/handsfree',
+    docsRepo: 'handsfreejs/docs',
     docsDir: 'docs',
     editLinks: true,
 
@@ -25,7 +26,6 @@ module.exports = {
       }
     },
 
-    displayAllHeaders: true,
     sidebar: {
       '/guide/': [
         '',
