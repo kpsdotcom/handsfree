@@ -1,10 +1,15 @@
 # Handsfree.js
 
-<div style="text-align: center">
-  <img src="https://media.giphy.com/media/1YfCgZlRFN9JqfrtRC/giphy.gif">
+<div align="center">
+  <p><img src="https://media.giphy.com/media/1YfCgZlRFN9JqfrtRC/giphy.gif"></p>
+  <p><img src="https://travis-ci.org/handsfreejs/handsfree.svg?branch=master"> <img src="https://img.shields.io/codecov/c/github/handsfreejs/handsfree/master.svg?style=flat">
 </div>
 
 > Add client side, multi-user, head-tracked-from-afar mouse cursors and handsfree user interfaces to your projects just...like...✨...that!
+
+## Links
+- Documentation: https://handsfree.js.org
+- Chat: https://discord.gg/amh4jNZ
 
 ## Requirements
 - [NodeJS](https://nodejs.org/en/)
@@ -29,3 +34,9 @@ yarn test         # Run unit tests
 yarn docs:dev     # Work on the docs in development mode with hotreload
 yarn docs:build   # Build the docs
 ```
+
+## Development
+
+The module entry point is `/src/Handsfree.js`, and would is a great place to start.
+
+We also provide `/sandbox/index.pug` and `/sandbox/index.js` for experimenting with the project as you develop. **Please do not commit files in /sandbox/**, it's a convenience folder for everyone with sane boilerplate code. The [Pug (formerly Jade)](https://pugjs.org/api/getting-started.html) file is essentially HTML without the XML sugar.
