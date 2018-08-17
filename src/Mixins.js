@@ -9,12 +9,12 @@ const merge = require('lodash/merge')
 
 module.exports = function (Handsfree) {
   /**
-   * Sets defaults to the missing constructor options:
+   * Sets defaults to the missing constructor settings:
    * - Sets defaults
    * - Creates a default debug container
    * - Creates a default video and canvas
    *
-   * @param {Object} opts The options passed into the constructor. Pass null to use all defaults
+   * @param {Object} opts The settings passed into the constructor. Pass null to use all defaults
    */
   Handsfree.setDefaults = function (opts = {}) {
     // Fallback for default target
@@ -32,10 +32,10 @@ module.exports = function (Handsfree) {
 
     // Setup the video element
     const video = opts.video || this.createDefaultVideo(opts.target)
-    this.initOptions = opts
+    this.initsettings = opts
 
     // Setup defaults
-    this.options = merge({
+    this.settings = merge({
       autostart: false,
       canvas: this.createDefaultCanvas(opts.target),
       debug: false,
@@ -64,13 +64,13 @@ module.exports = function (Handsfree) {
   }
 
   /**
-   * Applies aliases to common options. Feel free to add your own in here
-   * - Creates a shorthand to options
+   * Applies aliases to common settings. Feel free to add your own in here
+   * - Creates a shorthand to settings
    */
   Handsfree.setAliases = function () {
-    this.video = this.options.video
-    this.canvas = this.options.canvas
-    this.debug = this.options.debug
+    this.video = this.settings.video
+    this.canvas = this.settings.canvas
+    this.debug = this.settings.debug
   }
 
   /**
@@ -90,7 +90,7 @@ module.exports = function (Handsfree) {
     this.video.srcObject = await navigator.mediaDevices.getUserMedia({
       // We only care about the camera
       audio: false,
-      video: {facingMode: this.options.facingMode},
+      video: {facingMode: this.settings.facingMode},
       width: isMobile ? undefined : this.video.width,
       height: isMobile ? undefined : this.video.height
     })
@@ -106,7 +106,7 @@ module.exports = function (Handsfree) {
    * [-] Loads a model from Google's servers based on the chosen PoseNet modifier
    */
   Handsfree.initPoseNet = async function () {
-    if (!this.posenet) this.posenet = await PoseNet.load(this.options.posenet.multiplier)
+    if (!this.posenet) this.posenet = await PoseNet.load(this.settings.posenet.multiplier)
   }
 
   /**

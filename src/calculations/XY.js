@@ -58,7 +58,7 @@ module.exports = function (Handsfree) {
       // Let's add it to the stack
       this.poseStack[index] = this.poseStack[index] || []
       this.poseStack[index].push({x, y})
-      if (this.poseStack[index].length > this.options.poseStackSize) this.poseStack[index].shift()
+      if (this.poseStack[index].length > this.settings.poseStackSize) this.poseStack[index].shift()
 
       // Finally let's get the average
       poseAverages = this.averagePoseStack(this.poseStack[index])
@@ -141,11 +141,11 @@ module.exports = function (Handsfree) {
     let points = pose.keypoints
 
     // 1. Calculate the average Y's for both ears (or whichever is visible)
-    if (points[3].score >= this.options.posenet.minPartConfidence) {
+    if (points[3].score >= this.settings.posenet.minPartConfidence) {
       numEarsFound++
       yEarAverage += points[3].position.y
     }
-    if (points[4].score >= this.options.posenet.minPartConfidence) {
+    if (points[4].score >= this.settings.posenet.minPartConfidence) {
       numEarsFound++
       yEarAverage += points[4].position.y
     }

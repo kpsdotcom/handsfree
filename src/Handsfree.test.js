@@ -27,12 +27,12 @@ it('Fails if getUserMedia is not supported', () => {
   expect(handsfree).toBeTruthy()
 })
 
-it('Sanitizes options and sets sane defaults', () => {
+it('Sanitizes settings and sets sane defaults', () => {
   handsfree = new Handsfree()
-  expect(handsfree.options.posenet).toBeTruthy()
+  expect(handsfree.settings.posenet).toBeTruthy()
 })
 
-it('Autostarts if options.autostart', () => {
+it('Autostarts if settings.autostart', () => {
   handsfree = new Handsfree()
   expect(handsfree._isTracking).toEqual(false)
 
@@ -83,7 +83,7 @@ it('Draws skeletons and keypoints', () => {
   expect(handsfree.drawSkeleton).toHaveBeenCalledTimes(1)
   expect(handsfree.drawKeypoints).toHaveBeenCalledTimes(1)
 
-  handsfree.options.posenet.minPoseConfidence = 1
+  handsfree.settings.posenet.minPoseConfidence = 1
   handsfree.trackPoses(STUBS.data.posenet.pose.single)
   expect(handsfree.drawSkeleton).toHaveBeenCalledTimes(1)
   expect(handsfree.drawKeypoints).toHaveBeenCalledTimes(1)
@@ -140,9 +140,9 @@ it('Stops tracking poses', () => {
 it('Can update settings', () => {
   handsfree = new Handsfree()
 
-  handsfree.options = null
+  handsfree.settings = null
   handsfree.update()
-  expect(handsfree.options).toBeTruthy()
+  expect(handsfree.settings).toBeTruthy()
 
   handsfree.update({debug: true})
   expect(handsfree.debug).toBeTruthy()

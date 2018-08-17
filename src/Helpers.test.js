@@ -9,7 +9,7 @@ let handsfree = null
 /**
  * Handsfree.setDefaults
  */
-it('Sets defaults to the missing constructor options', () => {
+it('Sets defaults to the missing constructor settings', () => {
   STUBS.mediaDevices.support()
   STUBS.WebGL.support()
   handsfree = new Handsfree()
