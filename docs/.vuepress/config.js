@@ -6,7 +6,7 @@ module.exports = {
     ['link', {rel: 'icon', type: 'image/png', href: '/assets/img/logo-ooh-ooh.png'}],
     ['script', {async: 'async', src: 'https://unpkg.com/handsfree@^1'}]
   ],
-  ga: 'UA-123557290-3',
+  ga: 'UA-123557290-4',
 
   themeConfig: {
     search: true,
