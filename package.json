@@ -2,7 +2,7 @@
   "name": "handsfree",
   "version": "0.0.1",
   "description": "Add client side, multi-user, head-tracked-from-afar mouse cursors and handsfree user interfaces to your projects just...like...✨...that!",
-  "main": "src/main.js",
+  "main": "src/Handsfree.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js --open",
     "build": "webpack -p --progress --mode production --config webpack.config.build.js",
@@ -43,6 +43,10 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0"
+    "@tensorflow-models/posenet": "^0.2.2",
+    "@tensorflow/tfjs": "^0.12.5",
+    "babel-polyfill": "^6.26.0",
+    "custom-event-polyfill": "^1.0.6",
+    "lodash": "^4.17.10"
   }
 }
