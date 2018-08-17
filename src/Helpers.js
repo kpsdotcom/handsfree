@@ -22,7 +22,9 @@ module.exports = function (Handsfree) {
 
     $video.setAttribute('playsinline', true)
     $video.style.transform = 'scale(-1, 1)'
-    $video.style.position = 'absolute'
+    $video.style.position = 'relative'
+    $video.style.width = '100%'
+    $video.style.height = 'auto'
     $wrap.appendChild($video)
 
     return $video
@@ -39,9 +41,11 @@ module.exports = function (Handsfree) {
   Handsfree.prototype.createDefaultCanvas = function ($wrap) {
     const $canvas = document.createElement('canvas')
     $canvas.style.transform = 'scale(-1, 1)'
-    $canvas.style.position = 'relative'
+    $canvas.style.position = 'absolute'
     $canvas.style.top = 0
     $canvas.style.left = 0
+    $canvas.style.width = '100%'
+    $canvas.style.height = '100%'
 
     $wrap.appendChild($canvas)
 

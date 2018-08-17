@@ -17,11 +17,11 @@ class Handsfree {
   /**
    * 🏆 Our main constructor
    * - Fails if getUserMedia is not supported
-   * - Sanitizes options and sets sane defaults
-   * - Autostarts if options.autostart
+   * - Sanitizes settings and sets sane defaults
+   * - Autostarts if settings.autostart
    * [] Creates the custom window event
    *
-   * @param {Object} [opts={}] Constructor options, @see /wiki/Options.md
+   * @param {Object} [opts={}] Constructor settings, @see /wiki/settings.md
    */
   constructor (opts = {}) {
     /**
@@ -58,7 +58,7 @@ class Handsfree {
       this.update(opts)
 
       // Possibly autostart
-      this.options.autostart && this.start()
+      this.settings.autostart && this.start()
     }
   }
 
@@ -72,14 +72,14 @@ class Handsfree {
   async trackPoses (poses = null) {
     if (!poses) {
       // Get single pose
-      if (this.options.posenet.maxUsers === 1) {
-        let pose = await this.posenet.estimateSinglePose(this.video, this.options.posenet.imageScaleFactor, false, this.options.posenet.outputStride)
+      if (this.settings.posenet.maxUsers === 1) {
+        let pose = await this.posenet.estimateSinglePose(this.video, this.settings.posenet.imageScaleFactor, false, this.settings.posenet.outputStride)
         poses = [pose]
         // Get multiple poses
       } else {
         poses = await this.posenet.estimateMultiplePoses(
-          this.video, this.options.posenet.imageScaleFactor, false, this.options.posenet.outputStride,
-          this.options.posenet.maxUsers, this.options.posenet.scoreThreshold, this.options.posenet.nmsRadius)
+          this.video, this.settings.posenet.imageScaleFactor, false, this.settings.posenet.outputStride,
+          this.settings.posenet.maxUsers, this.settings.posenet.scoreThreshold, this.settings.posenet.nmsRadius)
       }
     }
 
@@ -98,26 +98,26 @@ class Handsfree {
     const context = this.canvas.getContext('2d')
 
     this.poses.forEach(({score, keypoints}) => {
-      if (score >= this.options.posenet.minPoseConfidence) {
-        const adjacentKeypoints = PoseNet.getAdjacentKeyPoints(keypoints, this.options.posenet.minPartConfidence, context)
+      if (score >= this.settings.posenet.minPoseConfidence) {
+        const adjacentKeypoints = PoseNet.getAdjacentKeyPoints(keypoints, this.settings.posenet.minPartConfidence, context)
 
         context.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.drawSkeleton(adjacentKeypoints, context)
-        this.drawKeypoints(keypoints, this.options.posenet.minPartConfidence, context)
+        this.drawKeypoints(keypoints, this.settings.posenet.minPartConfidence, context)
       }
     })
   }
 
   /**
    * Start tracking poses:
-   * - If this.options.autostart is false, then you can manually start it
+   * - If this.settings.autostart is false, then you can manually start it
    *    later with this
    * - A check is made internally so that only one process is ever running
    * [ ] Adds a `handsfree-is-started` to the body
    */
   start () {
     if (!this._isTracking) {
-      if (this.debug) this.options.target.style.display = 'inherit'
+      if (this.debug) this.settings.target.style.display = 'inherit'
       this._isTracking = true
       this.constructor.setupFeed.call(this)
       this.constructor.initPoseNet.call(this)
@@ -137,7 +137,7 @@ class Handsfree {
    */
   stop () {
     if (this._isTracking) {
-      this.options.target.style.display = 'none'
+      this.settings.target.style.display = 'none'
       this._isTracking = false
       this.video.srcObject.getTracks().forEach(track => track.stop())
 
@@ -148,13 +148,13 @@ class Handsfree {
   }
 
   /**
-   * Updates this.options with new ones
+   * Updates this.settings with new ones
    * - Can update settings
    *
-   * @param  {Object} opts The options set to update
+   * @param  {Object} opts The settings set to update
    */
   update (opts = {}) {
-    if (this.options) this.options = merge(this.options, opts)
+    if (this.settings) this.settings = merge(this.settings, opts)
 
     this.constructor.setDefaults.call(this, opts)
     this.constructor.setAliases.call(this)

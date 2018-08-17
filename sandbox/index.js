@@ -14,4 +14,4 @@ require('../assets/style.styl')
 
 // Let's make these global to make dev easier
 window.HandsfreeModule = require('../src/Handsfree.js')
-window.handsfree = new HandsfreeModule()
+window.handsfree = new HandsfreeModule({debug: true})

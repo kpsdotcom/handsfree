@@ -12,6 +12,7 @@ module.exports = {
     search: true,
     nav: [
       {text: 'Guide', link: '/guide/'},
+      {text: 'Chat', link: 'https://discord.gg/amh4jNZ'},
       {text: 'Twitter', link: 'https://twitter.com/labofoz'}
     ],
 
@@ -30,7 +31,11 @@ module.exports = {
     sidebar: {
       '/guide/': [
         '',
-        'getting-started'
+        'getting-started',
+        'events',
+        'settings',
+        'methods',
+        'properties'
       ]
     }
   }

@@ -9,7 +9,7 @@ let handsfree = null
 /**
  * Handsfree.setDefaults
  */
-it('Sets defaults to the missing constructor options', () => {
+it('Sets defaults to the missing constructor settings', () => {
   STUBS.mediaDevices.support()
   STUBS.WebGL.support()
   handsfree = new Handsfree()
@@ -29,16 +29,16 @@ it('Sets defaults to the missing constructor options', () => {
 /**
  * Handsfree.setAliases
  */
-it('Applies aliases to common options. Feel free to add your own in here', () => {
+it('Applies aliases to common settings. Feel free to add your own in here', () => {
   handsfree = new Handsfree()
-  handsfree.options.video = 1
-  handsfree.options.canvas = 2
-  handsfree.options.debug = 3
+  handsfree.settings.video = 1
+  handsfree.settings.canvas = 2
+  handsfree.settings.debug = 3
 
   handsfree.constructor.setAliases.call(handsfree)
-  expect(handsfree.video).toBe(handsfree.options.video)
-  expect(handsfree.canvas).toBe(handsfree.options.canvas)
-  expect(handsfree.debug).toBe(handsfree.options.debug)
+  expect(handsfree.video).toBe(handsfree.settings.video)
+  expect(handsfree.canvas).toBe(handsfree.settings.canvas)
+  expect(handsfree.debug).toBe(handsfree.settings.debug)
 })
 
 /**

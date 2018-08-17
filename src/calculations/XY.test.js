@@ -23,11 +23,11 @@ test('Entry point for our hacky calculations', () => {
   expect(handsfree.poseStack.length).toBeTruthy()
 
   // Run through the other conditionals (if the above passes then so will these)
-  handsfree.options.posenet.minPartConfidence = 10
+  handsfree.settings.posenet.minPartConfidence = 10
   handsfree.calculateXY()
 
   handsfree.poses[0].keypoints[1].position.x += 5000
-  handsfree.options.poseStackSize = 0
+  handsfree.settings.poseStackSize = 0
   handsfree.calculateXY()
 
   expect(handsfree.poses[0].pointedAt.z).toBeFalsy()
