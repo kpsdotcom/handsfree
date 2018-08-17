@@ -15,14 +15,14 @@ it('Sets defaults to the missing constructor settings', () => {
   handsfree = new Handsfree()
 
   const $video = handsfree.createDefaultVideo.call(handsfree, document.createElement('div'))
-  expect($video.style.position).toBe('absolute')
+  expect($video.style.position).toBe('relative')
 })
 
 it('Creates a default (flipped) canvas and adds it to the DOM', () => {
   handsfree = new Handsfree()
 
   const $canvas = handsfree.createDefaultCanvas.call(handsfree, document.createElement('div'))
-  expect($canvas.style.position).toBe('relative')
+  expect($canvas.style.position).toBe('absolute')
 })
 
 // Note that since we control the testing environment that we can safely assume
