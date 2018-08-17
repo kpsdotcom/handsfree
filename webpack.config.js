@@ -20,7 +20,7 @@ const appHtmlTitle = 'Ozzy\'s Webpack Boilerplate'
 module.exports = {
   // Entry scripts
   entry: {
-    main: './src/Handsfree.js',
+    handsfree: './src/Handsfree.js',
     sandbox: './sandbox/index.js'
   },
 
