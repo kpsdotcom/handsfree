@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 // Directories
 const dirNode = 'node_modules'
-const dirDemo = path.join(__dirname, 'demo')
+const dirSandbox = path.join(__dirname, 'sandbox')
 const dirAssets = path.join(__dirname, 'assets')
 const dirSrc = path.join(__dirname, 'src')
 
@@ -21,7 +21,7 @@ module.exports = {
   // Entry scripts
   entry: {
     main: ['babel-polyfill', './src/Handsfree.js'],
-    demo: './demo/index.js'
+    sandbox: './sandbox/index.js'
   },
 
   // Path resolvers
@@ -29,7 +29,7 @@ module.exports = {
     modules: [
       dirNode,
       dirSrc,
-      dirDemo,
+      dirSandbox,
       dirAssets
     ]
   },
@@ -38,7 +38,7 @@ module.exports = {
     new webpack.DefinePlugin({IS_DEV}),
 
     new HtmlWebpackPlugin({
-      template: 'pug-loader!demo/index.pug',
+      template: 'pug-loader!sandbox/index.pug',
       title: appHtmlTitle
     }),
 
