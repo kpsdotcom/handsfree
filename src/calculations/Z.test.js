@@ -2,22 +2,22 @@
  * calculations/Z.test.js
  */
 const STUBS = require('../../mock/jest-polyfills')
-const SeeClarke = require('../SeeClarke')
-let seeclarke = null
+const Handsfree = require('../Handsfree')
+let handsfree = null
 
 /**
- * SeeClarke.calculateZ
+ * Handsfree.calculateZ
  */
 test('Entry point for calculating the depth (distance away from camera)', () => {
   STUBS.mediaDevices.support()
   STUBS.WebGL.support()
 
-  seeclarke = new SeeClarke()
-  seeclarke.poses = STUBS.data.posenet.pose.single
-  seeclarke.constructor.setupFeed.call(seeclarke)
-  seeclarke.poses[0].pointedAt = {}
-  seeclarke.calculateZ()
+  handsfree = new Handsfree()
+  handsfree.poses = STUBS.data.posenet.pose.single
+  handsfree.constructor.setupFeed.call(handsfree)
+  handsfree.poses[0].pointedAt = {}
+  handsfree.calculateZ()
 
-  expect(typeof seeclarke.poses[0].pointedAt.z !== 'undefined').toBeTruthy()
-  expect(seeclarke.poses[0].pointedAt.x || seeclarke.poses[0].pointedAt.y).toBeFalsy()
+  expect(typeof handsfree.poses[0].pointedAt.z !== 'undefined').toBeTruthy()
+  expect(handsfree.poses[0].pointedAt.x || handsfree.poses[0].pointedAt.y).toBeFalsy()
 })

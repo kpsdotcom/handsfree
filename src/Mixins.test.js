@@ -3,102 +3,102 @@
  */
 const PoseNet = jest.mock('@tensorflow-models/posenet')
 const STUBS = require('../mock/jest-polyfills')
-const SeeClarke = require('./SeeClarke')
-let seeclarke = null
+const Handsfree = require('./Handsfree')
+let handsfree = null
 
 /**
- * SeeClarke.setDefaults
+ * Handsfree.setDefaults
  */
 it('Sets defaults to the missing constructor options', () => {
   STUBS.mediaDevices.support()
   STUBS.WebGL.support()
-  seeclarke = new SeeClarke()
+  handsfree = new Handsfree()
 
-  seeclarke.constructor.setDefaults.call(seeclarke)
-  expect(seeclarke.canvas && seeclarke.video).toBeTruthy()
+  handsfree.constructor.setDefaults.call(handsfree)
+  expect(handsfree.canvas && handsfree.video).toBeTruthy()
 
   const $wrap = document.createElement('div')
-  $wrap.setAttribute('id', 'seeclarke-debug')
+  $wrap.setAttribute('id', 'handsfree-debug')
   document.body.appendChild($wrap)
-  seeclarke.update({target: $wrap})
+  handsfree.update({target: $wrap})
 
-  seeclarke.constructor.setDefaults.call(seeclarke)
-  expect(seeclarke.canvas && seeclarke.video).toBeTruthy()
+  handsfree.constructor.setDefaults.call(handsfree)
+  expect(handsfree.canvas && handsfree.video).toBeTruthy()
 })
 
 /**
- * SeeClarke.setAliases
+ * Handsfree.setAliases
  */
 it('Applies aliases to common options. Feel free to add your own in here', () => {
-  seeclarke = new SeeClarke()
-  seeclarke.options.video = 1
-  seeclarke.options.canvas = 2
-  seeclarke.options.debug = 3
+  handsfree = new Handsfree()
+  handsfree.options.video = 1
+  handsfree.options.canvas = 2
+  handsfree.options.debug = 3
 
-  seeclarke.constructor.setAliases.call(seeclarke)
-  expect(seeclarke.video).toBe(seeclarke.options.video)
-  expect(seeclarke.canvas).toBe(seeclarke.options.canvas)
-  expect(seeclarke.debug).toBe(seeclarke.options.debug)
+  handsfree.constructor.setAliases.call(handsfree)
+  expect(handsfree.video).toBe(handsfree.options.video)
+  expect(handsfree.canvas).toBe(handsfree.options.canvas)
+  expect(handsfree.debug).toBe(handsfree.options.debug)
 })
 
 /**
- * SeeClarke.setupFeed
+ * Handsfree.setupFeed
  */
 it('Sets up the webcam and stream', async () => {
-  seeclarke = new SeeClarke()
-  seeclarke.isMobile = jest.fn(() => true)
+  handsfree = new Handsfree()
+  handsfree.isMobile = jest.fn(() => true)
 
-  seeclarke.video.play = jest.fn()
-  seeclarke.video.srcObject = null
-  await seeclarke.constructor.setupFeed.call(seeclarke)
+  handsfree.video.play = jest.fn()
+  handsfree.video.srcObject = null
+  await handsfree.constructor.setupFeed.call(handsfree)
 
-  expect(seeclarke.video.play).toHaveBeenCalled()
-  expect(seeclarke.video.srcObject).toBeTruthy()
+  expect(handsfree.video.play).toHaveBeenCalled()
+  expect(handsfree.video.srcObject).toBeTruthy()
 })
 
 /**
- * SeeClarke.initPoseNet
+ * Handsfree.initPoseNet
  */
 it('Initializes PoseNet and starts the tracking loop', async () => {
   PoseNet.load = () => true
-  seeclarke = new SeeClarke()
+  handsfree = new Handsfree()
 
-  seeclarke.posenet = false
-  await seeclarke.constructor.initPoseNet.call(seeclarke)
-  expect(seeclarke.posenet).toBeUndefined()
+  handsfree.posenet = false
+  await handsfree.constructor.initPoseNet.call(handsfree)
+  expect(handsfree.posenet).toBeUndefined()
 
-  seeclarke.posenet = true
-  await seeclarke.constructor.initPoseNet.call(seeclarke)
-  expect(typeof seeclarke.posenet === 'boolean').toBeTruthy()
+  handsfree.posenet = true
+  await handsfree.constructor.initPoseNet.call(handsfree)
+  expect(typeof handsfree.posenet === 'boolean').toBeTruthy()
 })
 
 /**
- * SeeClarke.trackPosesLoop
+ * Handsfree.trackPosesLoop
  */
 it('This method is recursive, once called it continues until after !_isTracking', () => {
-  seeclarke = new SeeClarke()
-  seeclarke.trackPoses = jest.fn(() => { return true })
-  seeclarke.runCalculations = jest.fn(() => { return true })
-  seeclarke.emitEvents = jest.fn()
+  handsfree = new Handsfree()
+  handsfree.trackPoses = jest.fn(() => { return true })
+  handsfree.runCalculations = jest.fn(() => { return true })
+  handsfree.emitEvents = jest.fn()
 
-  seeclarke.posenet = {}
-  seeclarke.poses = STUBS.data.posenet.pose.single
-  seeclarke.constructor.trackPosesLoop.call(SeeClarke, seeclarke)
+  handsfree.posenet = {}
+  handsfree.poses = STUBS.data.posenet.pose.single
+  handsfree.constructor.trackPosesLoop.call(Handsfree, handsfree)
 
-  expect(seeclarke.trackPoses).toHaveBeenCalled()
-  expect(seeclarke.runCalculations).toHaveBeenCalled()
-  expect(seeclarke.emitEvents).toHaveBeenCalled()
-  seeclarke.stop()
+  expect(handsfree.trackPoses).toHaveBeenCalled()
+  expect(handsfree.runCalculations).toHaveBeenCalled()
+  expect(handsfree.emitEvents).toHaveBeenCalled()
+  handsfree.stop()
 })
 
 /**
- * SeeClarke.emitEvents
+ * Handsfree.emitEvents
  */
-it('Emits onSeeClarkePoseUpdates with (this.poses, seeclarke)', () => {
+it('Emits onHandsfreePoseUpdates with (this.poses, handsfree)', () => {
   let callback = jest.fn()
-  window.addEventListener('onSeeClarkePoseUpdates', callback)
+  window.addEventListener('onHandsfreePoseUpdates', callback)
 
-  seeclarke = new SeeClarke()
-  seeclarke.emitEvents()
+  handsfree = new Handsfree()
+  handsfree.emitEvents()
   expect(callback).toHaveBeenCalled()
 })

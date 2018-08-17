@@ -26,12 +26,12 @@
  * 16	rightAnkle
  *
  */
-module.exports = function (SeeClarke) {
+module.exports = function (Handsfree) {
   /**
    * Entry point for our hacky calculations
    * - Calculates "pointedAt" for each pose
    */
-  SeeClarke.prototype.calculateXY = function () {
+  Handsfree.prototype.calculateXY = function () {
     this.poses && this.poses.forEach((pose, index) => {
       const nose = pose.keypoints[0]
       const envWidth = window.outerWidth
@@ -90,7 +90,7 @@ module.exports = function (SeeClarke) {
    * Problems with this aglorithm:
    * - All of it
    */
-  SeeClarke.prototype.calculateHeadYaw = function (pose) {
+  Handsfree.prototype.calculateHeadYaw = function (pose) {
     const points = pose.keypoints
     let yaw = 0
     let distanceRatio
@@ -133,7 +133,7 @@ module.exports = function (SeeClarke) {
    *  2. Calculate the distance the eyes are apart
    *  3. Calculate the distance between the nose and the averaged ear Y
    */
-  SeeClarke.prototype.calculateHeadPitch = function (pose) {
+  Handsfree.prototype.calculateHeadPitch = function (pose) {
     let yEarAverage = 0
     let numEarsFound = 0
     let eyeDistance = 0
@@ -166,7 +166,7 @@ module.exports = function (SeeClarke) {
    *
    * @return {Object} The averaged {x, y}
    */
-  SeeClarke.prototype.averagePoseStack = function (poseStack) {
+  Handsfree.prototype.averagePoseStack = function (poseStack) {
     let x = 0
     let y = 0
 

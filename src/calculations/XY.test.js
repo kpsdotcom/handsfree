@@ -2,11 +2,11 @@
  * calculations/XY.test.js
  */
 const STUBS = require('../../mock/jest-polyfills')
-const SeeClarke = require('../SeeClarke')
-let seeclarke = null
+const Handsfree = require('../Handsfree')
+let handsfree = null
 
 /**
- * SeeClarke.setDefaults
+ * Handsfree.setDefaults
  * @FIXME Needs refactoring
  */
 test('Entry point for our hacky calculations', () => {
@@ -14,21 +14,21 @@ test('Entry point for our hacky calculations', () => {
   STUBS.WebGL.support()
 
   // Test when the left eye is closer
-  seeclarke = new SeeClarke()
-  seeclarke.poses = STUBS.data.posenet.pose.single
-  seeclarke.constructor.setupFeed.call(seeclarke)
-  seeclarke.calculateXY()
+  handsfree = new Handsfree()
+  handsfree.poses = STUBS.data.posenet.pose.single
+  handsfree.constructor.setupFeed.call(handsfree)
+  handsfree.calculateXY()
 
-  expect(seeclarke.poses[0].pointedAt.x && seeclarke.poses[0].pointedAt.y).toBeTruthy()
-  expect(seeclarke.poseStack.length).toBeTruthy()
+  expect(handsfree.poses[0].pointedAt.x && handsfree.poses[0].pointedAt.y).toBeTruthy()
+  expect(handsfree.poseStack.length).toBeTruthy()
 
   // Run through the other conditionals (if the above passes then so will these)
-  seeclarke.options.posenet.minPartConfidence = 10
-  seeclarke.calculateXY()
+  handsfree.options.posenet.minPartConfidence = 10
+  handsfree.calculateXY()
 
-  seeclarke.poses[0].keypoints[1].position.x += 5000
-  seeclarke.options.poseStackSize = 0
-  seeclarke.calculateXY()
+  handsfree.poses[0].keypoints[1].position.x += 5000
+  handsfree.options.poseStackSize = 0
+  handsfree.calculateXY()
 
-  expect(seeclarke.poses[0].pointedAt.z).toBeFalsy()
+  expect(handsfree.poses[0].pointedAt.z).toBeFalsy()
 })

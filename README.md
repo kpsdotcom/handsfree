@@ -29,3 +29,9 @@ yarn test         # Run unit tests
 yarn docs:dev     # Work on the docs in development mode with hotreload
 yarn docs:build   # Build the docs
 ```
+
+## Development
+
+The module entry point is `/src/Handsfree.js`, and would is a great place to start.
+
+We also provide `/sandbox/index.pug` and `/sandbox/index.js` for experimenting with the project as you develop. **Please do not commit files in /sandbox/**, it's a convenience folder for everyone with sane boilerplate code. The [Pug (formerly Jade)](https://pugjs.org/api/getting-started.html) file is essentially HTML without the XML sugar. 

@@ -2,11 +2,11 @@
  * Helpers.js
  *
  * A collection of helpers methods which may be helpful in your app outside
- * the context of SeeClarke
+ * the context of Handsfree
  */
 const PoseNet = require('@tensorflow-models/posenet')
 
-module.exports = function (SeeClarke) {
+module.exports = function (Handsfree) {
   /**
    * Creates a default (flipped) video and adds it to the DOM:
    * - The video is absolutely positioned within the $wrap
@@ -15,10 +15,10 @@ module.exports = function (SeeClarke) {
    *
    * @return {HTMLVideoElement} A hidden video used for inference with PoseNet
    */
-  SeeClarke.prototype.createDefaultVideo = function ($wrap) {
+  Handsfree.prototype.createDefaultVideo = function ($wrap) {
     const $video = document.createElement('video')
 
-    $wrap.classList.add('seeclarke-debug-wrap')
+    $wrap.classList.add('handsfree-debug-wrap')
 
     $video.setAttribute('playsinline', true)
     $video.style.transform = 'scale(-1, 1)'
@@ -36,7 +36,7 @@ module.exports = function (SeeClarke) {
    *
    * @return {HTMLCanvasElement} A hidden canvas used for debugging with PoseNet
    */
-  SeeClarke.prototype.createDefaultCanvas = function ($wrap) {
+  Handsfree.prototype.createDefaultCanvas = function ($wrap) {
     const $canvas = document.createElement('canvas')
     $canvas.style.transform = 'scale(-1, 1)'
     $canvas.style.position = 'relative'
@@ -54,9 +54,9 @@ module.exports = function (SeeClarke) {
    * - Checks if we're on android
    * - Checks if we're on iOS
    */
-  SeeClarke.prototype.isMobile = function () { return this.isAndroid() || this.isiOS() }
-  SeeClarke.prototype.isAndroid = function () { return /Android/i.test(navigator.userAgent) }
-  SeeClarke.prototype.isiOS = function () { return /iPhone|iPad|iPod/i.test(navigator.userAgent) }
+  Handsfree.prototype.isMobile = function () { return this.isAndroid() || this.isiOS() }
+  Handsfree.prototype.isAndroid = function () { return /Android/i.test(navigator.userAgent) }
+  Handsfree.prototype.isiOS = function () { return /iPhone|iPad|iPod/i.test(navigator.userAgent) }
 
   /**
    * Checks if WebGL is supported. Depending on your deployment needs,
@@ -71,7 +71,7 @@ module.exports = function (SeeClarke) {
    * @param {Boolean} forceThrow (Optional) Whether to force throw an error. This is mostly for unit testing to test failures
    * @return {Boolean} Is WebGL supported?
    */
-  SeeClarke.prototype.isWebGLSupported = function (forceThrow = false) {
+  Handsfree.prototype.isWebGLSupported = function (forceThrow = false) {
     try {
       if (forceThrow) throw(forceThrow)
 
@@ -98,7 +98,7 @@ module.exports = function (SeeClarke) {
    * @param {NUM} minConfidence The minimum keypoint score needed to track
    * @param {OBJ} context The canvas context to draw into
    */
-  SeeClarke.prototype.drawKeypoints = function (keypoints, minConfidence, context) {
+  Handsfree.prototype.drawKeypoints = function (keypoints, minConfidence, context) {
     keypoints.forEach(({position, score}) => {
       if (score > minConfidence) {
         context.beginPath()
@@ -118,7 +118,7 @@ module.exports = function (SeeClarke) {
    * @param {ARR} adjacentPoints The list of all keypoints and their relationships
    * @param {OBJ} context The canvas context to draw into
    */
-  SeeClarke.prototype.drawSkeleton = function (adjacentPoints, context) {
+  Handsfree.prototype.drawSkeleton = function (adjacentPoints, context) {
     adjacentPoints.forEach(keypoints => {
       this.drawSegment(this.toTuple(keypoints[0].position), this.toTuple(keypoints[1].position), context)
     })
@@ -130,7 +130,7 @@ module.exports = function (SeeClarke) {
    *
    * @param {OBJ} position {x, y}
    */
-  SeeClarke.prototype.toTuple = function ({x, y}) { return [y, x] }
+  Handsfree.prototype.toTuple = function ({x, y}) { return [y, x] }
 
   /**
    * Draws the skeleton segment
@@ -141,7 +141,7 @@ module.exports = function (SeeClarke) {
    * @param {HEX} color The color to draw in
    * @param {OBJ} context The canvas context to draw in
    */
-  SeeClarke.prototype.drawSegment = function ([ay, ax], [by, bx], context) {
+  Handsfree.prototype.drawSegment = function ([ay, ax], [by, bx], context) {
     const scale = 1
 
     context.beginPath()

@@ -8,7 +8,23 @@
     "build": "webpack -p --progress --mode production --config webpack.config.build.js",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --detectOpenHandles"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "testURL": "http://localhost",
+    "setupFiles": [
+      "./mock/jest-canvas.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "mock/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "mock/"
+    ]
   },
   "repository": {
     "type": "git",
@@ -22,6 +38,7 @@
   "homepage": "https://github.com/handsdfreejs/handsfree#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.2",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^0.1.19",
@@ -30,6 +47,8 @@
     "css-loader": "^1.0.0",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
+    "jest-canvas-mock": "^1.1.0",
+    "jest-cli": "^23.5.0",
     "pug": "^2.0.3",
     "pug-loader": "^2.4.0",
     "spectre.css": "^0.5.3",

@@ -1,5 +1,5 @@
 /**
- * # SeeClarke.test.js
+ * # Handsfree.test.js
   # IMPORTANT TESTING NOTES
   =========================
   - Take care to properly test async methods with awaits, otherwise you may be
@@ -9,156 +9,156 @@
   depends on that!
 */
 const STUBS = require('../mock/jest-polyfills')
-const SeeClarke = require('./SeeClarke')
-let seeclarke = null
+const Handsfree = require('./Handsfree')
+let handsfree = null
 
 /**
  * constructor
  */
 it('Fails if getUserMedia is not supported', () => {
   STUBS.mediaDevices.unsupport()
-  try {seeclarke = new SeeClarke()} catch (e) {}
-  expect(seeclarke).toBeFalsy()
+  try {handsfree = new Handsfree()} catch (e) {}
+  expect(handsfree).toBeFalsy()
 
   // Set mediaDevices and try again
   STUBS.mediaDevices.support()
   STUBS.WebGL.support()
-  seeclarke = new SeeClarke()
-  expect(seeclarke).toBeTruthy()
+  handsfree = new Handsfree()
+  expect(handsfree).toBeTruthy()
 })
 
 it('Sanitizes options and sets sane defaults', () => {
-  seeclarke = new SeeClarke()
-  expect(seeclarke.options.posenet).toBeTruthy()
+  handsfree = new Handsfree()
+  expect(handsfree.options.posenet).toBeTruthy()
 })
 
 it('Autostarts if options.autostart', () => {
-  seeclarke = new SeeClarke()
-  expect(seeclarke._isTracking).toEqual(false)
+  handsfree = new Handsfree()
+  expect(handsfree._isTracking).toEqual(false)
 
-  seeclarke = new SeeClarke({autostart: true})
-  expect(seeclarke._isTracking).toEqual(true)
+  handsfree = new Handsfree({autostart: true})
+  expect(handsfree._isTracking).toEqual(true)
 })
 
 /**
- * SeeClarke.trackPoses
+ * Handsfree.trackPoses
  */
 it('If debug is on, displays the points and skeletons overlays on the webcam', () => {
-  seeclarke = new SeeClarke({debug: false})
+  handsfree = new Handsfree({debug: false})
   // Mock debugPoses; we're testing individual draw methods in other tests
-  seeclarke.debugPoses = jest.fn()
-  seeclarke.trackPoses([])
-  expect(seeclarke.debugPoses).not.toHaveBeenCalled()
+  handsfree.debugPoses = jest.fn()
+  handsfree.trackPoses([])
+  expect(handsfree.debugPoses).not.toHaveBeenCalled()
 
-  seeclarke.debug = true
-  seeclarke.trackPoses([])
-  expect(seeclarke.debugPoses).toHaveBeenCalled()
+  handsfree.debug = true
+  handsfree.trackPoses([])
+  expect(handsfree.debugPoses).toHaveBeenCalled()
 })
 
 it('Automatically adjusts algorithm to match "single" or "multiple mode"', () => {
-  seeclarke = new SeeClarke({debug: true, posenet: {maxUsers: 1}})
-  seeclarke.debugPoses = jest.fn()
-  seeclarke.posenet = {
+  handsfree = new Handsfree({debug: true, posenet: {maxUsers: 1}})
+  handsfree.debugPoses = jest.fn()
+  handsfree.posenet = {
     estimateSinglePose: STUBS.posenet.estimateSinglePose,
     estimateMultiplePoses: STUBS.posenet.estimateMultiplePoses
   }
-  seeclarke.trackPoses()
-  expect(seeclarke.posenet.estimateSinglePose).toHaveBeenCalled()
+  handsfree.trackPoses()
+  expect(handsfree.posenet.estimateSinglePose).toHaveBeenCalled()
 
-  seeclarke.update({posenet: {maxUsers: 2}})
-  seeclarke.trackPoses()
-  expect(seeclarke.posenet.estimateMultiplePoses).toHaveBeenCalled()
+  handsfree.update({posenet: {maxUsers: 2}})
+  handsfree.trackPoses()
+  expect(handsfree.posenet.estimateMultiplePoses).toHaveBeenCalled()
 })
 
 /**
- * SeeClarke.debugPoses
+ * Handsfree.debugPoses
  */
 it('Draws skeletons and keypoints', () => {
-  seeclarke = new SeeClarke({debug: true})
+  handsfree = new Handsfree({debug: true})
 
-  seeclarke.drawSkeleton = jest.fn()
-  seeclarke.drawKeypoints = jest.fn()
+  handsfree.drawSkeleton = jest.fn()
+  handsfree.drawKeypoints = jest.fn()
 
-  seeclarke.trackPoses(STUBS.data.posenet.pose.single)
-  expect(seeclarke.drawSkeleton).toHaveBeenCalledTimes(1)
-  expect(seeclarke.drawKeypoints).toHaveBeenCalledTimes(1)
+  handsfree.trackPoses(STUBS.data.posenet.pose.single)
+  expect(handsfree.drawSkeleton).toHaveBeenCalledTimes(1)
+  expect(handsfree.drawKeypoints).toHaveBeenCalledTimes(1)
 
-  seeclarke.options.posenet.minPoseConfidence = 1
-  seeclarke.trackPoses(STUBS.data.posenet.pose.single)
-  expect(seeclarke.drawSkeleton).toHaveBeenCalledTimes(1)
-  expect(seeclarke.drawKeypoints).toHaveBeenCalledTimes(1)
+  handsfree.options.posenet.minPoseConfidence = 1
+  handsfree.trackPoses(STUBS.data.posenet.pose.single)
+  expect(handsfree.drawSkeleton).toHaveBeenCalledTimes(1)
+  expect(handsfree.drawKeypoints).toHaveBeenCalledTimes(1)
 })
 
 /**
- * SeeClarke.start
+ * Handsfree.start
  */
 it('Starts tracking poses', () => {
-  seeclarke = new SeeClarke({debug: true})
+  handsfree = new Handsfree({debug: true})
   document.body.classList =''
 
-  seeclarke.constructor.setupFeed = jest.fn()
-  seeclarke.constructor.initPoseNet = jest.fn()
-  seeclarke.constructor.trackPosesLoop = jest.fn()
+  handsfree.constructor.setupFeed = jest.fn()
+  handsfree.constructor.initPoseNet = jest.fn()
+  handsfree.constructor.trackPosesLoop = jest.fn()
 
-  expect(document.body.classList.contains('seeclarke-is-started')).toBeFalsy()
-  expect(document.body.classList.contains('seeclarke-is-stopped')).toBeFalsy()
-  seeclarke.start()
-  seeclarke.start()
-  seeclarke.start()
-  expect(seeclarke.constructor.trackPosesLoop).toHaveBeenCalledTimes(1)
-  expect(document.body.classList.contains('seeclarke-is-started')).toBeTruthy()
-  expect(document.body.classList.contains('seeclarke-is-stopped')).toBeFalsy()
+  expect(document.body.classList.contains('handsfree-is-started')).toBeFalsy()
+  expect(document.body.classList.contains('handsfree-is-stopped')).toBeFalsy()
+  handsfree.start()
+  handsfree.start()
+  handsfree.start()
+  expect(handsfree.constructor.trackPosesLoop).toHaveBeenCalledTimes(1)
+  expect(document.body.classList.contains('handsfree-is-started')).toBeTruthy()
+  expect(document.body.classList.contains('handsfree-is-stopped')).toBeFalsy()
 })
 
 /**
- * SeeClarke.stop
+ * Handsfree.stop
  */
 it('Stops tracking poses', () => {
-  seeclarke = new SeeClarke()
+  handsfree = new Handsfree()
   document.body.classList =''
 
-  seeclarke.constructor.setupFeed = jest.fn()
-  seeclarke.constructor.initPoseNet = jest.fn()
-  seeclarke.constructor.trackPosesLoop = jest.fn()
+  handsfree.constructor.setupFeed = jest.fn()
+  handsfree.constructor.initPoseNet = jest.fn()
+  handsfree.constructor.trackPosesLoop = jest.fn()
 
-  expect(document.body.classList.contains('seeclarke-is-started')).toBeFalsy()
-  expect(document.body.classList.contains('seeclarke-is-stopped')).toBeFalsy()
+  expect(document.body.classList.contains('handsfree-is-started')).toBeFalsy()
+  expect(document.body.classList.contains('handsfree-is-stopped')).toBeFalsy()
 
-  seeclarke.stop()
-  expect(seeclarke._isTracking).toBeFalsy()
-  seeclarke._isTracking = true
-  seeclarke.stop()
-  expect(seeclarke._isTracking).toBeFalsy()
+  handsfree.stop()
+  expect(handsfree._isTracking).toBeFalsy()
+  handsfree._isTracking = true
+  handsfree.stop()
+  expect(handsfree._isTracking).toBeFalsy()
 
-  expect(document.body.classList.contains('seeclarke-is-started')).toBeFalsy()
-  expect(document.body.classList.contains('seeclarke-is-stopped')).toBeTruthy()
+  expect(document.body.classList.contains('handsfree-is-started')).toBeFalsy()
+  expect(document.body.classList.contains('handsfree-is-stopped')).toBeTruthy()
 })
 
 /**
- * SeeClarke.update
+ * Handsfree.update
  */
 it('Can update settings', () => {
-  seeclarke = new SeeClarke()
+  handsfree = new Handsfree()
 
-  seeclarke.options = null
-  seeclarke.update()
-  expect(seeclarke.options).toBeTruthy()
+  handsfree.options = null
+  handsfree.update()
+  expect(handsfree.options).toBeTruthy()
 
-  seeclarke.update({debug: true})
-  expect(seeclarke.debug).toBeTruthy()
+  handsfree.update({debug: true})
+  expect(handsfree.debug).toBeTruthy()
 })
 
 /**
- * SeeClarke.runCalculations
+ * Handsfree.runCalculations
  */
 it('Can run calculations and emmit events', () => {
-  seeclarke = new SeeClarke()
-  seeclarke.calculateXY = jest.fn()
-  seeclarke.calculateZ = jest.fn()
-  seeclarke.emitEvents = jest.fn()
+  handsfree = new Handsfree()
+  handsfree.calculateXY = jest.fn()
+  handsfree.calculateZ = jest.fn()
+  handsfree.emitEvents = jest.fn()
 
-  seeclarke.runCalculations()
-  expect(seeclarke.calculateXY).toHaveBeenCalled()
-  expect(seeclarke.calculateZ).toHaveBeenCalled()
-  expect(seeclarke.emitEvents).toHaveBeenCalled()
+  handsfree.runCalculations()
+  expect(handsfree.calculateXY).toHaveBeenCalled()
+  expect(handsfree.calculateZ).toHaveBeenCalled()
+  expect(handsfree.emitEvents).toHaveBeenCalled()
 })

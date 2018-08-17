@@ -26,15 +26,14 @@
  * 16	rightAnkle
  *
  */
-module.exports = function (SeeClarke) {
+module.exports = function (Handsfree) {
   /**
    * Entry point for calculating the depth (distance away from camera)
-   * @SEE https://github.com/labofoz/SeeClarke.js/issues/1
    *
    * - [ ] Calculates area of triangle between eyes and nose
    * - [ ] Use this value as the "depth"
    */
-  SeeClarke.prototype.calculateZ = function () {
+  Handsfree.prototype.calculateZ = function () {
     this.poses && this.poses.forEach((pose, index) => {
       const nose = pose.keypoints[0]
       const eyeL = pose.keypoints[1]

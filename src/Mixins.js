@@ -7,7 +7,7 @@
 const PoseNet = require('@tensorflow-models/posenet')
 const merge = require('lodash/merge')
 
-module.exports = function (SeeClarke) {
+module.exports = function (Handsfree) {
   /**
    * Sets defaults to the missing constructor options:
    * - Sets defaults
@@ -16,11 +16,11 @@ module.exports = function (SeeClarke) {
    *
    * @param {Object} opts The options passed into the constructor. Pass null to use all defaults
    */
-  SeeClarke.setDefaults = function (opts = {}) {
+  Handsfree.setDefaults = function (opts = {}) {
     // Fallback for default target
     if (!opts.target) {
       // @TODO Let's document this
-      opts.target = document.getElementById('seeclarke-debug')
+      opts.target = document.getElementById('handsfree-debug')
 
       if (!opts.target) {
         opts.target = document.createElement('p')
@@ -67,7 +67,7 @@ module.exports = function (SeeClarke) {
    * Applies aliases to common options. Feel free to add your own in here
    * - Creates a shorthand to options
    */
-  SeeClarke.setAliases = function () {
+  Handsfree.setAliases = function () {
     this.video = this.options.video
     this.canvas = this.options.canvas
     this.debug = this.options.debug
@@ -80,7 +80,7 @@ module.exports = function (SeeClarke) {
    *    simultaneously)
    * - Recreates the video feed to reassign srcObject once it's been stopped
    */
-  SeeClarke.setupFeed = async function () {
+  Handsfree.setupFeed = async function () {
     // Set webcam dimensions
     this.canvas.width = this.video.width = 600
     this.canvas.height = this.video.height = 500
@@ -105,19 +105,19 @@ module.exports = function (SeeClarke) {
    * @TODO Initializes PoseNet and starts the tracking loop:
    * [-] Loads a model from Google's servers based on the chosen PoseNet modifier
    */
-  SeeClarke.initPoseNet = async function () {
+  Handsfree.initPoseNet = async function () {
     if (!this.posenet) this.posenet = await PoseNet.load(this.options.posenet.multiplier)
   }
 
   /**
    * Recursive method for tracking poses on each animationFrame:
    * - This method is recursive, once called it continues until after
-   *    seeclarke.stop() is called or until this._isTracking is false
+   *    handsfree.stop() is called or until this._isTracking is false
    *
-   * @param {SeeClarke} context The this context, since we're in the
+   * @param {Handsfree} context The this context, since we're in the
    *    constructor scope now
    */
-  SeeClarke.trackPosesLoop = function (context) {
+  Handsfree.trackPosesLoop = function (context) {
     context.posenet && context.trackPoses()
     if (context.poses) {
       context.runCalculations()
@@ -129,10 +129,10 @@ module.exports = function (SeeClarke) {
 
   /**
    * @TODO Emits events
-   * [-] Emits onSeeClarkePoseUpdates with (this.poses, seeclarke)
+   * [-] Emits onHandsfreePoseUpdates with (this.poses, handsfree)
    */
-  SeeClarke.prototype.emitEvents = function () {
-    window.dispatchEvent(new CustomEvent('onSeeClarkePoseUpdates', {
+  Handsfree.prototype.emitEvents = function () {
+    window.dispatchEvent(new CustomEvent('onHandsfreePoseUpdates', {
       detail: {
         context: this
       }

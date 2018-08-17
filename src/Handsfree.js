@@ -1,5 +1,5 @@
 /**
- * SeeClarke.js
+ * Handsfree.js
  *
  * This file contains all the "onboarding methods"; a glance at these methods
  * should give you a general understanding for how the app works!
@@ -13,7 +13,7 @@ require('./polyfills')
 const merge = require('lodash/merge')
 const PoseNet = require('@tensorflow-models/posenet')
 
-class SeeClarke {
+class Handsfree {
   /**
    * 🏆 Our main constructor
    * - Fails if getUserMedia is not supported
@@ -47,7 +47,7 @@ class SeeClarke {
 
     // Error out when webcams are not supported
     // @TODO Is there a better way handle this error?
-    // @SEE https://github.com/LabOfOz/SeeClarke/issues/15
+    // @SEE https://github.com/LabOfOz/Handsfree/issues/15
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !this.isWebGLSupported()) {
       throw new Error('ERROR: This browser does not support webcams, please try another browser...like Google Chrome!')
     } else {
@@ -113,7 +113,7 @@ class SeeClarke {
    * - If this.options.autostart is false, then you can manually start it
    *    later with this
    * - A check is made internally so that only one process is ever running
-   * [ ] Adds a `seeclarke-is-started` to the body
+   * [ ] Adds a `handsfree-is-started` to the body
    */
   start () {
     if (!this._isTracking) {
@@ -124,8 +124,8 @@ class SeeClarke {
       this.constructor.trackPosesLoop(this)
 
       // Set body classes
-      document.body.classList.remove('seeclarke-is-stopped')
-      document.body.classList.add('seeclarke-is-started')
+      document.body.classList.remove('handsfree-is-stopped')
+      document.body.classList.add('handsfree-is-started')
     }
   }
 
@@ -133,7 +133,7 @@ class SeeClarke {
    * Stop tracking poses:
    * - A process can be stopped to free up memory for other expensive processes
    *    or to save on power when idling with this
-   * [ ] Replaces `seeclarke-is-started` with `seeclarke-is-started`
+   * [ ] Replaces `handsfree-is-started` with `handsfree-is-started`
    */
   stop () {
     if (this._isTracking) {
@@ -142,8 +142,8 @@ class SeeClarke {
       this.video.srcObject.getTracks().forEach(track => track.stop())
 
       // Set body classes
-      document.body.classList.remove('seeclarke-is-started')
-      document.body.classList.add('seeclarke-is-stopped')
+      document.body.classList.remove('handsfree-is-started')
+      document.body.classList.add('handsfree-is-stopped')
     }
   }
 
@@ -182,14 +182,14 @@ class SeeClarke {
 /**
  * That's it! You should have enough of an understanding to either fork the
  * project and make it yours or start picking off issues on GitHub:
- * https://github.com/LabOfOz/seeclarke.js/issues
+ * https://github.com/LabOfOz/handsfree.js/issues
  *
  * Here are some more methods:
  */
-require('./calculations/XY')(SeeClarke)
-require('./calculations/Z')(SeeClarke)
-require('./Mixins')(SeeClarke)
-require('./Helpers')(SeeClarke)
+require('./calculations/XY')(Handsfree)
+require('./calculations/Z')(Handsfree)
+require('./Mixins')(Handsfree)
+require('./Helpers')(Handsfree)
 
 // Remember: to kick things off you'll want to instantiate this with `new`
-module.exports = SeeClarke
+module.exports = Handsfree
