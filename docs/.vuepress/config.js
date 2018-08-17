@@ -3,7 +3,8 @@ module.exports = {
   description: 'Add client side, multi-user, head-tracked-from-afar mouse cursors and handsfree user interfaces to your projects just...like...✨...that!',
   evergreen: true,
   head: [
-    ['link', {rel: 'icon', type: 'image/png', href: '/assets/img/logo-ooh-ooh.png'}]
+    ['link', {rel: 'icon', type: 'image/png', href: '/assets/img/logo-ooh-ooh.png'}],
+    ['script', {async: 'async', src: 'https://unpkg.com/handsfree@^1'}]
   ],
   ga: 'UA-123557290-3',
 
