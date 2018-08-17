@@ -1,8 +1,8 @@
 {
   "name": "handsfree",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Add client side, multi-user, head-tracked-from-afar mouse cursors and handsfree user interfaces to your projects just...like...✨...that!",
-  "main": "dist/handsfree.js",
+  "main": "src/Handsfree.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js --open",
     "build": "webpack -p --progress --mode production --config webpack.config.build.js",
