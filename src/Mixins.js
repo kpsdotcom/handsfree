@@ -70,7 +70,6 @@ module.exports = function (Handsfree) {
   Handsfree.setAliases = function () {
     this.video = this.settings.video
     this.canvas = this.settings.canvas
-    this.debug = this.settings.debug
   }
 
   /**

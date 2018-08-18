@@ -87,7 +87,7 @@ class Handsfree {
     this.poses = poses
 
     // Only draw when debug is on
-    this.debug && poses && this.debugPoses()
+    this.settings.debug && poses && this.debugPoses()
   }
 
   /**
@@ -117,7 +117,7 @@ class Handsfree {
    */
   start () {
     if (!this._isTracking) {
-      if (this.debug) this.settings.target.style.display = 'inherit'
+      if (this.settings.debug) this.settings.target.style.display = 'inherit'
       this._isTracking = true
       this.constructor.setupFeed.call(this)
       this.constructor.initPoseNet.call(this)

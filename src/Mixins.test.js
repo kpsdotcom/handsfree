@@ -38,7 +38,6 @@ it('Applies aliases to common settings. Feel free to add your own in here', () =
   handsfree.constructor.setAliases.call(handsfree)
   expect(handsfree.video).toBe(handsfree.settings.video)
   expect(handsfree.canvas).toBe(handsfree.settings.canvas)
-  expect(handsfree.debug).toBe(handsfree.settings.debug)
 })
 
 /**
