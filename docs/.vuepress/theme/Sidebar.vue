@@ -1,6 +1,7 @@
 <template>
   <div class="sidebar">
     <div id="handsfree-debug"></div>
+    <p id="handsfree-debug-stopper" class="text-center"><button class="action-button" onclick="handsfree.stop()">Stop Webcam</button></p>
     <NavLinks/>
     <slot name="top"/>
     <ul class="sidebar-links" v-if="items.length">

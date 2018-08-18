@@ -154,10 +154,12 @@ class Handsfree {
    * @param  {Object} opts The settings set to update
    */
   update (opts = {}) {
-    if (this.settings) this.settings = merge(this.settings, opts)
-
-    this.constructor.setDefaults.call(this, opts)
-    this.constructor.setAliases.call(this)
+    if (this.settings) {
+      this.settings = merge(this.settings, opts)
+    } else {
+      this.constructor.setDefaults.call(this, opts)
+      this.constructor.setAliases.call(this)
+    }
   }
 
   /**
