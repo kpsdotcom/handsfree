@@ -50,7 +50,7 @@ it('If debug is on, displays the points and skeletons overlays on the webcam', (
   handsfree.trackPoses([])
   expect(handsfree.debugPoses).not.toHaveBeenCalled()
 
-  handsfree.debug = true
+  handsfree.settings.debug = true
   handsfree.trackPoses([])
   expect(handsfree.debugPoses).toHaveBeenCalled()
 })
@@ -145,7 +145,7 @@ it('Can update settings', () => {
   expect(handsfree.settings).toBeTruthy()
 
   handsfree.update({debug: true})
-  expect(handsfree.debug).toBeTruthy()
+  expect(handsfree.settings.debug).toBeTruthy()
 })
 
 /**
