@@ -129,7 +129,30 @@ handsfree.plugins.BasicPointer.disabled = false
   }
 </demo>
 
+Finally, you'll notice the `onStop` method, which "hides" the pointer from view. This method is called whenever `handsfree.stop()` is called, and is useful for cleaning up any plugin code.
+
+If you inspect your console, you'll see the pointer is correctly set to `(-100px, -100px)` when you stop the `handsfree`:
+
+```js
+handsfree.stop()
+```
+
+<demo>
+  if (typeof handsfree === 'undefined') {
+    window.handsfree = new HandsfreeModule({debug: true})
+  } else {
+    window.handsfree.stop()
+  }
+</demo>
+
+::: tip 🐵 Toggle plugins whenever!
+Plugins can be disabled and enabled at any time, even while `handsfree` is actively running!
+:::
+
+
 ## Adding Page Scrolling
+
+Let's experiment with adding some functionality in real-time! Hit one of the demos above to start the webcam. Then, copy/paste the following in your [browsers console](https://webmasters.stackexchange.com/a/77337):
 
 ```js
 // Add the plugin
@@ -150,12 +173,25 @@ handsfree.use({
 })
 ```
 
+You should now be able to scroll the page! Try experimenting with disabling the `BasicPlugin` as well. What you should notice is that while the cursor disappears, you're still able to scroll the page.
+
+This is because these are two separate plugins working off of the same underlying data.
+
 ## Removing Functionality
 
 To delete a plugin, simply delete the property, like `delete handsfree.plugins[name]`. Deleting a plugin removes it completely, and so it's probably better to disable the plugin instead.
 
-Disabling plugins can be done by setting the `disabled` property, like `handsfree.plugin[name].disabled = true`. To re-enable the plugin, simply set it back to `false`.
+::: danger 🐵🙈🙉🙊 More Coming Soon!
+You've reached the end of the documentation. More documentation will be added soon, with more in-depth guides as well as experiments and demos!
 
-::: tip 🐵 Toggle plugins whenever!
-Plugins can be disabled and enabled at any time, even while `handsfree` is actively running!
+Here are some links you can take a peek at in the meantime:
+
+- The project source: <a href="https://github.com/handsfreejs/handsfree">https://github.com/handsfreejs/handsfree</a>
+- My personal Twitter: <a href="https://twitter.com/labofoz">https://twitter.com/labofoz</a>
+- My Patreon page: <a href="https://patreon.com/labofoz">https://patreon.com/labofoz</a>
+
+You can also come chat with me on Discord. I'll be available from 10am - 10pm most days: <a href="https://discord.gg/amh4jNZ">https://discord.gg/amh4jNZ</a>
+
+Thanks!
+<br>Ozzy <labofoz@gmail.com>
 :::
