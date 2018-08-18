@@ -20,7 +20,7 @@ const appHtmlTitle = 'Handsfree.js'
 module.exports = {
   // Entry scripts
   entry: {
-    handsfree: ['babel-polyfill', './src/Handsfree.js'],
+    handsfree: ['idempotent-babel-polyfill', './src/Handsfree.js'],
     sandbox: './sandbox/index.js'
   },
 
