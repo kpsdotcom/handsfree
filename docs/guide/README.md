@@ -22,3 +22,35 @@ Poses are inferred on each frame (at a maximum rate of 60 frames per second), an
 ## About the Demos
 
 All of the demos on the following page can be run by clicking the green **Run Demo** button after the code block. Additionally, you can run the demos manually via [your browsers JavaScript console](https://webmasters.stackexchange.com/a/77337)!
+
+### The 1-liner
+<br>
+<img src="https://media.giphy.com/media/55vsITBRKRlaosFK7I/giphy.gif" width="100%">
+
+The following is the simplest example, which will:
+
+- Prompt you to start your webcam
+- Place a debug panel with a stop button in the sidebar
+- Position a cursor roughly over the part of the screen that you're looking at
+- This _does not_ give any functionality to the cursor, we'll work on that next!
+
+```js
+handsfree = new HandsfreeModule({debug: true, autostart: true})
+```
+
+<demo>
+  if (typeof handsfree === 'undefined') {
+    window.handsfree = new HandsfreeModule({debug: true, autostart: true})
+  } else {
+    window.handsfree.update({debug: true})
+    window.handsfree.start()
+  }
+</demo>
+
+::: tip 🐵 Demos carry over!
+Once you start a demo, it'll follow you throughout the rest of the site. This allows you to mix and match code from various examples.
+:::
+
+::: warning 🙈 In case of crash:
+If `handsfree` produces an error while you manually [edit it in the console](https://webmasters.stackexchange.com/a/77337), you can simply refresh the page!
+:::

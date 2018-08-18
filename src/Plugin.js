@@ -16,6 +16,7 @@ module.exports = function (Handsfree) {
    * @prop  {Boolean}  disabled (false) Whether the plugin is disabled
    * @prop  {Integer}  priority (Handsfree.plugins.length) The order in which this plugin is called
    * @prop  {Function} callback The plugins logic, which is only run if disabled is false
+   * @prop  {Function} onStop   Called when handsfree.stop()
    */
   Handsfree.prototype.use = function (config) {
     config = merge(config, {
