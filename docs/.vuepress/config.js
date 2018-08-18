@@ -10,6 +10,7 @@ module.exports = {
 
   themeConfig: {
     search: true,
+    sidebarDepth: 2,
     nav: [
       {text: 'Guide', link: '/guide/'},
       {text: 'Chat', link: 'https://discord.gg/amh4jNZ'},
@@ -31,7 +32,8 @@ module.exports = {
     sidebar: {
       '/guide/': [
         '',
-        'getting-started'
+        'getting-started',
+        'adding-functionality'
       ]
     }
   }

@@ -16,6 +16,7 @@ module.exports = function (Handsfree) {
    * @prop  {Boolean}  disabled (false) Whether the plugin is disabled
    * @prop  {Integer}  priority (Handsfree.plugins.length) The order in which this plugin is called
    * @prop  {Function} callback The plugins logic, which is only run if disabled is false
+   * @prop  {Function} onStop   Called when handsfree.stop()
    */
   Handsfree.prototype.use = function (config) {
     config = merge(config, {
@@ -36,7 +37,7 @@ module.exports = function (Handsfree) {
   }
 
   /**
-   * Go through each plugin
+   * Go through each plugin and run it callback
    */
   Handsfree.prototype.runPlugins = function () {
     forOwn(Handsfree.prototype.plugins, (config, name) => {
@@ -48,6 +49,17 @@ module.exports = function (Handsfree) {
             pose: this.pose
           })
         }
+      })
+    })
+  }
+
+  /**
+   * Go through each plugin and run it's stop method
+   */
+  Handsfree.prototype.stopPlugins = function () {
+    forOwn(Handsfree.prototype.plugins, (config, name) => {
+      config.onStop && config.onStop.call(this, {
+        poses: this.poses
       })
     })
   }

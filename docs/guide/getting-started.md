@@ -74,12 +74,12 @@ handsfree.start()
 ```
 
 <demo>
-if (typeof handsfree === 'undefined') {
-  window.handsfree = new HandsfreeModule({debug: true, autostart: true})
-} else {
-  window.handsfree.update({debug: true})
-  window.handsfree.start()
-}
+  if (typeof handsfree === 'undefined') {
+    window.handsfree = new HandsfreeModule({debug: true, autostart: true})
+  } else {
+    window.handsfree.update({debug: true})
+    window.handsfree.start()
+  }
 </demo>
 
 ## Turning the Webcam Off
@@ -91,9 +91,9 @@ handsfree.stop()
 ```
 
 <demo>
-if (typeof handsfree === 'undefined') {
-  window.handsfree = new HandsfreeModule()
-} else {
-  window.handsfree.stop()
-}
+  if (typeof handsfree === 'undefined') {
+    window.handsfree = new HandsfreeModule()
+  } else {
+    window.handsfree.stop()
+  }
 </demo>
