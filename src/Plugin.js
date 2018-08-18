@@ -40,7 +40,7 @@ module.exports = function (Handsfree) {
    */
   Handsfree.prototype.runPlugins = function () {
     forOwn(Handsfree.prototype.plugins, (config, name) => {
-      this.poses.forEach(pose => {
+      this.poses && this.poses.forEach(pose => {
         if (!config.disabled) {
           config.callback.call(this, {
             x: pose.pointedAt.x,

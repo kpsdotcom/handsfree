@@ -5,8 +5,11 @@ module.exports = function (Handsfree) {
   const $pointer = document.createElement('div')
   const pointerSize = 20
 
+  // Add pointer styles
   $pointer.style.width = `${pointerSize}`
   $pointer.style.height = `${pointerSize}`
+  $pointer.style.left = '-100px'
+  $pointer.style.top = '-100px'
   $pointer.style.background = 'rgba(200, 0, 0, 0.7)'
   $pointer.style.border = '2px solid rgba(200, 0, 0, 0.9)'
   $pointer.style.position = 'fixed'
@@ -17,6 +20,9 @@ module.exports = function (Handsfree) {
 
   document.body.appendChild($pointer)
 
+  /**
+   * Positions a cursor
+   */
   Handsfree.prototype.use({
     name: 'BasicPointer',
     priority: 0,
