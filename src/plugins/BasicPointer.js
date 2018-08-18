@@ -6,12 +6,13 @@ module.exports = function (Handsfree) {
   const pointerSize = 20
 
   // Add pointer styles
-  $pointer.style.width = `${pointerSize}`
-  $pointer.style.height = `${pointerSize}`
+  $pointer.classList.add('handsfree-basic-pointer')
+  $pointer.style.width = `${pointerSize}px`
+  $pointer.style.height = `${pointerSize}px`
   $pointer.style.left = '-100px'
   $pointer.style.top = '-100px'
   $pointer.style.background = 'rgba(200, 0, 0, 0.7)'
-  $pointer.style.border = '2px solid rgba(200, 0, 0, 0.9)'
+  $pointer.style.border = '3px solid rgba(200, 200, 0, 0.9)'
   $pointer.style.position = 'fixed'
   $pointer.style.marginLeft = `${pointerSize / -2}px`
   $pointer.style.marginTop = `${pointerSize / -2}px`
