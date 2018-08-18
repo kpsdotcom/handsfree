@@ -8,7 +8,8 @@ module.exports = merge(webpackConfig, {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: `[name].js`,
-    library: 'HandsfreeModule'
+    library: 'HandsfreeModule',
+    libraryTarget: 'umd'
   },
 
   plugins: [
