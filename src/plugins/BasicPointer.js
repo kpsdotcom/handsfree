@@ -16,8 +16,8 @@ module.exports = function (Handsfree) {
   $pointer.style.position = 'fixed'
   $pointer.style.marginLeft = `${pointerSize / -2}px`
   $pointer.style.marginTop = `${pointerSize / -2}px`
-  $pointer.style.borderRadius = `${pointerSize / 2}px`
-  $pointer.style.zIndex = 999999999999999999999
+  $pointer.style.borderRadius = `${pointerSize / 2 + 6}px`
+  $pointer.style.zIndex = 99999999
 
   document.body.appendChild($pointer)
 
