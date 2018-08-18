@@ -8,7 +8,7 @@
     "build": "webpack -p --progress --mode production --config webpack.config.build.js",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "patch": "yarn run build && npm version patch && npm publish",
+    "patch": "npm run build && npm version patch && npm publish",
     "test": "jest --detectOpenHandles"
   },
   "files": [
