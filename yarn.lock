@@ -4226,6 +4226,12 @@ icss-utils@^2.1.0:
   dependencies:
     postcss "^6.0.1"
 
+idempotent-babel-polyfill@^6.26.0-1:
+  version "6.26.0-1"
+  resolved "https://registry.yarnpkg.com/idempotent-babel-polyfill/-/idempotent-babel-polyfill-6.26.0-1.tgz#b8941ac0c1300e93ac1752b01e12bbba2abb6878"
+  dependencies:
+    babel-polyfill "^6.26.0"
+
 ieee754@^1.1.11, ieee754@^1.1.4:
   version "1.1.12"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.12.tgz#50bf24e5b9c8bb98af4964c941cdb0918da7b60b"
