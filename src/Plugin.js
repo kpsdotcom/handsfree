@@ -36,7 +36,7 @@ module.exports = function (Handsfree) {
   }
 
   /**
-   * Go through each plugin
+   * Go through each plugin and run it callback
    */
   Handsfree.prototype.runPlugins = function () {
     forOwn(Handsfree.prototype.plugins, (config, name) => {
@@ -48,6 +48,17 @@ module.exports = function (Handsfree) {
             pose: this.pose
           })
         }
+      })
+    })
+  }
+
+  /**
+   * Go through each plugin and run it's stop method
+   */
+  Handsfree.prototype.stopPlugins = function () {
+    forOwn(Handsfree.prototype.plugins, (config, name) => {
+      config.onStop && config.onStop.call(this, {
+        poses: this.poses
       })
     })
   }

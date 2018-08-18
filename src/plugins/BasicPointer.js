@@ -28,9 +28,21 @@ module.exports = function (Handsfree) {
     name: 'BasicPointer',
     priority: 0,
     disabled: false,
+
+    /**
+     * Position the cursor
+     */
     callback: ({x, y}) => {
       $pointer.style.left = `${x}px`
       $pointer.style.top = `${y}px`
+    },
+
+    /**
+     * "Hide" the cursor
+     */
+    onStop: () => {
+      $pointer.style.left = '-100px'
+      $pointer.style.top = '-100px'
     }
   })
 }

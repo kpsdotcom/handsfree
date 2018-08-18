@@ -134,6 +134,7 @@ class Handsfree {
    * - A process can be stopped to free up memory for other expensive processes
    *    or to save on power when idling with this
    * [ ] Replaces `handsfree-is-started` with `handsfree-is-started`
+   * [-] Runs plugin stops
    */
   stop () {
     if (this._isTracking) {
@@ -144,6 +145,9 @@ class Handsfree {
       // Set body classes
       document.body.classList.remove('handsfree-is-started')
       document.body.classList.add('handsfree-is-stopped')
+
+      // Stop running plugins. Deferred to run after final frame
+      this.stopPlugins()
     }
   }
 
@@ -178,7 +182,7 @@ class Handsfree {
     // @SEE ./calculations/Z.js
     this.calculateZ()
     this.emitEvents()
-    this.runPlugins()
+    this._isTracking && this.runPlugins()
   }
 }
 
