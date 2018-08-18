@@ -178,6 +178,7 @@ class Handsfree {
     // @SEE ./calculations/Z.js
     this.calculateZ()
     this.emitEvents()
+    this.runPlugins()
   }
 }
 
@@ -192,6 +193,7 @@ require('./calculations/XY')(Handsfree)
 require('./calculations/Z')(Handsfree)
 require('./Mixins')(Handsfree)
 require('./Helpers')(Handsfree)
+require('./Plugin')(Handsfree)
 
 // Remember: to kick things off you'll want to instantiate this with `new`
 module.exports = Handsfree

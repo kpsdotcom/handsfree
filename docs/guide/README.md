@@ -18,3 +18,7 @@ Anything - <i>literally anything</i> - that you can do on a mobile device right 
 Handsfree.js adds a `<video>` and `<canvas>` tag to the page for each instance of `HandsfreeModule`. The `<video>` is used to contain the webcam feed (adaptable to either the front or rear camera), and the `<canvas>` contains the PoseNet overlay for debugging.
 
 Poses are inferred on each frame (at a maximum rate of 60 frames per second), and a `HandsfreeModule.onUpdate()` method is available to run logic on each of these frames!
+
+## About the Demos
+
+All of the demos on the following page can be run by clicking the green **Run Demo** button after the code block. Additionally, you can run the demos manually via [your browsers JavaScript console](https://webmasters.stackexchange.com/a/77337)!
