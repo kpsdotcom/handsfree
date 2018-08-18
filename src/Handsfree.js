@@ -178,6 +178,7 @@ class Handsfree {
     // @SEE ./calculations/Z.js
     this.calculateZ()
     this.emitEvents()
+    this.runPlugins()
   }
 }
 
