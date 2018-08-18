@@ -31,11 +31,7 @@ module.exports = {
     sidebar: {
       '/guide/': [
         '',
-        'getting-started',
-        'events',
-        'settings',
-        'methods',
-        'properties'
+        'getting-started'
       ]
     }
   }

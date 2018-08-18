@@ -57,8 +57,8 @@ const handsfree = new HandsfreeModule(settings)
 For the vast majority of applications, you'll only need one `handsfree` instance. However, there may be cases where you'll want to run multiple webcams on a single page (for example, to have both the front or back camera on a mobile).
 :::
 
-## Turning the Webcam On/Off
-Speaking of webcams, let's try the most basic example! Let's load your webcam into the sidebar, along with the PoseNet data. We can do this in one of two ways:
+## Turning the Webcam On
+Speaking of webcams, let's try the most basic example! Let's load your webcam into the sidebar, along with the PoseNet overlay data. We can do this in one of two ways:
 
 **During instantiation:**
 
@@ -79,5 +79,21 @@ if (typeof handsfree === 'undefined') {
 } else {
   window.handsfree.update({debug: true})
   window.handsfree.start()
+}
+</demo>
+
+## Turning the Webcam Off
+
+Turning off the webcam is as simple as:
+
+```js
+handsfree.stop()
+```
+
+<demo>
+if (typeof handsfree === 'undefined') {
+  window.handsfree = new HandsfreeModule()
+} else {
+  window.handsfree.stop()
 }
 </demo>
