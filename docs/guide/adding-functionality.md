@@ -46,7 +46,7 @@ The `BasicPointer` plugin is enabled by default, and just places a pointer on th
 const $pointer = document.querySelector('.handsfree-basic-pointer')
 
 // The actual plugin
-Handsfree.prototype.use({
+HandsfreeModule.prototype.use({
   name: 'BasicPointer',
   priority: 0,
   disabled: false,
@@ -69,20 +69,6 @@ Handsfree.prototype.use({
 })
 ```
 
-::: warning 🙈 This may already be running
-If you're running a demo from a previous page, this won't do anything new.
-:::
-
-<demo>
-  if (typeof handsfree === 'undefined') {
-    window.handsfree = new HandsfreeModule({debug: true, autostart: true})
-  } else {
-    window.handsfree.update({debug: true})
-    window.handsfree.plugins.BasicPointer.disabled = false
-    window.handsfree.start()
-  }
-</demo>
-
 As you can see, the cursor's position is updated on every frame! And while we're only actively using the `y` argument, we also have access to the following:
 
 ```js
@@ -103,15 +89,7 @@ You can disable the plugin by running `handsfree.plugins[name].disabled = true`.
 handsfree.plugins.BasicPointer.disabled = true
 ```
 
-<demo>
-  if (typeof handsfree === 'undefined') {
-    window.handsfree = new HandsfreeModule({debug: true, autostart: true})
-    window.handsfree.plugins.BasicPointer.disabled = true
-  } else {
-    window.handsfree.start()
-    window.handsfree.plugins.BasicPointer.disabled = true
-  }
-</demo>
+<demo/>
 
 Notice how the pointer stopped updating it's position. You can re-enable it with:
 
@@ -119,15 +97,7 @@ Notice how the pointer stopped updating it's position. You can re-enable it with
 handsfree.plugins.BasicPointer.disabled = false
 ```
 
-<demo>
-  if (typeof handsfree === 'undefined') {
-    window.handsfree = new HandsfreeModule({debug: true, autostart: true})
-    window.handsfree.plugins.BasicPointer.disabled = false
-  } else {
-    window.handsfree.start()
-    window.handsfree.plugins.BasicPointer.disabled = false
-  }
-</demo>
+<demo/>
 
 Finally, you'll notice the `onStop` method, which "hides" the pointer from view. This method is called whenever `handsfree.stop()` is called, and is useful for cleaning up any plugin code.
 
@@ -137,13 +107,7 @@ If you inspect your console, you'll see the pointer is correctly set to `(-100px
 handsfree.stop()
 ```
 
-<demo>
-  if (typeof handsfree === 'undefined') {
-    window.handsfree = new HandsfreeModule({debug: true})
-  } else {
-    window.handsfree.stop()
-  }
-</demo>
+<demo/>
 
 ::: tip 🐵 Toggle plugins whenever!
 Plugins can be disabled and enabled at any time, even while `handsfree` is actively running!
