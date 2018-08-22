@@ -3,6 +3,18 @@ Settings refer to any `handsfree` property that you can define when [instantiati
 
 Settings can be accessed via `handsfree.settings[KEY]`. The following are all of the settings available:
 
+## `{autostart: BOOLEAN}`
+**Default:** `false`
+
+This only really affects instantiation, and is the equivalent to running the following:
+
+```js
+handsfree = new HandsfreeModule()
+handsfree.start()
+```
+
+Running `handsfree.update({autostart: true})` after instantiating `HandsfreeModule` has no affect.
+
 ## `{target: DOM_ELEMENT}`
 **Default:** `document.getElementById('handsfree-debug')`
 
