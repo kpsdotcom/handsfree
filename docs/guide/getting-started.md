@@ -83,7 +83,6 @@ handsfree.start()
 </demo>
 
 ## Turning the Webcam Off
-
 Turning off the webcam is as simple as:
 
 ```js

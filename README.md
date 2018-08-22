@@ -33,6 +33,7 @@ yarn test         # Run unit tests
 # Working on the docs
 yarn docs:dev     # Work on the docs in development mode with hotreload
 yarn docs:build   # Build the docs
+yarn docs:build   # Build and deploy docs
 ```
 
 ## Development
