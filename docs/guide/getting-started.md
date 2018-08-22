@@ -73,14 +73,7 @@ handsfree.update({debug: true})
 handsfree.start()
 ```
 
-<demo>
-  if (typeof handsfree === 'undefined') {
-    window.handsfree = new HandsfreeModule({debug: true, autostart: true})
-  } else {
-    window.handsfree.update({debug: true})
-    window.handsfree.start()
-  }
-</demo>
+<demo/>
 
 ## Turning the Webcam Off
 Turning off the webcam is as simple as:
@@ -89,10 +82,4 @@ Turning off the webcam is as simple as:
 handsfree.stop()
 ```
 
-<demo>
-  if (typeof handsfree === 'undefined') {
-    window.handsfree = new HandsfreeModule()
-  } else {
-    window.handsfree.stop()
-  }
-</demo>
+<demo/>

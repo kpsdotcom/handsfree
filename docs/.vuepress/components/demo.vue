@@ -20,6 +20,11 @@ export default {
         code += '; handsfree.start()'
       }
       
+      // Create the handsfree instance if it doesn't exist
+      if (!code.includes('handsfree = new HandsfreeModule') && typeof window.handsfree === 'undefined') {
+        window.handsfree = new HandsfreeModule({debug: true})
+      }
+      
       // Add window. to handsfree variables
       code = code.split('handsfree').join('window.handsfree')
 

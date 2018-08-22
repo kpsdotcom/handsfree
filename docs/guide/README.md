@@ -38,14 +38,7 @@ The following is the simplest example, which will:
 handsfree = new HandsfreeModule({debug: true, autostart: true})
 ```
 
-<demo>
-  if (typeof handsfree === 'undefined') {
-    window.handsfree = new HandsfreeModule({debug: true, autostart: true})
-  } else {
-    window.handsfree.update({debug: true})
-    window.handsfree.start()
-  }
-</demo>
+<demo />
 
 ::: tip 🐵 Demos carry over!
 Once you start a demo, it'll follow you throughout the rest of the site. This allows you to mix and match code from various examples.
