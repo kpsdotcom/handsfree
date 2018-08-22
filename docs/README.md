@@ -10,7 +10,7 @@ sidebar: false
 
   <p><a href="guide/" class="nav-link action-button">🐵 Get Started 🐵</a></p>
 
-  <p class="callout">This project is made possible by friends on Patreon <a href="https://patreon.com/labofoz"><img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width=200 style="margin-left: 10px"></a></p>
+  <p class="callout">I have no money or income and have been working feverishly on this <a href="https://twitter.com/LabOfOz/status/996603307589189632">since March 4th, 2018</a>. If you believe in me or the mission, please consider dropping $5 at <a href="https://cash.me/$heyozramos">$heyozramos</a>. Thanks!</p>
 </div>
 
 ## It's really easy!
