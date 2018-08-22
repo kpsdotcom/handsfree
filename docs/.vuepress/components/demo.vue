@@ -12,7 +12,18 @@ export default {
      * Runs the demo
      */
     runDemo () {
-      eval(this.$slots.default[0].text)
+      let code = this.$el.previousElementSibling.innerText
+      
+      // Use update for instantiation demos
+      if (code.includes('handsfree = new HandsfreeModule') && typeof window.handsfree !== 'undefined') {
+        code = code.replace('handsfree = new HandsfreeModule', 'handsfree.update')
+        code += '; handsfree.start()'
+      }
+      
+      // Add window. to handsfree variables
+      code = code.split('handsfree').join('window.handsfree')
+
+      eval(code)
     }
   }
 }
