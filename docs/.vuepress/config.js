@@ -10,9 +10,10 @@ module.exports = {
 
   themeConfig: {
     search: true,
-    sidebarDepth: 2,
+    sidebarDepth: 3,
     nav: [
       {text: 'Guide', link: '/guide/'},
+      {text: 'Settings', link: '/settings/'},
       {text: 'Chat', link: 'https://discord.gg/amh4jNZ'},
       {text: 'Twitter', link: 'https://twitter.com/labofoz'}
     ],
@@ -35,6 +36,9 @@ module.exports = {
         'getting-started',
         'adding-functionality',
         'debugging'
+      ],
+      '/settings/': [
+        ''
       ]
     }
   }
