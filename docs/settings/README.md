@@ -22,7 +22,6 @@ handsfree.start()
 
 setTimeout(() => {
   handsfree.update({target: document.getElementById('handsfree-debug')})
-  console.log('moved')
 }, 3000)
 ```
 <demo/>
