@@ -8,6 +8,7 @@
     "build": "webpack -p --progress --mode production --config webpack.config.build.js",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
+    "docs:deploy": "node deploy-docs.js",
     "patch": "npm run build && npm version patch && npm publish",
     "test": "jest --detectOpenHandles"
   },
@@ -58,6 +59,7 @@
     "pug": "^2.0.3",
     "pug-loader": "^2.4.0",
     "pug-plain-loader": "^1.0.0",
+    "shelljs": "^0.8.2",
     "spectre.css": "^0.5.3",
     "style-loader": "^0.22.1",
     "stylus": "^0.54.5",
