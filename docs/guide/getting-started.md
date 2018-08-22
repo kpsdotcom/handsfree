@@ -83,7 +83,6 @@ handsfree.start()
 </demo>
 
 ## Turning the Webcam Off
-
 Turning off the webcam is as simple as:
 
 ```js
@@ -97,3 +96,33 @@ handsfree.stop()
     window.handsfree.stop()
   }
 </demo>
+
+## Debugging
+You can activate debug mode by passing `{debug: true}` into `Handsfree` when instantiating, and turning it off with `{debug: false}`. An additional property `{target: DOM_ELEMENT}` allows you to set where to inject the debug canvas.
+
+By default, `target` is defined with:
+
+```js
+{
+  target: document.getElementById('handsfree-debug')
+}
+```
+
+If `#handsfree-debug` does not exist in the DOM, then the debugger is injected at the end of the document body.
+
+If you want to change where the debugger is (for example, after changing routes in a Single Page App), you can just update the target with something like:
+
+<div id="handsfree-debug-target-demo"></div>
+
+```js
+handsfree.update({
+  target: document.getElementById('handsfree-debug-target-demo')
+})
+
+// Put the debugger back in sidebar after 3 seconds
+setTimeout(() => {
+  handsfree.update({
+    target: document.getElementById('handsfree-debug')
+  })
+}, 3000)
+```
