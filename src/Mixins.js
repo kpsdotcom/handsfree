@@ -24,6 +24,7 @@ module.exports = function (Handsfree) {
 
       if (!opts.target) {
         opts.target = document.createElement('p')
+        opts.id = 'handsfree-debug'
         opts.target.style.position = 'relative'
         document.body.appendChild(opts.target)
       }
@@ -136,5 +137,24 @@ module.exports = function (Handsfree) {
         context: this
       }
     }))
+  }
+
+  /**
+   * @TODO Updates the debug target
+   * [-] Moves the target if it exists
+   * [-] Recreates the target if it doesn't
+   *
+   * @param {DOM} newTarget The new target
+   * @param {DOM} oldTarget The new target
+   */
+  Handsfree.prototype.updateTarget = function (newTarget, oldTarget) {
+    let numChildren = oldTarget.children.length
+
+    for (let i = 0; i < numChildren; i++) {
+      newTarget.appendChild(oldTarget.children[0])
+    }
+
+    this.stop()
+    this.start()
   }
 }

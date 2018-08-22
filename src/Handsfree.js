@@ -159,7 +159,9 @@ class Handsfree {
    */
   update (opts = {}) {
     if (this.settings) {
+      let oldTarget = this.settings.target
       this.settings = merge(this.settings, opts)
+      opts.target && this.updateTarget.call(this, opts.target, oldTarget)
     } else {
       this.constructor.setDefaults.call(this, opts)
       this.constructor.setAliases.call(this)
