@@ -18,10 +18,9 @@ The following example demonstrates updating the `target` after instantiation to 
 
 ```js
 handsfree.update({target: document.getElementById('demo-target-change-wrap')})
-handsfree.start()
 
 setTimeout(() => {
-  handsfree.update({target: document.getElementById('handsfree-debug')})
+  handsfree.update({target: document.body.querySelector('.sidebar > div')})
 }, 3000)
 ```
 <demo/>
