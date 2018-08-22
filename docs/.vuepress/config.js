@@ -33,7 +33,8 @@ module.exports = {
       '/guide/': [
         '',
         'getting-started',
-        'adding-functionality'
+        'adding-functionality',
+        'debugging'
       ]
     }
   }
