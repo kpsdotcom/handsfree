@@ -7,7 +7,7 @@ shell.exec('npm run docs:build')
 shell.cd('docs/.vuepress/dist')
 
 // if you are deploying to a custom domain
-shell.echo('"handsfree.js.org" > CNAME')
+shell.exec('echo handsfree.js.org > CNAME')
 
 shell.exec('git init')
 shell.exec('git add -A')
@@ -18,6 +18,6 @@ shell.exec('git commit -m "deploy docs 🐵"')
 
 // if you are deploying to https://<USERNAME>.github.io/<REPO>
 shell.exec('git remote add origin https://github.com/handsfreejs/docs')
-shell.exec('git push origin master:gh-pages')
+shell.exec('git push origin master:gh-pages -f')
 
 shell.cd('-')
