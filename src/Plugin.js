@@ -27,9 +27,8 @@ module.exports = function (Handsfree) {
     // Catch missing properties
     try {
       if (typeof config.name === 'undefined') throw 'Plugin is missing a name'
-      if (typeof config.callback === 'undefined') throw 'Plugin does not have a callback'
     } catch (err) {
-      console.error('Handsfree Plugin Error: ' + err)
+      console.error(`Handsfree Plugin Error [${config.name}.js]: ` + err)
     }
 
     // Add the plugin to the queue
@@ -65,7 +64,16 @@ module.exports = function (Handsfree) {
   }
 
   /**
+   * Initialize plugins
+   */
+  Handsfree.prototype.initPlugin = function (pluginName) {
+    const plugin = Handsfree.plugins[pluginName]
+    plugin.onStart && config.onStart.apply(this, arguments)
+  }
+
+  /**
    * Load built in plugins
    */
   require('./plugins/BasicPointer.js')(Handsfree)
+  require('./plugins/ControlPanel.js')(Handsfree)
 }

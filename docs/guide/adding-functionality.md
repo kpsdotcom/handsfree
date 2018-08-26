@@ -16,12 +16,14 @@ This method accepts a `config` object with the following signature:
   priority: 0,
   // {Function} Called on every frame
   callback () {},
+  // {Function} Called when handsfree.start() is called, or when the plugin is first initialized
+  onStart () {},
   // {Function} Called when handsfree.stop() is called
   onStop () {}
 }
 ```
 
-All plugins must have a `name` and a `callback`. Running `handsfree.use(config)` simply adds the plugin to the instance as `handsfree.plugins[name] = config`.
+All plugins must have a `name`. Running `handsfree.use(config)` simply adds the plugin to the instance as `handsfree.plugins[name] = config`.
 
 Plugins are then run based on their `priority`, with smaller `priority`'s running before others. If the `priority` is not set, then the priority is automatically set to be the last plugin to run. Negative numbers are fine, and so are decimals.
 
@@ -32,6 +34,8 @@ During each frame, the `callback` is called for each tracked pose with the follo
   callback ({x, y, z, pitch, yaw, pose}) {}
 }
 ```
+
+Additionally the `onStart` and `onStop` callbacks are called when `handsfree.start()` or `handsfree.stop()` are called. `onStart` is also called when the plugin is first initialized via `handsfree.use()` if `autostart` is true.
 
 ::: warning 🙉 Plugin Deep Dive
 The rest of this document breaks down a few simple plugins to help you understand how the different properties and callbacks work.
@@ -144,18 +148,3 @@ This is because these are two separate plugins working off of the same underlyin
 ## Removing Functionality
 
 To delete a plugin, simply delete the property, like `delete handsfree.plugins[name]`. Deleting a plugin removes it completely, and so it's probably better to disable the plugin instead.
-
-::: danger 🐵🙈🙉🙊 More Coming Soon!
-You've reached the end of the documentation. More documentation will be added soon, with more in-depth guides as well as experiments and demos!
-
-Here are some links you can take a peek at in the meantime:
-
-- The project source: <a href="https://github.com/handsfreejs/handsfree">https://github.com/handsfreejs/handsfree</a>
-- My personal Twitter: <a href="https://twitter.com/labofoz">https://twitter.com/labofoz</a>
-- My Patreon page: <a href="https://patreon.com/labofoz">https://patreon.com/labofoz</a>
-
-You can also come chat with me on Discord. I'll be available from 10am - 10pm most days: <a href="https://discord.gg/amh4jNZ">https://discord.gg/amh4jNZ</a>
-
-Thanks!
-<br>Ozzy <labofoz@gmail.com>
-:::

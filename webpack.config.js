@@ -50,6 +50,16 @@ module.exports = {
   module: {
     rules: [
       /**
+       * Required to make some modules work, specifically:
+       * control-panel
+       * @see https://github.com/freeman-lab/control-panel/issues/23
+       */
+      {
+        test: /node_modules/,
+        loader: 'ify-loader'
+      },
+
+      /**
        * Babel
        */
       {
