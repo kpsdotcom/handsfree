@@ -1,7 +1,8 @@
 /**
  * Adds a control panel for updating settings live
  */
-const panel = require('control-panel')
+const control = require('control-panel')
+let panel
 
 module.exports = function (Handsfree) {
   Handsfree.prototype.use({
@@ -13,11 +14,16 @@ module.exports = function (Handsfree) {
      * Setup the control panel
      */
     onStart: () => {
-      console.log('start');
     },
 
-    onInit: () => {
-      console.log('init');
+    onLoad: () => {
+      panel = control([
+        {label: 'Toggle', type: 'button'}
+      ], {
+        title: 'Handsfree.js',
+        theme: 'light',
+        position: 'top-right'
+      })
     }
   })
 }

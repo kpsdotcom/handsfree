@@ -37,6 +37,9 @@ module.exports = function (Handsfree) {
 
     // Add the plugin to the queue
     Handsfree.prototype.plugins[config.name] = config
+
+    // Run the onUse method
+    !config.disabled && config.onLoad && config.onLoad.call(this)
   }
 
   /**

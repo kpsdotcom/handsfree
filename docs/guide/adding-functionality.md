@@ -16,9 +16,11 @@ This method accepts a `config` object with the following signature:
   priority: 0,
   // {Function} Called on every frame
   callback () {},
-  // {Function} Called once the first time handsfree.start() is called while this plugin is enabled
+  // {Function} Called once when the plugin is first added, and before onInit
+  onLoad () {},
+  // {Function} Called once the first time handsfree.start() is called after it's been added while this plugin is enabled
   onInit () {},
-  // {Function} Called when handsfree.start() is called
+  // {Function} Called when handsfree.start() is called, and after onInit
   onStart () {},
   // {Function} Called when handsfree.stop() is called
   onStop () {}
