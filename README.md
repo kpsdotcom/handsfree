@@ -1,15 +1,16 @@
 # Handsfree.js
 
 <div align="center">
-  <p><img src="https://media.giphy.com/media/1YfCgZlRFN9JqfrtRC/giphy.gif"></p>
+  <p><img src="https://media.giphy.com/media/55vsITBRKRlaosFK7I/giphy.gif"></p>
   <p><img src="https://travis-ci.org/handsfreejs/handsfree.svg?branch=master"> <img src="https://img.shields.io/codecov/c/github/handsfreejs/handsfree/master.svg?style=flat">
+  <img src="https://img.shields.io/github/last-commit/handsfreejs/handsfree.svg">
 </div>
 
 > Add client side, multi-user, head-tracked-from-afar mouse cursors and handsfree user interfaces to your projects just...like...✨...that!
 
 ## Links
 - Documentation: https://handsfree.js.org
-- Chat: https://discord.gg/amh4jNZ
+- Patreon: https://patreon.com/labofoz
 
 ## Requirements
 - [NodeJS](https://nodejs.org/en/)
@@ -44,10 +45,37 @@ We also provide `/sandbox/index.pug` and `/sandbox/index.js` for experimenting w
 
 ## Documentation
 
-The documentation site is located in `/docs/` and uses [VuePress](https://vuepress.vuejs.org/). The following is a collection of custom components available within the documentation:
+The documentation site is located in `/docs/` and uses [VuePress](https://vuepress.vuejs.org/). Here is a sample index of documentation routes-to-source files:
 
-### &lt;demo>`code`&lt;/demo>
+```
+/                             =>  /docs/README.md
+/guide/                       =>  /docs/guide/README.md
+/guide/getting-started.html   =>  /docs/guide/getting-started.md
+/tools/                       =>  /docs/tools/README.md
+/tools/browse.html            =>  /docs/tools/browse.md   
+```
 
-Creates a demo button that when clicked runs `eval(code)`:
+To run documentation locally, use `yarn docs:dev` or `npm run docs:dev`.
 
+The following is a collection of custom components available within documentation pages:
+
+### &lt;demo />
+
+The Demo Component makes codeblocks placed immediately before it executable. It takes the following form:
+
+<pre>
+```js
+alert('hello world!')
+```
+
+&lt;demo />
+</pre>
+
+which would render the following:
+
+```js
+alert('hello world!')
+```
 <img src="https://i.imgur.com/04m95cO.png" width=200>
+
+When the <kbd>Run Demo</kbd> button is clicked, an alert box with "hello world!" is shown. To see what other sugar is added to the codeblocks behind the scenes, refer to `/docs/.vuepress/components/demo.vue`
