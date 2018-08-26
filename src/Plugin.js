@@ -5,6 +5,7 @@
  */
 const merge = require('lodash/merge')
 const forOwn = require('lodash/forOwn')
+const once = require('lodash/once')
 
 module.exports = function (Handsfree) {
   Handsfree.prototype.plugins = {}
@@ -24,6 +25,9 @@ module.exports = function (Handsfree) {
       priority: Handsfree.prototype.plugins.length
     })
 
+    // Make sure onInit is ever called only once
+    if (config.onInit) config.onInit = once(config.onInit)
+
     // Catch missing properties
     try {
       if (typeof config.name === 'undefined') throw 'Plugin is missing a name'
@@ -42,7 +46,7 @@ module.exports = function (Handsfree) {
     forOwn(Handsfree.prototype.plugins, (config, name) => {
       this.poses && this.poses.forEach(pose => {
         if (!config.disabled) {
-          config.callback.call(this, {
+          config.callback && config.callback.call(this, {
             x: pose.pointedAt.x,
             y: pose.pointedAt.y,
             pose: this.pose
@@ -64,11 +68,15 @@ module.exports = function (Handsfree) {
   }
 
   /**
-   * Initialize plugins
+   * Start plugins
    */
-  Handsfree.prototype.initPlugin = function (pluginName) {
-    const plugin = Handsfree.plugins[pluginName]
-    plugin.onStart && config.onStart.apply(this, arguments)
+  Handsfree.prototype.startPlugins = function () {
+    forOwn(Handsfree.prototype.plugins, (config, name) => {
+      if (!config.disabled) {
+        config.onInit && config.onInit.call(this)
+        config.onStart && setTimeout(() => {config.onStart.call(this)}, 0)
+      }
+    })
   }
 
   /**

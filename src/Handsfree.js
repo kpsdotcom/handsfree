@@ -57,8 +57,8 @@ class Handsfree {
       // "Sanitize" constructor input
       this.update(opts)
 
-      // Possibly autostart
-      this.settings.autostart && this.start()
+      // Possibly autostart after plugins have been loaded
+      this.settings.autostart && setTimeout(() => {this.start()}, 0)
     }
   }
 
@@ -126,6 +126,8 @@ class Handsfree {
       // Set body classes
       document.body.classList.remove('handsfree-is-stopped')
       document.body.classList.add('handsfree-is-started')
+
+      this.startPlugins.call(this)
     }
   }
 

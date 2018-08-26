@@ -16,7 +16,9 @@ This method accepts a `config` object with the following signature:
   priority: 0,
   // {Function} Called on every frame
   callback () {},
-  // {Function} Called when handsfree.start() is called, or when the plugin is first initialized
+  // {Function} Called once the first time handsfree.start() is called while this plugin is enabled
+  onInit () {},
+  // {Function} Called when handsfree.start() is called
   onStart () {},
   // {Function} Called when handsfree.stop() is called
   onStop () {}
@@ -35,7 +37,11 @@ During each frame, the `callback` is called for each tracked pose with the follo
 }
 ```
 
-Additionally the `onStart` and `onStop` callbacks are called when `handsfree.start()` or `handsfree.stop()` are called. `onStart` is also called when the plugin is first initialized via `handsfree.use()` if `autostart` is true.
+Additionally the `onInit`, `onStart`, and `onStop` callbacks are called when `handsfree.start()` or `handsfree.stop()` are called while the plugin is enabled. `onInit` is also called once when `handsfree.start()`.
+
+::: tip 🐵 `onInit` vs `onStart`
+These methods are called whenever `handsfree.start()` is called _or_ after instantiating `HandsfreeModule` with `{autostart: true}` (which calls `handsfree.start()` behind the scenes).
+:::
 
 ::: warning 🙉 Plugin Deep Dive
 The rest of this document breaks down a few simple plugins to help you understand how the different properties and callbacks work.

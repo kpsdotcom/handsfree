@@ -13,7 +13,11 @@ module.exports = function (Handsfree) {
      * Setup the control panel
      */
     onStart: () => {
-      console.log('yo');
+      console.log('start');
+    },
+
+    onInit: () => {
+      console.log('init');
     }
   })
 }
