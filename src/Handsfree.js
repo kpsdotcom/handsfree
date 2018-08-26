@@ -12,6 +12,7 @@
 require('./polyfills')
 const merge = require('lodash/merge')
 const PoseNet = require('@tensorflow-models/posenet')
+let HandsfreeModuleInstances = []
 
 class Handsfree {
   /**
@@ -24,6 +25,11 @@ class Handsfree {
    * @param {Object} [opts={}] Constructor settings, @see /wiki/settings.md
    */
   constructor (opts = {}) {
+    /**
+     * Cache this instance
+     */
+    HandsfreeModuleInstances.push(this)
+
     /**
      * Whether we're tracking or not.
      *
@@ -151,6 +157,26 @@ class Handsfree {
       // Stop running plugins. Deferred to run after final frame
       this.stopPlugins()
     }
+  }
+
+  /**
+   * Turns the webcam on if off and vice versa
+   */
+  toggle () {
+    if (this._isTracking)
+      this.stop()
+    else
+      this.start()
+  }
+
+  /**
+   * Toggles all instances
+   */
+  toggleAll () {
+    console.log('toggleAll');
+    HandsfreeModuleInstances.forEach((instance) => {
+      this.toggle.call(instance)
+    })
   }
 
   /**

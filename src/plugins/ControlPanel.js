@@ -5,20 +5,20 @@ const control = require('control-panel')
 let panel
 
 module.exports = function (Handsfree) {
+  /**
+   * Create the plugin
+   */
   Handsfree.prototype.use({
     name: 'ControlPanel',
     priority: 100,
     disabled: false,
 
     /**
-     * Setup the control panel
+     * Setup the panel
      */
-    onStart: () => {
-    },
-
-    onLoad: () => {
+    onLoad: function () {
       panel = control([
-        {label: 'Toggle', type: 'button'}
+        {label: 'Toggle', type: 'button', action () { Handsfree.prototype.toggleAll() }}
       ], {
         title: 'Handsfree.js',
         theme: 'light',
