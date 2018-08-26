@@ -13,6 +13,7 @@ require('./polyfills')
 const merge = require('lodash/merge')
 const PoseNet = require('@tensorflow-models/posenet')
 let HandsfreeModuleInstances = []
+window.HandsfreeModuleInstances = HandsfreeModuleInstances
 
 class Handsfree {
   /**

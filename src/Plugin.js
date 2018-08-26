@@ -39,7 +39,11 @@ module.exports = function (Handsfree) {
     Handsfree.prototype.plugins[config.name] = config
 
     // Run the onUse method
-    !config.disabled && config.onLoad && config.onLoad.call(this)
+    setTimeout(() => {
+      window.HandsfreeModuleInstances.forEach((instance) => {
+        !config.disabled && config.onLoad && config.onLoad.call(instance)
+      })
+    })
   }
 
   /**
