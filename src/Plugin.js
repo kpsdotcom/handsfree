@@ -86,5 +86,4 @@ module.exports = function (Handsfree) {
    * Load built in plugins
    */
   require('./plugins/BasicPointer.js')(Handsfree)
-  require('./plugins/ControlPanel.js')(Handsfree)
 }

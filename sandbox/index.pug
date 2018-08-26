@@ -1,21 +1,15 @@
-//- 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
-//- 🚨🚨🚨 DO NOT COMMIT CHANGES TO THIS FILE 🚨🚨🚨
-//- 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
-//- 🐵 Instead, use this file while you develop the module.
-//- Thanks!
-//- -- Ozzy @labofoz
 head
-  link(rel='icon' type='image/png' href='../assets/logo-ooh-ooh.png')
+  link(rel='icon' type='image/png' href='../assets/logo-pre-aah-aah.png')
 
 .container
   .columns
     .column.col-12
       h1
         a.mr-2(href="https://twitter.com/labofoz")
-          img(src='assets/logo-ooh-ooh.png' height=80)
+          img(src='assets/logo-pre-aah-aah.png' height=80)
         | Handsfree.js
       p
-        button.btn.btn-primary.mr-2(onclick='handsfree.start()') Start
+        button.btn.btn-primary.mr-2(onclick='handsfree.toggle()') Toggle
         button.btn.btn-primary(onclick='updateTarget()') Move Target
 
   .columns

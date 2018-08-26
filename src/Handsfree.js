@@ -173,7 +173,6 @@ class Handsfree {
    * Toggles all instances
    */
   toggleAll () {
-    console.log('toggleAll');
     HandsfreeModuleInstances.forEach((instance) => {
       this.toggle.call(instance)
     })
@@ -193,6 +192,7 @@ class Handsfree {
     } else {
       this.constructor.setDefaults.call(this, opts)
       this.constructor.setAliases.call(this)
+      this.constructor.setupGUI.call(this)
     }
   }
 
@@ -228,6 +228,7 @@ require('./calculations/Z')(Handsfree)
 require('./Mixins')(Handsfree)
 require('./Helpers')(Handsfree)
 require('./Plugin')(Handsfree)
+require('./Settings')(Handsfree)
 
 // Remember: to kick things off you'll want to instantiate this with `new`
 module.exports = Handsfree
