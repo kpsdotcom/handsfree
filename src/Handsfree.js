@@ -3,11 +3,6 @@
  *
  * This file contains all the "onboarding methods"; a glance at these methods
  * should give you a general understanding for how the app works!
- *
- * @NOTE: My personal convention for bullet points is:
- * [] Describes what this method *will do* 🤔 (todo's)
- * [-] Describes what this method *should be doing* 🤷 (needs testing)
- * - Describes what this method *does* 🏆 (tested)
  */
 require('./polyfills')
 const merge = require('lodash/merge')
@@ -21,13 +16,13 @@ class Handsfree {
    * - Fails if getUserMedia is not supported
    * - Sanitizes settings and sets sane defaults
    * - Autostarts if settings.autostart
-   * [] Creates the custom window event
    *
    * @param {Object} [opts={}] Constructor settings, @see /wiki/settings.md
    */
   constructor (opts = {}) {
     /**
      * Cache this instance
+     * - Accessible with window.HandsfreeModuleInstances
      */
     HandsfreeModuleInstances.push(this)
 
@@ -53,8 +48,6 @@ class Handsfree {
     this._isSupported = false
 
     // Error out when webcams are not supported
-    // @TODO Is there a better way handle this error?
-    // @SEE https://github.com/LabOfOz/Handsfree/issues/15
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !this.isWebGLSupported()) {
       throw new Error('ERROR: This browser does not support webcams, please try another browser...like Google Chrome!')
     } else {
@@ -123,7 +116,7 @@ class Handsfree {
    * [ ] Adds a `handsfree-is-started` to the body
    */
   start () {
-    if (!this._isTracking) {
+    if (!this._isTracking && this.settings) {
       if (this.settings.debug) this.settings.target.style.display = 'inherit'
       this._isTracking = true
       this.constructor.setupFeed.call(this)
