@@ -37,7 +37,7 @@ it('Autostarts if settings.autostart', () => {
   expect(handsfree._isTracking).toEqual(false)
 
   handsfree = new Handsfree({autostart: true})
-  setTimeout(() => {expect(handsfree._isTracking).toEqual(true)}, 0)
+  expect(handsfree.settings.autostart).toEqual(true)
 })
 
 /**

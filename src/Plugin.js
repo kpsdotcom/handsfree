@@ -33,12 +33,13 @@ module.exports = function (Handsfree) {
       if (typeof config.name === 'undefined') throw 'Plugin is missing a name'
     } catch (err) {
       console.error(`Handsfree Plugin Error [${config.name}.js]: ` + err)
+      return
     }
 
     // Add the plugin to the queue
     Handsfree.prototype.plugins[config.name] = config
 
-    // Run the onUse method
+    // Run the onLoad method
     setTimeout(() => {
       window.HandsfreeModuleInstances.forEach((instance) => {
         !config.disabled && config.onLoad && config.onLoad.call(instance)

@@ -18,10 +18,45 @@ STUBS.WebGL.support()
 /**
  * Handsfree.runPlugins
  */
-it('Run plugins', () => {
+it('Can run plugins', () => {
   handsfree = new Handsfree()
   handsfree.poses = STUBS.data.posenet.pose.single
   Handsfree.prototype.plugins.BasicPointer.callback = jest.fn()
   handsfree.start()
   expect(Handsfree.prototype.plugins.BasicPointer.callback).toHaveBeenCalled()
+})
+
+/**
+ * Handsfree.use
+ */
+it('Can not create nameless plugins', () => {
+  handsfree = new Handsfree()
+  let oldPluginCount = Handsfree.prototype.plugins.length
+  let newPluginCount
+
+  // We're purposefully failing, so lets disable that in test console
+  let oldConsoleErr = console.error
+  console.error = jest.fn()
+
+  handsfree.use({})
+  newPluginCount = Handsfree.prototype.plugins.length
+  expect(oldPluginCount).toEqual(newPluginCount)
+
+  // Re-enable console.error
+  console.error = oldConsoleErr
+})
+
+it('Can run plugin onLoad', (done) => {
+  handsfree = new Handsfree()
+  let config = {
+    name: 'testPlugin',
+    onLoad: jest.fn()
+  }
+
+  window.HandsfreeModuleInstances = [handsfree]
+  handsfree.use(config)
+  setTimeout(() => {
+    expect(config.onLoad).toHaveBeenCalled()
+    done()
+  })
 })

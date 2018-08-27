@@ -58,7 +58,7 @@ class Handsfree {
       this.update(opts)
 
       // Possibly autostart after plugins have been loaded
-      this.settings.autostart && setTimeout(() => {this.start()}, 0)
+      this.settings.autostart && setTimeout(() => {this.start()})
     }
   }
 
