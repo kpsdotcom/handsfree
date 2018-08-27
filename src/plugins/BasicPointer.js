@@ -3,22 +3,20 @@
  */
 module.exports = function (Handsfree) {
   const $pointer = document.createElement('div')
-  const pointerSize = 20
+  const settings = {
+    pointerSize: 20,
+    sensitivity: 1,
+    background: [255, 0, 0],
+    borderColor: [255, 255, 255],
+    opacity: 0.8
+  }
 
   // Add pointer styles
   $pointer.classList.add('handsfree-basic-pointer')
-  $pointer.style.width = `${pointerSize}px`
-  $pointer.style.height = `${pointerSize}px`
   $pointer.style.left = '-100px'
   $pointer.style.top = '-100px'
-  $pointer.style.background = 'rgba(200, 0, 0, 0.7)'
-  $pointer.style.border = '3px solid rgba(200, 200, 0, 0.9)'
   $pointer.style.position = 'fixed'
-  $pointer.style.marginLeft = `${pointerSize / -2}px`
-  $pointer.style.marginTop = `${pointerSize / -2}px`
-  $pointer.style.borderRadius = `${pointerSize / 2 + 6}px`
   $pointer.style.zIndex = 99999999
-
   document.body.appendChild($pointer)
 
   /**
@@ -32,17 +30,44 @@ module.exports = function (Handsfree) {
     /**
      * Position the cursor
      */
-    callback: ({x, y}) => {
-      $pointer.style.left = `${x}px`
-      $pointer.style.top = `${y}px`
+    callback ({x, y}) {
+      $pointer.style.left = `${x * settings.sensitivity}px`
+      $pointer.style.top = `${y * settings.sensitivity}px`
     },
 
     /**
      * "Hide" the cursor
      */
-    onStop: () => {
+    onStop () {
       $pointer.style.left = '-100px'
       $pointer.style.top = '-100px'
+    },
+
+    /**
+     * Add UI components
+     */
+    onLoad () {
+      const folder = this.gui.addFolder('Basic Pointer')
+      folder.add(settings, 'pointerSize', 5, 100).onChange(updateStyles)
+      folder.add(settings, 'sensitivity', 0.001, 4)
+      folder.addColor(settings, 'background').onChange(updateStyles)
+      folder.addColor(settings, 'borderColor').onChange(updateStyles)
+      folder.add(settings, 'opacity', 0, 1).onChange(updateStyles)
     }
   })
+
+  /**
+   * Update styles
+   */
+  const updateStyles = function () {
+    $pointer.style.width = `${settings.pointerSize}px`
+    $pointer.style.height = `${settings.pointerSize}px`
+    $pointer.style.marginLeft = `${settings.pointerSize / -2}px`
+    $pointer.style.marginTop = `${settings.pointerSize / -2}px`
+    $pointer.style.borderRadius = `${settings.pointerSize / 2 + 6}px`
+    $pointer.style.background = `rgb(${settings.background[0]}, ${settings.background[1]}, ${settings.background[2]})`
+    $pointer.style.border = `2px solid rgb(${settings.borderColor[0]}, ${settings.borderColor[1]}, ${settings.borderColor[2]})`
+    $pointer.style.opacity = settings.opacity
+  }
+  updateStyles()
 }

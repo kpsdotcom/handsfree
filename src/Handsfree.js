@@ -3,15 +3,12 @@
  *
  * This file contains all the "onboarding methods"; a glance at these methods
  * should give you a general understanding for how the app works!
- *
- * @NOTE: My personal convention for bullet points is:
- * [] Describes what this method *will do* 🤔 (todo's)
- * [-] Describes what this method *should be doing* 🤷 (needs testing)
- * - Describes what this method *does* 🏆 (tested)
  */
 require('./polyfills')
 const merge = require('lodash/merge')
 const PoseNet = require('@tensorflow-models/posenet')
+let HandsfreeModuleInstances = []
+window.HandsfreeModuleInstances = HandsfreeModuleInstances
 
 class Handsfree {
   /**
@@ -19,11 +16,16 @@ class Handsfree {
    * - Fails if getUserMedia is not supported
    * - Sanitizes settings and sets sane defaults
    * - Autostarts if settings.autostart
-   * [] Creates the custom window event
    *
    * @param {Object} [opts={}] Constructor settings, @see /wiki/settings.md
    */
   constructor (opts = {}) {
+    /**
+     * Cache this instance
+     * - Accessible with window.HandsfreeModuleInstances
+     */
+    HandsfreeModuleInstances.push(this)
+
     /**
      * Whether we're tracking or not.
      *
@@ -46,8 +48,6 @@ class Handsfree {
     this._isSupported = false
 
     // Error out when webcams are not supported
-    // @TODO Is there a better way handle this error?
-    // @SEE https://github.com/LabOfOz/Handsfree/issues/15
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !this.isWebGLSupported()) {
       throw new Error('ERROR: This browser does not support webcams, please try another browser...like Google Chrome!')
     } else {
@@ -57,8 +57,8 @@ class Handsfree {
       // "Sanitize" constructor input
       this.update(opts)
 
-      // Possibly autostart
-      this.settings.autostart && this.start()
+      // Possibly autostart after plugins have been loaded
+      this.settings.autostart && setTimeout(() => {this.start()})
     }
   }
 
@@ -116,7 +116,7 @@ class Handsfree {
    * [ ] Adds a `handsfree-is-started` to the body
    */
   start () {
-    if (!this._isTracking) {
+    if (!this._isTracking && this.settings) {
       if (this.settings.debug) this.settings.target.style.display = 'inherit'
       this._isTracking = true
       this.constructor.setupFeed.call(this)
@@ -126,6 +126,8 @@ class Handsfree {
       // Set body classes
       document.body.classList.remove('handsfree-is-stopped')
       document.body.classList.add('handsfree-is-started')
+
+      this.startPlugins.call(this)
     }
   }
 
@@ -152,6 +154,25 @@ class Handsfree {
   }
 
   /**
+   * Turns the webcam on if off and vice versa
+   */
+  toggle () {
+    if (this._isTracking)
+      this.stop()
+    else
+      this.start()
+  }
+
+  /**
+   * Toggles all instances
+   */
+  toggleAll () {
+    HandsfreeModuleInstances.forEach((instance) => {
+      this.toggle.call(instance)
+    })
+  }
+
+  /**
    * Updates this.settings with new ones
    * - Can update settings
    *
@@ -165,6 +186,7 @@ class Handsfree {
     } else {
       this.constructor.setDefaults.call(this, opts)
       this.constructor.setAliases.call(this)
+      this.constructor.setupGUI.call(this)
     }
   }
 
@@ -200,6 +222,7 @@ require('./calculations/Z')(Handsfree)
 require('./Mixins')(Handsfree)
 require('./Helpers')(Handsfree)
 require('./Plugin')(Handsfree)
+require('./Settings')(Handsfree)
 
 // Remember: to kick things off you'll want to instantiate this with `new`
 module.exports = Handsfree

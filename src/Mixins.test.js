@@ -6,25 +6,8 @@ const STUBS = require('../mock/jest-polyfills')
 const Handsfree = require('./Handsfree')
 let handsfree = null
 
-/**
- * Handsfree.setDefaults
- */
-it('Sets defaults to the missing constructor settings', () => {
-  STUBS.mediaDevices.support()
-  STUBS.WebGL.support()
-  handsfree = new Handsfree()
-
-  handsfree.constructor.setDefaults.call(handsfree)
-  expect(handsfree.canvas && handsfree.video).toBeTruthy()
-
-  const $wrap = document.createElement('div')
-  $wrap.setAttribute('id', 'handsfree-debug')
-  document.body.appendChild($wrap)
-  handsfree.update({target: $wrap})
-
-  handsfree.constructor.setDefaults.call(handsfree)
-  expect(handsfree.canvas && handsfree.video).toBeTruthy()
-})
+STUBS.mediaDevices.support()
+STUBS.WebGL.support()
 
 /**
  * Handsfree.setAliases

@@ -37,7 +37,7 @@ it('Autostarts if settings.autostart', () => {
   expect(handsfree._isTracking).toEqual(false)
 
   handsfree = new Handsfree({autostart: true})
-  expect(handsfree._isTracking).toEqual(true)
+  expect(handsfree.settings.autostart).toEqual(true)
 })
 
 /**
@@ -157,8 +157,23 @@ it('Can run calculations and emmit events', () => {
   handsfree.calculateZ = jest.fn()
   handsfree.emitEvents = jest.fn()
 
+  handsfree._isTracking = true
+  Handsfree.prototype.runPlugins = jest.fn()
+
   handsfree.runCalculations()
   expect(handsfree.calculateXY).toHaveBeenCalled()
   expect(handsfree.calculateZ).toHaveBeenCalled()
   expect(handsfree.emitEvents).toHaveBeenCalled()
+  expect(Handsfree.prototype.runPlugins).toHaveBeenCalled()
+})
+
+/**
+ * Handsfree.toggleAll
+ */
+it('Can toggle all instances', () => {
+  handsfree = new Handsfree()
+  handsfree.toggleAll()
+  expect(handsfree._isTracking).toBeTruthy()
+  handsfree.toggleAll()
+  expect(handsfree._isTracking).toBeFalsy()
 })
