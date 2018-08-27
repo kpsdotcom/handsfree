@@ -38,13 +38,6 @@ module.exports = function (Handsfree) {
 
     // Add the plugin to the queue
     Handsfree.prototype.plugins[config.name] = config
-
-    // Run the onLoad method
-    setTimeout(() => {
-      window.HandsfreeModuleInstances.forEach((instance) => {
-        !config.disabled && config.onLoad && config.onLoad.call(instance)
-      })
-    })
   }
 
   /**
