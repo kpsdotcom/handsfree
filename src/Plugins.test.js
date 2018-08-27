@@ -23,7 +23,10 @@ it('Can run plugins', (done) => {
   handsfree.poses = STUBS.data.posenet.pose.single
   Handsfree.prototype.plugins.BasicPointer.callback = jest.fn()
   handsfree.start()
-  expect(Handsfree.prototype.plugins.BasicPointer.callback).toHaveBeenCalled()
+  setTimeout(() => {
+    expect(Handsfree.prototype.plugins.BasicPointer.callback).toHaveBeenCalled()
+    done()
+  })
 })
 
 /**
