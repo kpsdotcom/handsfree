@@ -82,7 +82,7 @@ module.exports = function (Handsfree) {
     forOwn(Handsfree.prototype.plugins, (config, name) => {
       if (!config.disabled) {
         config.onInit && config.onInit.call(this)
-        config.onStart && setTimeout(() => {config.onStart.call(this)}, 0)
+        config.onStart && setTimeout(() => {config.onStart.call(this)})
       }
     })
   }

@@ -18,7 +18,7 @@ STUBS.WebGL.support()
 /**
  * Handsfree.runPlugins
  */
-it('Can run plugins', () => {
+it('Can run plugins', (done) => {
   handsfree = new Handsfree()
   handsfree.poses = STUBS.data.posenet.pose.single
   Handsfree.prototype.plugins.BasicPointer.callback = jest.fn()
@@ -27,9 +27,24 @@ it('Can run plugins', () => {
 })
 
 /**
+ * Handsfree.startPlugins
+ */
+it('Can start plugins and run onStart', (done) => {
+  handsfree = new Handsfree()
+  handsfree.poses = STUBS.data.posenet.pose.single
+  Handsfree.prototype.plugins.BasicPointer.onStart = jest.fn()
+  handsfree.start()
+
+  setTimeout(() => {
+    expect(Handsfree.prototype.plugins.BasicPointer.onStart).toHaveBeenCalled()
+    done()
+  })
+})
+
+/**
  * Handsfree.use
  */
-it('Can not create nameless plugins', () => {
+it('Cannot create nameless plugins', () => {
   handsfree = new Handsfree()
   let oldPluginCount = Handsfree.prototype.plugins.length
   let newPluginCount
@@ -59,4 +74,27 @@ it('Can run plugin onLoad', (done) => {
     expect(config.onLoad).toHaveBeenCalled()
     done()
   })
+})
+
+it('Can run plugin onInit', (done) => {
+  handsfree = new Handsfree()
+  let config = {
+    name: 'testPlugin',
+    onInit: jest.fn()
+  }
+
+  handsfree.use(config)
+  setTimeout(() => {
+    expect(config.onInit).toEqual(expect.any(Function))
+    done()
+  })
+})
+
+it('Cannot run disabled plugins', () => {
+  handsfree = new Handsfree()
+  handsfree.poses = STUBS.data.posenet.pose.single
+  Handsfree.prototype.plugins.BasicPointer.callback = jest.fn()
+  Handsfree.prototype.plugins.BasicPointer.disabled = true
+  handsfree.start()
+  expect(Handsfree.prototype.plugins.BasicPointer.callback).not.toHaveBeenCalled()
 })
