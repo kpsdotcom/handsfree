@@ -7,7 +7,7 @@ The following can be demoed by adjusting the settings in the settings panel!
 :::
 
 ## {posenet: {imageScaleFactor: INTEGER}}
-**Default:** `0.5`
+**Default:** `0.2`
 
 A number between 0.2 and 1.0 representing what to scale the image by before feeding it through the network. Set this number lower to scale down the image and increase the speed when feeding through the network at the cost of accuracy.
 
