@@ -14,7 +14,8 @@ module.exports = {
     nav: [
       {text: 'Guide', link: '/guide/'},
       {text: 'Settings', link: '/settings/'},
-      {text: 'Twitter', link: 'https://twitter.com/labofoz'}
+      {text: 'Twitter', link: 'https://twitter.com/labofoz'},
+      {text: 'Patreon', link: 'https://patreon.com/labofoz'}
     ],
 
     repo: 'handsfreejs/handsfree',
