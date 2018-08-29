@@ -20,7 +20,7 @@ it('Sets defaults to the missing constructor settings', () => {
   STUBS.WebGL.support()
   handsfree = new Handsfree()
 
-  handsfree.constructor.setDefaults.call(handsfree)
+  Handsfree.setDefaults.call(handsfree)
   expect(handsfree.canvas && handsfree.video).toBeTruthy()
 
   const $wrap = document.createElement('div')
@@ -28,7 +28,7 @@ it('Sets defaults to the missing constructor settings', () => {
   document.body.appendChild($wrap)
   handsfree.update({target: $wrap})
 
-  handsfree.constructor.setDefaults.call(handsfree)
+  Handsfree.setDefaults.call(handsfree)
   expect(handsfree.canvas && handsfree.video).toBeTruthy()
 })
 

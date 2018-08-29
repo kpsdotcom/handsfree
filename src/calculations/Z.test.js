@@ -14,7 +14,7 @@ test('Entry point for calculating the depth (distance away from camera)', () => 
 
   handsfree = new Handsfree()
   handsfree.poses = STUBS.data.posenet.pose.single
-  handsfree.constructor.setupFeed.call(handsfree)
+  Handsfree.setupFeed.call(handsfree)
   handsfree.poses[0].pointedAt = {}
   handsfree.calculateZ()
 

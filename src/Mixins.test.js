@@ -18,7 +18,7 @@ it('Applies aliases to common settings. Feel free to add your own in here', () =
   handsfree.settings.canvas = 2
   handsfree.settings.debug = 3
 
-  handsfree.constructor.setAliases.call(handsfree)
+  Handsfree.setAliases.call(handsfree)
   expect(handsfree.video).toBe(handsfree.settings.video)
   expect(handsfree.canvas).toBe(handsfree.settings.canvas)
 })
@@ -28,11 +28,11 @@ it('Applies aliases to common settings. Feel free to add your own in here', () =
  */
 it('Sets up the webcam and stream', async () => {
   handsfree = new Handsfree()
-  handsfree.constructor.isMobile = jest.fn(() => true)
+  Handsfree.isMobile = jest.fn(() => true)
 
   handsfree.video.play = jest.fn()
   handsfree.video.srcObject = null
-  await handsfree.constructor.setupFeed.call(handsfree)
+  await Handsfree.setupFeed.call(handsfree)
 
   expect(handsfree.video.play).toHaveBeenCalled()
   expect(handsfree.video.srcObject).toBeTruthy()
@@ -46,11 +46,11 @@ it('Initializes PoseNet and starts the tracking loop', async () => {
   handsfree = new Handsfree()
 
   handsfree.posenet = false
-  await handsfree.constructor.initPoseNet.call(handsfree)
+  await Handsfree.initPoseNet.call(handsfree)
   expect(handsfree.posenet).toBeUndefined()
 
   handsfree.posenet = true
-  await handsfree.constructor.initPoseNet.call(handsfree)
+  await Handsfree.initPoseNet.call(handsfree)
   expect(typeof handsfree.posenet === 'boolean').toBeTruthy()
 })
 
@@ -65,7 +65,7 @@ it('This method is recursive, once called it continues until after !_isTracking'
 
   handsfree.posenet = {}
   handsfree.poses = STUBS.data.posenet.pose.single
-  handsfree.constructor.trackPosesLoop.call(Handsfree, handsfree)
+  Handsfree.trackPosesLoop.call(Handsfree, handsfree)
 
   expect(handsfree.trackPoses).toHaveBeenCalled()
   expect(handsfree.runCalculations).toHaveBeenCalled()

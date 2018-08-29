@@ -76,17 +76,17 @@ it('Automatically adjusts algorithm to match "single" or "multiple mode"', () =>
 it('Draws skeletons and keypoints', () => {
   handsfree = new Handsfree({debug: true})
 
-  handsfree.constructor.drawSkeleton = jest.fn()
-  handsfree.constructor.drawKeypoints = jest.fn()
+  Handsfree.drawSkeleton = jest.fn()
+  Handsfree.drawKeypoints = jest.fn()
 
   handsfree.trackPoses(STUBS.data.posenet.pose.single)
-  expect(handsfree.constructor.drawSkeleton).toHaveBeenCalledTimes(1)
-  expect(handsfree.constructor.drawKeypoints).toHaveBeenCalledTimes(1)
+  expect(Handsfree.drawSkeleton).toHaveBeenCalledTimes(1)
+  expect(Handsfree.drawKeypoints).toHaveBeenCalledTimes(1)
 
   handsfree.settings.posenet.minPoseConfidence = 1
   handsfree.trackPoses(STUBS.data.posenet.pose.single)
-  expect(handsfree.constructor.drawSkeleton).toHaveBeenCalledTimes(1)
-  expect(handsfree.constructor.drawKeypoints).toHaveBeenCalledTimes(1)
+  expect(Handsfree.drawSkeleton).toHaveBeenCalledTimes(1)
+  expect(Handsfree.drawKeypoints).toHaveBeenCalledTimes(1)
 })
 
 /**
@@ -96,16 +96,16 @@ it('Starts tracking poses', () => {
   handsfree = new Handsfree({debug: true})
   document.body.classList =''
 
-  handsfree.constructor.setupFeed = jest.fn()
-  handsfree.constructor.initPoseNet = jest.fn()
-  handsfree.constructor.trackPosesLoop = jest.fn()
+  Handsfree.setupFeed = jest.fn()
+  Handsfree.initPoseNet = jest.fn()
+  Handsfree.trackPosesLoop = jest.fn()
 
   expect(document.body.classList.contains('handsfree-is-started')).toBeFalsy()
   expect(document.body.classList.contains('handsfree-is-stopped')).toBeFalsy()
   handsfree.start()
   handsfree.start()
   handsfree.start()
-  expect(handsfree.constructor.trackPosesLoop).toHaveBeenCalledTimes(1)
+  expect(Handsfree.trackPosesLoop).toHaveBeenCalledTimes(1)
   expect(document.body.classList.contains('handsfree-is-started')).toBeTruthy()
   expect(document.body.classList.contains('handsfree-is-stopped')).toBeFalsy()
 })
@@ -117,9 +117,9 @@ it('Stops tracking poses', () => {
   handsfree = new Handsfree()
   document.body.classList =''
 
-  handsfree.constructor.setupFeed = jest.fn()
-  handsfree.constructor.initPoseNet = jest.fn()
-  handsfree.constructor.trackPosesLoop = jest.fn()
+  Handsfree.setupFeed = jest.fn()
+  Handsfree.initPoseNet = jest.fn()
+  Handsfree.trackPosesLoop = jest.fn()
 
   expect(document.body.classList.contains('handsfree-is-started')).toBeFalsy()
   expect(document.body.classList.contains('handsfree-is-stopped')).toBeFalsy()

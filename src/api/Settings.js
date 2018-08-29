@@ -31,13 +31,13 @@ module.exports = function (Handsfree) {
     opts.target.style.display = 'none'
 
     // Setup the video element
-    const video = opts.video || this.constructor.createDefaultVideo(opts.target)
+    const video = opts.video || Handsfree.createDefaultVideo(opts.target)
     this.initsettings = opts
 
     // Setup defaults
     this.settings = merge({
       autostart: false,
-      canvas: this.constructor.createDefaultCanvas(opts.target),
+      canvas: Handsfree.createDefaultCanvas(opts.target),
       debug: false,
       facingMode: 'user',
       poseStackSize: 8,

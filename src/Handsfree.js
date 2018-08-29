@@ -49,7 +49,7 @@ class Handsfree {
     this._isSupported = false
 
     // Error out when webcams are not supported
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !this.constructor.isWebGLSupported()) {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !Handsfree.isWebGLSupported()) {
       throw new Error('ERROR: This browser does not support webcams, please try another browser...like Google Chrome!')
     } else {
       // We know the browser has full support now
@@ -108,8 +108,8 @@ class Handsfree {
       if (score >= this.settings.posenet.minPoseConfidence) {
         const adjacentKeypoints = PoseNet.getAdjacentKeyPoints(keypoints, this.settings.posenet.minPartConfidence, context)
 
-        this.constructor.drawSkeleton(adjacentKeypoints, context)
-        this.constructor.drawKeypoints(keypoints, this.settings.posenet.minPartConfidence, context)
+        Handsfree.drawSkeleton(adjacentKeypoints, context)
+        Handsfree.drawKeypoints(keypoints, this.settings.posenet.minPartConfidence, context)
       }
     })
   }
@@ -125,9 +125,9 @@ class Handsfree {
     if (!this._isTracking && this.settings) {
       if (this.settings.debug) this.settings.target.style.display = 'inherit'
       this._isTracking = true
-      this.constructor.setupFeed.call(this)
-      this.constructor.initPoseNet.call(this)
-      this.constructor.trackPosesLoop(this)
+      Handsfree.setupFeed.call(this)
+      Handsfree.initPoseNet.call(this)
+      Handsfree.trackPosesLoop(this)
 
       // Set body classes
       document.body.classList.remove('handsfree-is-stopped')
@@ -190,9 +190,9 @@ class Handsfree {
       this.settings = merge(this.settings, opts)
       opts.target && this.updateTarget.call(this, opts.target, oldTarget)
     } else {
-      this.constructor.setDefaults.call(this, opts)
-      this.constructor.setAliases.call(this)
-      this.constructor.setupGUI.call(this)
+      Handsfree.setDefaults.call(this, opts)
+      Handsfree.setAliases.call(this)
+      Handsfree.setupGUI.call(this)
     }
   }
 
