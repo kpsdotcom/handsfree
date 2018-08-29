@@ -44,6 +44,7 @@ module.exports = function (Handsfree) {
       posenet: {
         multiplier: 0.75,
         maxUsers: 1,
+        imageScaleFactor: 0.5,
         minPoseConfidence: 0.1,
         minPartConfidence: 0.5,
         outputStride: 16,
