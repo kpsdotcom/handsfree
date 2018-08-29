@@ -152,7 +152,3 @@ handsfree.use({
 You should now be able to scroll the page! Try experimenting with disabling the `BasicPlugin` as well. What you should notice is that while the cursor disappears, you're still able to scroll the page.
 
 This is because these are two separate plugins working off of the same underlying data.
-
-## Removing Functionality
-
-To delete a plugin, simply delete the property, like `delete handsfree.plugins[name]`. Deleting a plugin removes it completely, and so it's probably better to disable the plugin instead.
