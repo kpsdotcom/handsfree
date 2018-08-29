@@ -8,8 +8,8 @@
   testing though, so we'll absolutely want to test that considering inference
   depends on that!
 */
-const STUBS = require('../mock/jest-polyfills')
-const Handsfree = require('./Handsfree')
+const STUBS = require('../../mock/jest-polyfills')
+const Handsfree = require('../Handsfree')
 let handsfree = null
 
 /**

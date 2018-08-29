@@ -5,8 +5,8 @@
   - Take care to properly test async methods with awaits, otherwise you may be
     doing edge-case things like checking the truthyness on a Promise object
 */
-const STUBS = require('../mock/jest-polyfills')
-const Handsfree = require('./Handsfree')
+const STUBS = require('../../mock/jest-polyfills')
+const Handsfree = require('../Handsfree')
 let handsfree = null
 
 STUBS.mediaDevices.support()
