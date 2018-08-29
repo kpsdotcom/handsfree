@@ -119,7 +119,7 @@ class Handsfree {
    * - If this.settings.autostart is false, then you can manually start it
    *    later with this
    * - A check is made internally so that only one process is ever running
-   * [ ] Adds a `handsfree-is-started` to the body
+   * - Adds a `handsfree-is-started` to the body
    */
   start () {
     if (!this._isTracking && this.settings) {
@@ -227,8 +227,8 @@ require('./calculations/XY')(Handsfree)
 require('./calculations/Z')(Handsfree)
 require('./Mixins')(Handsfree)
 require('./Helpers')(Handsfree)
-require('./Plugin')(Handsfree)
-require('./Settings')(Handsfree)
+require('./api/Plugin')(Handsfree)
+require('./api/Settings')(Handsfree)
 
 // Remember: to kick things off you'll want to instantiate this with `new`
 module.exports = Handsfree

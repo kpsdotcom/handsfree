@@ -44,7 +44,7 @@ module.exports = function (Handsfree) {
       posenet: {
         multiplier: 0.75,
         maxUsers: 1,
-        imageScaleFactor: 0.2,
+        imageScaleFactor: 0.4,
         minPoseConfidence: 0.1,
         minPartConfidence: 0.5,
         outputStride: 16,
@@ -76,5 +76,7 @@ module.exports = function (Handsfree) {
     folder.add(this.settings.posenet, 'minPartConfidence', 0.1, 1.0)
     folder.add(this.settings.posenet, 'minPoseConfidence', 0.1, 1.0)
     folder.add(this.settings.posenet, 'nmsRadius', 10, 100)
+
+    this.gui.domElement.style.display = 'none'
   }
 }

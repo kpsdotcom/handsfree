@@ -84,9 +84,7 @@ module.exports = function (Handsfree) {
   }
 
   /**
-   * @TODO Updates the debug target
-   * [-] Moves the target if it exists
-   * [-] Recreates the target if it doesn't
+   * Updates the debug target
    *
    * @param {DOM} newTarget The new target
    * @param {DOM} oldTarget The new target
