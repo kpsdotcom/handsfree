@@ -227,6 +227,7 @@ require('./calculations/XY')(Handsfree)
 require('./calculations/Z')(Handsfree)
 require('./Mixins')(Handsfree)
 require('./Helpers')(Handsfree)
+require('./api/Debug')(Handsfree)
 require('./api/Plugin')(Handsfree)
 require('./api/Settings')(Handsfree)
 
