@@ -27,15 +27,20 @@ yarn              # and `yarn --only=dev` if you have global NODE_ENV=production
 # or npm
 npm install
 
-# Working on the module
-yarn dev          # Development mode with stylus, templates, and hot-reload on localhost:8080
-yarn build        # Build into /dist/
-yarn test         # Run unit tests
+# Working with both the dev (localhost:8080) and docs (localhost:8081)
+yarn dev
+yarn build
 
-# Working on the docs
+# Working on the module (localhost:8080)
+yarn lib:dev          # Development mode with stylus, templates, and hot-reload on localhost:8080
+yarn lib:build        # Build into /dist/
+
+# Working on the docs (localhost:8081)
 yarn docs:dev     # Work on the docs in development mode with hotreload
 yarn docs:build   # Build the docs
-yarn docs:build   # Build and deploy docs
+yarn docs:deploy   # Build and deploy docs
+
+yarn test         # Run unit tests
 ```
 
 ## Development
