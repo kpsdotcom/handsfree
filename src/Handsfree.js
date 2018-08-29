@@ -6,6 +6,7 @@
  */
 require('./polyfills')
 const merge = require('lodash/merge')
+const forEach = require('lodash/forEach')
 const PoseNet = require('@tensorflow-models/posenet')
 let HandsfreeModuleInstances = []
 window.HandsfreeModuleInstances = HandsfreeModuleInstances
@@ -56,6 +57,11 @@ class Handsfree {
 
       // "Sanitize" constructor input
       this.update(opts)
+
+      // Run plugin onLoads
+      forEach(this.plugins, (config) => {
+        !config.disabled && config.onLoad && config.onLoad.call(this)
+      })
 
       // Possibly autostart after plugins have been loaded
       this.settings.autostart && setTimeout(() => {this.start()})

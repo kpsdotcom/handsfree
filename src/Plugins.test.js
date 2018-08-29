@@ -65,14 +65,14 @@ it('Cannot create nameless plugins', () => {
 })
 
 it('Can run plugin onLoad', (done) => {
-  handsfree = new Handsfree()
   let config = {
     name: 'testPlugin',
     onLoad: jest.fn()
   }
+  Handsfree.prototype.use(config)
+  handsfree = new Handsfree()
 
   window.HandsfreeModuleInstances = [handsfree]
-  handsfree.use(config)
   setTimeout(() => {
     expect(config.onLoad).toHaveBeenCalled()
     done()
