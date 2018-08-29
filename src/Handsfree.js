@@ -102,12 +102,12 @@ class Handsfree {
    */
   debugPoses () {
     const context = this.canvas.getContext('2d')
+    context.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
     this.poses.forEach(({score, keypoints}) => {
       if (score >= this.settings.posenet.minPoseConfidence) {
         const adjacentKeypoints = PoseNet.getAdjacentKeyPoints(keypoints, this.settings.posenet.minPartConfidence, context)
 
-        context.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.drawSkeleton(adjacentKeypoints, context)
         this.drawKeypoints(keypoints, this.settings.posenet.minPartConfidence, context)
       }
