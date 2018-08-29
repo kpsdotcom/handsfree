@@ -76,17 +76,17 @@ it('Automatically adjusts algorithm to match "single" or "multiple mode"', () =>
 it('Draws skeletons and keypoints', () => {
   handsfree = new Handsfree({debug: true})
 
-  handsfree.drawSkeleton = jest.fn()
-  handsfree.drawKeypoints = jest.fn()
+  handsfree.constructor.drawSkeleton = jest.fn()
+  handsfree.constructor.drawKeypoints = jest.fn()
 
   handsfree.trackPoses(STUBS.data.posenet.pose.single)
-  expect(handsfree.drawSkeleton).toHaveBeenCalledTimes(1)
-  expect(handsfree.drawKeypoints).toHaveBeenCalledTimes(1)
+  expect(handsfree.constructor.drawSkeleton).toHaveBeenCalledTimes(1)
+  expect(handsfree.constructor.drawKeypoints).toHaveBeenCalledTimes(1)
 
   handsfree.settings.posenet.minPoseConfidence = 1
   handsfree.trackPoses(STUBS.data.posenet.pose.single)
-  expect(handsfree.drawSkeleton).toHaveBeenCalledTimes(1)
-  expect(handsfree.drawKeypoints).toHaveBeenCalledTimes(1)
+  expect(handsfree.constructor.drawSkeleton).toHaveBeenCalledTimes(1)
+  expect(handsfree.constructor.drawKeypoints).toHaveBeenCalledTimes(1)
 })
 
 /**

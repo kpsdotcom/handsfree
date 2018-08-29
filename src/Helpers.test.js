@@ -14,14 +14,14 @@ it('Sets defaults to the missing constructor settings', () => {
   STUBS.WebGL.support()
   handsfree = new Handsfree()
 
-  const $video = handsfree.createDefaultVideo.call(handsfree, document.createElement('div'))
+  const $video = Handsfree.createDefaultVideo.call(handsfree, document.createElement('div'))
   expect($video.style.position).toBe('relative')
 })
 
 it('Creates a default (flipped) canvas and adds it to the DOM', () => {
   handsfree = new Handsfree()
 
-  const $canvas = handsfree.createDefaultCanvas.call(handsfree, document.createElement('div'))
+  const $canvas = Handsfree.createDefaultCanvas.call(handsfree, document.createElement('div'))
   expect($canvas.style.position).toBe('absolute')
 })
 
@@ -29,9 +29,9 @@ it('Creates a default (flipped) canvas and adds it to the DOM', () => {
 // the navigator.userAgent
 it('Checks if we\'re on Mobile/Android/iOS', () => {
   handsfree = new Handsfree()
-  expect(handsfree.isAndroid()).toBe(false)
-  expect(handsfree.isiOS()).toBe(false)
-  expect(handsfree.isMobile()).toBe(false)
+  expect(Handsfree.isAndroid()).toBe(false)
+  expect(Handsfree.isiOS()).toBe(false)
+  expect(Handsfree.isMobile()).toBe(false)
 })
 
 it('Checks if WebGL is supported', () => {
@@ -40,11 +40,11 @@ it('Checks if WebGL is supported', () => {
 
   STUBS.mediaDevices.support()
   STUBS.WebGL.support()
-  expect(handsfree.isWebGLSupported()).toBe(true)
+  expect(Handsfree.isWebGLSupported()).toBe(true)
 
   STUBS.mediaDevices.unsupport()
   STUBS.WebGL.unsupport()
-  expect(handsfree.isWebGLSupported('IGNORE THIS ERROR')).toBe(false)
+  expect(Handsfree.isWebGLSupported('IGNORE THIS ERROR')).toBe(false)
 })
 
 /**
@@ -56,7 +56,7 @@ it('Converts a position to a tuple', () => {
 
   handsfree = new Handsfree()
 
-  expect(handsfree.toTuple({x: 1, y: 2})).toEqual([2, 1])
+  expect(Handsfree.toTuple({x: 1, y: 2})).toEqual([2, 1])
 })
 
 /**
@@ -69,7 +69,7 @@ it('Draw each tracked keypoint', () => {
   const context = $canvas.getContext('2d')
   context.fill = jest.fn()
 
-  handsfree.drawKeypoints(STUBS.data.posenet.pose.single[0].keypoints, 0.9, context)
+  Handsfree.drawKeypoints(STUBS.data.posenet.pose.single[0].keypoints, 0.9, context)
   expect(context.fill).toHaveBeenCalled()
 })
 
@@ -77,11 +77,14 @@ it('Draw each tracked keypoint', () => {
  * Handsfree.drawSkeleton
  */
 it('Draw each tracked skeleton', () => {
-  handsfree = new Handsfree()
-  handsfree.drawSegment = jest.fn()
-  handsfree.drawSkeleton(STUBS.data.posenet.adjacentPoints, document.createElement('canvas'))
+  const drawSegment = Handsfree.drawSegment
 
-  expect(handsfree.drawSegment).toHaveBeenCalled()
+  handsfree = new Handsfree()
+  Handsfree.drawSegment = jest.fn()
+  Handsfree.drawSkeleton(STUBS.data.posenet.adjacentPoints, document.createElement('canvas'))
+
+  expect(Handsfree.drawSegment).toHaveBeenCalled()
+  Handsfree.drawSegment = drawSegment
 })
 
 /**
@@ -94,6 +97,6 @@ it('Draw each tracked skeleton', () => {
    const context = $canvas.getContext('2d')
    context.stroke = jest.fn()
 
-   handsfree.drawSegment([1, 2], [3, 4], context)
+   Handsfree.drawSegment([1, 2], [3, 4], context)
    expect(context.stroke).toHaveBeenCalled()
  })

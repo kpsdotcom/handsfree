@@ -30,7 +30,7 @@ module.exports = function (Handsfree) {
     this.canvas.height = this.video.height = 500
 
     // Start the stream based on the device
-    const isMobile = this.isMobile()
+    const isMobile = this.constructor.isMobile()
     this.video.srcObject = await navigator.mediaDevices.getUserMedia({
       // We only care about the camera
       audio: false,

@@ -15,7 +15,7 @@ module.exports = function (Handsfree) {
    *
    * @return {HTMLVideoElement} A hidden video used for inference with PoseNet
    */
-  Handsfree.prototype.createDefaultVideo = function ($wrap) {
+  Handsfree.createDefaultVideo = function ($wrap) {
     const $video = document.createElement('video')
 
     $wrap.classList.add('handsfree-debug-wrap')
@@ -38,7 +38,7 @@ module.exports = function (Handsfree) {
    *
    * @return {HTMLCanvasElement} A hidden canvas used for debugging with PoseNet
    */
-  Handsfree.prototype.createDefaultCanvas = function ($wrap) {
+  Handsfree.createDefaultCanvas = function ($wrap) {
     const $canvas = document.createElement('canvas')
     $canvas.style.transform = 'scale(-1, 1)'
     $canvas.style.position = 'absolute'
@@ -58,9 +58,9 @@ module.exports = function (Handsfree) {
    * - Checks if we're on android
    * - Checks if we're on iOS
    */
-  Handsfree.prototype.isMobile = function () { return this.isAndroid() || this.isiOS() }
-  Handsfree.prototype.isAndroid = function () { return /Android/i.test(navigator.userAgent) }
-  Handsfree.prototype.isiOS = function () { return /iPhone|iPad|iPod/i.test(navigator.userAgent) }
+  Handsfree.isMobile = function () { return Handsfree.isAndroid() || Handsfree.isiOS() }
+  Handsfree.isAndroid = function () { return /Android/i.test(navigator.userAgent) }
+  Handsfree.isiOS = function () { return /iPhone|iPad|iPod/i.test(navigator.userAgent) }
 
   /**
    * Checks if WebGL is supported. Depending on your deployment needs,
@@ -75,7 +75,7 @@ module.exports = function (Handsfree) {
    * @param {Boolean} forceThrow (Optional) Whether to force throw an error. This is mostly for unit testing to test failures
    * @return {Boolean} Is WebGL supported?
    */
-  Handsfree.prototype.isWebGLSupported = function (forceThrow = false) {
+  Handsfree.isWebGLSupported = function (forceThrow = false) {
     try {
       if (forceThrow) throw(forceThrow)
 
@@ -102,7 +102,7 @@ module.exports = function (Handsfree) {
    * @param {NUM} minConfidence The minimum keypoint score needed to track
    * @param {OBJ} context The canvas context to draw into
    */
-  Handsfree.prototype.drawKeypoints = function (keypoints, minConfidence, context) {
+  Handsfree.drawKeypoints = function (keypoints, minConfidence, context) {
     keypoints.forEach(({position, score}) => {
       if (score > minConfidence) {
         context.beginPath()
@@ -122,9 +122,9 @@ module.exports = function (Handsfree) {
    * @param {ARR} adjacentPoints The list of all keypoints and their relationships
    * @param {OBJ} context The canvas context to draw into
    */
-  Handsfree.prototype.drawSkeleton = function (adjacentPoints, context) {
+  Handsfree.drawSkeleton = function (adjacentPoints, context) {
     adjacentPoints.forEach(keypoints => {
-      this.drawSegment(this.toTuple(keypoints[0].position), this.toTuple(keypoints[1].position), context)
+      Handsfree.drawSegment(Handsfree.toTuple(keypoints[0].position), Handsfree.toTuple(keypoints[1].position), context)
     })
   }
 
@@ -134,7 +134,7 @@ module.exports = function (Handsfree) {
    *
    * @param {OBJ} position {x, y}
    */
-  Handsfree.prototype.toTuple = function ({x, y}) { return [y, x] }
+  Handsfree.toTuple = function ({x, y}) { return [y, x] }
 
   /**
    * Draws the skeleton segment
@@ -145,7 +145,7 @@ module.exports = function (Handsfree) {
    * @param {HEX} color The color to draw in
    * @param {OBJ} context The canvas context to draw in
    */
-  Handsfree.prototype.drawSegment = function ([ay, ax], [by, bx], context) {
+  Handsfree.drawSegment = function ([ay, ax], [by, bx], context) {
     const scale = 1
 
     context.beginPath()

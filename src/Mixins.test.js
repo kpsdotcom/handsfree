@@ -28,7 +28,7 @@ it('Applies aliases to common settings. Feel free to add your own in here', () =
  */
 it('Sets up the webcam and stream', async () => {
   handsfree = new Handsfree()
-  handsfree.isMobile = jest.fn(() => true)
+  handsfree.constructor.isMobile = jest.fn(() => true)
 
   handsfree.video.play = jest.fn()
   handsfree.video.srcObject = null

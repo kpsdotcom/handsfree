@@ -49,7 +49,7 @@ class Handsfree {
     this._isSupported = false
 
     // Error out when webcams are not supported
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !this.isWebGLSupported()) {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !this.constructor.isWebGLSupported()) {
       throw new Error('ERROR: This browser does not support webcams, please try another browser...like Google Chrome!')
     } else {
       // We know the browser has full support now
@@ -108,8 +108,8 @@ class Handsfree {
       if (score >= this.settings.posenet.minPoseConfidence) {
         const adjacentKeypoints = PoseNet.getAdjacentKeyPoints(keypoints, this.settings.posenet.minPartConfidence, context)
 
-        this.drawSkeleton(adjacentKeypoints, context)
-        this.drawKeypoints(keypoints, this.settings.posenet.minPartConfidence, context)
+        this.constructor.drawSkeleton(adjacentKeypoints, context)
+        this.constructor.drawKeypoints(keypoints, this.settings.posenet.minPartConfidence, context)
       }
     })
   }
