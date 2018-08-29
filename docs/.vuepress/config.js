@@ -25,8 +25,8 @@ module.exports = {
 
     serviceWorker: {
       updatePopup: {
-        message: 'Hi, I just updated this page!',
-        buttonText: 'Refresh page'
+        message: 'Hi, I just updated this doc while you were reading!',
+        buttonText: '🐵 Refresh page 🐵'
       }
     },
 
@@ -38,7 +38,8 @@ module.exports = {
         'debugging'
       ],
       '/settings/': [
-        ''
+        '',
+        'posenet'
       ]
     }
   }
