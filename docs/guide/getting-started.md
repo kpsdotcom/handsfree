@@ -83,3 +83,12 @@ handsfree.stop()
 ```
 
 <demo/>
+
+## Toggling the Webcam
+Finally, you can just toggle the webcam on and off with:
+
+```js
+handsfree.toggle()
+```
+
+<demo/>

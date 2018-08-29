@@ -27,15 +27,20 @@ yarn              # and `yarn --only=dev` if you have global NODE_ENV=production
 # or npm
 npm install
 
-# Working on the module
-yarn dev          # Development mode with stylus, templates, and hot-reload on localhost:8080
-yarn build        # Build into /dist/
-yarn test         # Run unit tests
+# Working with both the dev (localhost:8080) and docs (localhost:8081)
+yarn dev
+yarn build
 
-# Working on the docs
+# Working on the module (localhost:8080)
+yarn lib:dev          # Development mode with stylus, templates, and hot-reload on localhost:8080
+yarn lib:build        # Build into /dist/
+
+# Working on the docs (localhost:8081)
 yarn docs:dev     # Work on the docs in development mode with hotreload
 yarn docs:build   # Build the docs
-yarn docs:build   # Build and deploy docs
+yarn docs:deploy   # Build and deploy docs
+
+yarn test         # Run unit tests
 ```
 
 ## Development
@@ -80,3 +85,51 @@ alert('hello world!')
 <img src="https://i.imgur.com/04m95cO.png" width=200>
 
 When the <kbd>Run Demo</kbd> button is clicked, an alert box with "hello world!" is shown. To see what other sugar is added to the codeblocks behind the scenes, refer to `/docs/.vuepress/components/demo.vue`
+
+
+## License
+
+### BRFv4
+```
+    Stump-based 24x24 discrete(?) adaboost frontal face detector.
+    Created by Rainer Lienhart.
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+  IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
+
+  By downloading, copying, installing or using the software you agree to this license.
+  If you do not agree to this license, do not download, install,
+  copy or use the software.
+
+
+                        Intel License Agreement
+                For Open Source Computer Vision Library
+
+ Copyright (C) 2000, Intel Corporation, all rights reserved.
+ Third party copyrights are property of their respective owners.
+
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the following conditions are met:
+
+   * Redistribution's of source code must retain the above copyright notice,
+     this list of conditions and the following disclaimer.
+
+   * Redistribution's in binary form must reproduce the above copyright notice,
+     this list of conditions and the following disclaimer in the documentation
+     and/or other materials provided with the distribution.
+
+   * The name of Intel Corporation may not be used to endorse or promote products
+     derived from this software without specific prior written permission.
+
+ This software is provided by the copyright holders and contributors "as is" and
+ any express or implied warranties, including, but not limited to, the implied
+ warranties of merchantability and fitness for a particular purpose are disclaimed.
+ In no event shall the Intel Corporation or contributors be liable for any direct,
+ indirect, incidental, special, exemplary, or consequential damages
+ (including, but not limited to, procurement of substitute goods or services;
+ loss of use, data, or profits; or business interruption) however caused
+ and on any theory of liability, whether in contract, strict liability,
+ or tort (including negligence or otherwise) arising in any way out of
+ the use of this software, even if advised of the possibility of such damage.
+```
