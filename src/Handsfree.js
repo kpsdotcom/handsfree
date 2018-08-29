@@ -225,11 +225,12 @@ class Handsfree {
  */
 require('./calculations/XY')(Handsfree)
 require('./calculations/Z')(Handsfree)
-require('./Mixins')(Handsfree)
+require('./Setup')(Handsfree)
 require('./Helpers')(Handsfree)
 require('./api/Debug')(Handsfree)
 require('./api/Plugin')(Handsfree)
 require('./api/Settings')(Handsfree)
+require('./api/PoseNet')(Handsfree)
 
 // Remember: to kick things off you'll want to instantiate this with `new`
 module.exports = Handsfree
