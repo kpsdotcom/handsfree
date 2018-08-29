@@ -22,10 +22,10 @@ module.exports = function (Handsfree) {
    * @prop  {Function} onStop   Called when handsfree.stop()
    */
   Handsfree.prototype.use = function (config) {
-    config = merge(config, {
+    config = merge({
       disabled: false,
-      priority: Handsfree.prototype.plugins.length
-    })
+      priority: Object.keys(Handsfree.prototype.plugins).length
+    }, config)
 
     // Make sure onInit is ever called only once
     if (config.onInit) config.onInit = once(config.onInit)

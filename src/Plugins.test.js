@@ -4,9 +4,6 @@
   =========================
   - Take care to properly test async methods with awaits, otherwise you may be
     doing edge-case things like checking the truthyness on a Promise object
-  - [ ] @TODO We're not testing canvas elements yet. It's seems possible via e2e
-  testing though, so we'll absolutely want to test that considering inference
-  depends on that!
 */
 const STUBS = require('../mock/jest-polyfills')
 const Handsfree = require('./Handsfree')
@@ -100,4 +97,18 @@ it('Cannot run disabled plugins', () => {
   Handsfree.prototype.plugins.BasicPointer.disabled = true
   handsfree.start()
   expect(Handsfree.prototype.plugins.BasicPointer.callback).not.toHaveBeenCalled()
+})
+
+/**
+ * Plugin Priority
+ */
+it('Can sort plugins by priority', () => {
+  handsfree = new Handsfree()
+  handsfree.use({name: 'a', priority: -99999})
+  handsfree.use({name: 'b', priority: 99999})
+  handsfree.use({name: 'c', priority: 99999})
+
+  const sortedPlugins = handsfree.sortedPlugins
+  expect(sortedPlugins[0]).toBe('a')
+  expect(sortedPlugins[sortedPlugins.length - 1]).toBe('c')
 })
