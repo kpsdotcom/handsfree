@@ -29,17 +29,17 @@ img
   display: inline-block
   font-size: 1.2rem
   color: #fff
-  background-color: #3eaf7c
+  background-color: #6e4380
   padding: .8rem 1.6rem
   border-radius: 4px
   transition: background-color .1s ease
   box-sizing: border-box
-  border-bottom: 1px solid #389d70
+  border-bottom: 1px solid #4c2c5a
   cursor: pointer
   text-decoration: none !important
 
 .action-button:hover
-  background-color: #4abf8a
+  background-color: #7b5e87
 
 // Helpers
 .text-center
@@ -63,5 +63,11 @@ img
 
 // Dat.GUI
 .dg
-  top: 58px
   z-index: 21 !important
+  position: static
+
+  &.ac
+    top: 57px !important
+
+  div
+    position: static
