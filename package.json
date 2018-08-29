@@ -4,13 +4,13 @@
   "description": "Add client side, multi-user, head-tracked-from-afar mouse cursors and handsfree user interfaces to your projects just...like...✨...that!",
   "main": "dist/handsfree.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js",
-    "build": "webpack -p --progress --mode production --config webpack.config.build.js",
+    "dev": "concurrently \"npm run lib:dev\" \"npm run docs:dev\"",
+    "build": "concurrently \"npm run lib:build\" \"npm run docs:build\"",
+    "lib:dev": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development --config webpack.config.dev.js",
+    "lib:build": "webpack -p --progress --mode production --config webpack.config.build.js",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "docs:deploy": "node deploy-docs.js",
-    "patch": "npm run build && npm version patch && npm publish",
-    "minor": "npm run build && npm version minor && npm publish",
     "test": "jest --detectOpenHandles"
   },
   "files": [
@@ -49,6 +49,7 @@
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^0.1.19",
+    "concurrently": "^4.0.1",
     "copy-webpack-plugin": "^4.5.2",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
