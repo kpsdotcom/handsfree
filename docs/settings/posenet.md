@@ -6,7 +6,7 @@ This section outlines settings specific to configuring the [TensorFlow.js port o
 The following can be demoed by adjusting the settings in the settings panel!
 :::
 
-## {posenet: {outputStride: INTEGER}}
+## {posenet: {imageScaleFactor: INTEGER}}
 **Default:** `0.5`
 
 A number between 0.2 and 1.0 representing what to scale the image by before feeding it through the network. Set this number lower to scale down the image and increase the speed when feeding through the network at the cost of accuracy.
@@ -46,19 +46,6 @@ Possible values are:
 0.75
 1.0
 1.01
-```
-
-## {posenet: {outputStride: INTEGER}}
-**Default:** `16`
-
-The desired stride for the outputs when feeding the image through the model. The higher the number, the faster the performance but slower the accuracy, and visa versa.
-
-Possible values are:
-
-```
-32
-16
-8
 ```
 
 ## {posenet: {nmsRadius: INTEGER}}

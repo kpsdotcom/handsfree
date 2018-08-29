@@ -65,9 +65,16 @@ module.exports = function (Handsfree) {
   }
 
   /**
-   * Setup the GUI
+   * Setup the GUI, with a panel for PoseNet
    */
   Handsfree.setupGUI = function () {
     this.gui = new dat.GUI()
+    const folder = this.gui.addFolder('PoseNet')
+
+    folder.add(this.settings.posenet, 'imageScaleFactor', 0.2, 1.0)
+    folder.add(this.settings.posenet, 'maxUsers', 1, 24)
+    folder.add(this.settings.posenet, 'minPartConfidence', 0.1, 1.0)
+    folder.add(this.settings.posenet, 'minPoseConfidence', 0.1, 1.0)
+    folder.add(this.settings.posenet, 'nmsRadius', 10, 100)
   }
 }
