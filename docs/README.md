@@ -19,7 +19,7 @@ sidebar: false
 
 #### Via HTML
 ```html
-<script src="https://unpkg.com/handsfree"></script>
+<script defer src="https://unpkg.com/handsfree"></script>
 ```
 
 #### Or NPM
