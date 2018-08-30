@@ -4,6 +4,20 @@
  */
 module.exports = function (Handsfree) {
   /**
+   * Catches window-dimensions based variables
+   */
+  Handsfree.cacheWindowBasedVariables = function () {
+    this.cache.window = {
+      height: window.outerHeight,
+      width: window.outerWidth,
+      canvasRatio: {
+        width: window.outerWidth / this.canvas.width,
+        height: window.outerHeight / this.canvas.height
+      }
+    }
+  }
+
+  /**
    * Entrypoint for calculating utilities, which adds:
    * .eyeDistance
    * .eyeCenter

@@ -72,6 +72,9 @@ class Handsfree {
 
       // Possibly autostart after plugins have been loaded
       this.settings.autostart && setTimeout(() => {this.start()})
+
+      // Cache window based dimensions
+      window.addEventListener('resize', () => {Handsfree.cacheWindowBasedVariables.call(this)})
     }
   }
 
@@ -95,6 +98,7 @@ class Handsfree {
 
       this.startPlugins.call(this)
       Handsfree.maybeStartDebugging.call(this)
+      window.dispatchEvent(new Event('resize'))
     }
   }
 

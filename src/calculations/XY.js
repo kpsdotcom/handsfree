@@ -1,12 +1,27 @@
 /**
  * calculations/XY.js
+ * At 13.6 units away
  */
+
+// 🚨🚨🚨🚨🚨🚨🚨🚨
+// 🚨 DELETE THIS 🚨
+// 🚨🚨🚨🚨🚨🚨🚨🚨
+const $x = document.querySelector('#x')
+const $y = document.querySelector('#y')
+const $z = document.querySelector('#z')
+
 module.exports = function (Handsfree) {
   Handsfree.prototype.calculateXY = function () {
     this.poses && this.poses.forEach((pose, index) => {
-      let canvasWindowRatio = window.outerWidth / this.canvas.width
-      let x = this.canvas.width - pose.eyeCenter.x
-      let y = pose.eyeCenter.y
+      let canvasRatio = this.cache.window.canvasRatio
+
+      // First position the cursor assuming no head rotation
+      let x = (this.canvas.width - pose.eyeCenter.x) * canvasRatio.width
+      let y = (pose.eyeCenter.y) * canvasRatio.height
+
+      $x.innerText = Math.floor(x)
+      $y.innerText = Math.floor(y)
+      $z.innerText = pose.distanceFromScreen.toFixed(2)
 
       this.poses[index].pointedAt = {x, y}
     })

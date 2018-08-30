@@ -37,9 +37,6 @@ module.exports = function (Handsfree) {
       height: isMobile ? undefined : this.video.height
     })
 
-    // Cache the area of the window
-    this.cache.window.area = window.outerWidth * window.outerHeight
-
     this.video.play()
   }
 }
