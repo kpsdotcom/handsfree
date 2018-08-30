@@ -44,18 +44,6 @@ module.exports = function (Handsfree) {
   }
 
   /**
-   * @TODO Emits events
-   * [-] Emits onHandsfreePoseUpdates with (this.poses, handsfree)
-   */
-  Handsfree.prototype.emitEvents = function () {
-    window.dispatchEvent(new CustomEvent('onHandsfreePoseUpdates', {
-      detail: {
-        context: this
-      }
-    }))
-  }
-
-  /**
    * Updates the debug target
    *
    * @param {DOM} newTarget The new target
