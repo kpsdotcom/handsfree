@@ -100,7 +100,7 @@ class Handsfree {
    */
   stop () {
     if (this._isTracking) {
-      this.settings.target.style.display = 'none'
+      this.settings.debug.canvas.parent.style.display = 'none'
       this._isTracking = false
       this.video.srcObject.getTracks().forEach(track => track.stop())
 
@@ -143,10 +143,6 @@ class Handsfree {
   update (opts = {}) {
     if (this.settings) {
       this.settings = merge(this.settings, opts)
-
-      // Set the canvas target
-      let oldTarget = this.settings.target
-      opts.target && this.updateTarget.call(this, opts.target, oldTarget)
 
       // Update debug mode
       if (typeof opts.debug !== 'undefined')

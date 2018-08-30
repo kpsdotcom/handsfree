@@ -93,7 +93,7 @@ module.exports = function (Handsfree) {
    */
   Handsfree.maybeStartDebugging = function () {
     if (this._isTracking) {
-      this.settings.target.style.display = this.settings.debug.canvas.show ? 'inherit' : 'none'
+      this.settings.debug.canvas.parent.style.display = this.settings.debug.canvas.show ? 'inherit' : 'none'
       this.gui.domElement.style.display = this.settings.debug.settings.show ? 'inherit' : 'none'
     } else {
       Handsfree.stopDebugging.call(this)
@@ -104,12 +104,14 @@ module.exports = function (Handsfree) {
    * Stops debugging
    */
   Handsfree.stopDebugging = function () {
-    this.settings.target.style.display = 'none'
+    this.settings.debug.canvas.parent.style.display = 'none'
     this.gui.domElement.style.display = 'none'
   }
 
   /**
    * Transforms the debug setting into an object with defaults
+   * @FIXME We need to refactor this
+   *
    * @param {BOOLEAN|OBJECT} debug Whether to enable debug (true/false) or the debug config
    * @return {OBJECT} The defaults
    */
@@ -117,7 +119,7 @@ module.exports = function (Handsfree) {
     let debugDefaults = {
       canvas: {
         show: false,
-        parent: opts.target
+        parent: document.getElementById('handsfree-debug')
       },
       stats: {
         show: false,
@@ -127,6 +129,24 @@ module.exports = function (Handsfree) {
         show: false,
         parent: document.body
       }
+    }
+
+    // Setup default canvas parent
+    if (!opts.debug || !opts.debug.canvas || typeof opts.debug.canvas !== 'object') {
+      // Create the wrapping element
+      if (!debugDefaults.canvas.parent) {
+        debugDefaults.canvas.parent = document.createElement('p')
+        debugDefaults.canvas.parent.id = 'handsfree-debug'
+        debugDefaults.canvas.parent.style.position = 'relative'
+        document.body.appendChild(debugDefaults.canvas.parent)
+      }
+      debugDefaults.canvas.parent.style.display = 'none'
+
+      // Set the parent
+      if (!opts.debug) opts.debug = {canvas: {}}
+      if (typeof opts.debug.canvas !== 'objects')
+        opts.debug.canvas = {show: opts.debug.canvas}
+      opts.debug.canvas = merge(opts.debug.canvas, {parent: debugDefaults.canvas.parent})
     }
 
     // Set defaults

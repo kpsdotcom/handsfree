@@ -26,14 +26,14 @@ it('Sets defaults to the missing constructor settings', () => {
   const $wrap = document.createElement('div')
   $wrap.setAttribute('id', 'handsfree-debug')
   document.body.appendChild($wrap)
-  handsfree.update({target: $wrap})
+  handsfree.update({debug: {canvas: {parent: $wrap}}})
 
   Handsfree.setDefaults.call(handsfree)
   expect(handsfree.canvas && handsfree.video).toBeTruthy()
 })
 
-it('Uses custom target', () => {
+it('Uses custom debug.canvas.parent', () => {
   const div = document.createElement('div')
-  handsfree = new Handsfree({target: div})
-  expect(handsfree.settings.target).toBe(div)
+  handsfree = new Handsfree({debug: {canvas: {parent: div}}})
+  expect(handsfree.settings.debug.canvas.parent).toBe(div)
 })

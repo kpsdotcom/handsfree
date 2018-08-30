@@ -42,21 +42,4 @@ module.exports = function (Handsfree) {
 
     this.video.play()
   }
-
-  /**
-   * Updates the debug target
-   *
-   * @param {DOM} newTarget The new target
-   * @param {DOM} oldTarget The new target
-   */
-  Handsfree.prototype.updateTarget = function (newTarget, oldTarget) {
-    let numChildren = oldTarget.children.length
-
-    for (let i = 0; i < numChildren; i++) {
-      newTarget.appendChild(oldTarget.children[0])
-    }
-
-    this.stop()
-    this.start()
-  }
 }
