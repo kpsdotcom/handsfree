@@ -54,7 +54,7 @@ it('If debug is on, displays the points and skeletons overlays on the webcam', (
   handsfree.trackPoses([])
   expect(handsfree.debugPoses).not.toHaveBeenCalled()
 
-  handsfree.settings.debug = true
+  handsfree.update({debug: true})
   handsfree.trackPoses([])
   expect(handsfree.debugPoses).toHaveBeenCalled()
 })

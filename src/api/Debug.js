@@ -145,8 +145,8 @@ module.exports = function (Handsfree) {
       debugDefaults.canvas.parent.style.display = 'none'
 
       // Set the parent
-      if (!opts.debug) opts.debug = {canvas: {}}
-      if (typeof opts.debug.canvas !== 'objects')
+      if (!opts.debug) opts.debug = {canvas: {show: false}}
+      if (typeof opts.debug.canvas !== 'object')
         opts.debug.canvas = {show: opts.debug.canvas}
       opts.debug.canvas = merge(opts.debug.canvas, {parent: debugDefaults.canvas.parent})
     }

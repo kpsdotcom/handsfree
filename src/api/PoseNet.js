@@ -62,7 +62,7 @@ module.exports = function (Handsfree) {
     this.poses = poses
 
     // Only draw when debug is on
-    this.settings.debug && poses && this.debugPoses()
+    this.settings.debug.canvas.show && poses && this.debugPoses()
   }
 
   /**
