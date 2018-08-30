@@ -95,6 +95,7 @@ module.exports = function (Handsfree) {
     if (this._isTracking) {
       this.settings.debug.canvas.parent.style.display = this.settings.debug.canvas.show ? 'inherit' : 'none'
       this.gui.domElement.style.display = this.settings.debug.settings.show ? 'inherit' : 'none'
+      this.performance.dom.style.display = this.settings.debug.stats.show ? 'inherit' : 'none'
     } else {
       Handsfree.stopDebugging.call(this)
     }
@@ -106,6 +107,7 @@ module.exports = function (Handsfree) {
   Handsfree.stopDebugging = function () {
     this.settings.debug.canvas.parent.style.display = 'none'
     this.gui.domElement.style.display = 'none'
+    this.performance.dom.style.display = 'none'
   }
 
   /**

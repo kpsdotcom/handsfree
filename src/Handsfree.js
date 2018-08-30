@@ -8,6 +8,7 @@ require('./polyfills')
 const merge = require('lodash/merge')
 const forEach = require('lodash/forEach')
 const PoseNet = require('@tensorflow-models/posenet')
+const Stats = require('stats.js')
 let HandsfreeModuleInstances = []
 window.HandsfreeModuleInstances = HandsfreeModuleInstances
 
@@ -62,6 +63,12 @@ class Handsfree {
       forEach(this.plugins, (config) => {
         !config.disabled && config.onLoad && config.onLoad.call(this)
       })
+
+      // Setup performance monitoring
+      this.performance = new Stats()
+      this.settings.debug.stats.parent.appendChild(this.performance.dom)
+      this.performance.dom.style.display = 'none'
+      this.performance.dom.classList.add('handsfree-performance')
 
       // Possibly autostart after plugins have been loaded
       this.settings.autostart && setTimeout(() => {this.start()})
