@@ -4,6 +4,8 @@
  * A collection of helpers methods which may be helpful in your app outside
  * the context of Handsfree
  */
+const merge = require('lodash/merge')
+
 module.exports = function (Handsfree) {
   /**
    * Creates a default (flipped) video and adds it to the DOM:
@@ -90,9 +92,11 @@ module.exports = function (Handsfree) {
    * Potentially starts debuggers
    */
   Handsfree.maybeStartDebugging = function () {
-    if (this.settings.debug) {
-      this.settings.target.style.display = 'inherit'
-      this.gui.domElement.style.display = 'inherit'
+    if (this._isTracking) {
+      this.settings.target.style.display = this.settings.debug.canvas.show ? 'inherit' : 'none'
+      this.gui.domElement.style.display = this.settings.debug.settings.show ? 'inherit' : 'none'
+    } else {
+      Handsfree.stopDebugging.call(this)
     }
   }
 
@@ -102,5 +106,41 @@ module.exports = function (Handsfree) {
   Handsfree.stopDebugging = function () {
     this.settings.target.style.display = 'none'
     this.gui.domElement.style.display = 'none'
+  }
+
+  /**
+   * Transforms the debug setting into an object with defaults
+   * @param {BOOLEAN|OBJECT} debug Whether to enable debug (true/false) or the debug config
+   * @return {OBJECT} The defaults
+   */
+  Handsfree.debugSettingDefaults = function (opts) {
+    let debugDefaults = {
+      canvas: {
+        show: false,
+        parent: opts.target
+      },
+      stats: {
+        show: false,
+        parent: document.body
+      },
+      settings: {
+        show: false,
+        parent: document.body
+      }
+    }
+
+    // Set defaults
+    if (typeof opts.debug === 'boolean' && opts.debug) {
+      debugDefaults.canvas.show = true
+      debugDefaults.stats.show = true
+      debugDefaults.settings.show = true
+    } else if (typeof opts.debug === 'object') {
+      if (typeof opts.debug.canvas === 'boolean') opts.debug.canvas = {show: opts.debug.canvas}
+      if (typeof opts.debug.stats === 'boolean') opts.debug.stats = {show: opts.debug.stats}
+      if (typeof opts.debug.settings === 'boolean') opts.debug.settings = {show: opts.debug.settings}
+      debugDefaults = merge(debugDefaults, opts.debug)
+    }
+
+    return debugDefaults
   }
 }

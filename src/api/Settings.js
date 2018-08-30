@@ -18,7 +18,6 @@ module.exports = function (Handsfree) {
   Handsfree.setDefaults = function (opts = {}) {
     // Fallback for default target
     if (!opts.target) {
-      // @TODO Let's document this
       opts.target = document.getElementById('handsfree-debug')
 
       if (!opts.target) {
@@ -29,6 +28,9 @@ module.exports = function (Handsfree) {
       }
     }
     opts.target.style.display = 'none'
+
+    // Setup complex defaults
+    opts.debug = Handsfree.debugSettingDefaults(opts)
 
     // Setup the video element
     const video = opts.video || Handsfree.createDefaultVideo(opts.target)

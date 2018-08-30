@@ -136,14 +136,22 @@ class Handsfree {
   /**
    * Updates this.settings with new ones
    * - Can update settings
+   * - Stops and starts to refresh settings
    *
    * @param  {Object} opts The settings set to update
    */
   update (opts = {}) {
     if (this.settings) {
-      let oldTarget = this.settings.target
       this.settings = merge(this.settings, opts)
+
+      // Set the canvas target
+      let oldTarget = this.settings.target
       opts.target && this.updateTarget.call(this, opts.target, oldTarget)
+
+      // Update debug mode
+      if (typeof opts.debug !== 'undefined')
+        this.settings.debug = Handsfree.debugSettingDefaults(this.settings)
+      Handsfree.maybeStartDebugging.call(this)
     } else {
       Handsfree.setDefaults.call(this, opts)
       Handsfree.setAliases.call(this)
