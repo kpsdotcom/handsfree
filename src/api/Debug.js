@@ -85,4 +85,22 @@ module.exports = function (Handsfree) {
       Handsfree.drawSegment(Handsfree.toTuple(keypoints[0].position), Handsfree.toTuple(keypoints[1].position), context)
     })
   }
+
+  /**
+   * Potentially starts debuggers
+   */
+  Handsfree.maybeStartDebugging = function () {
+    if (this.settings.debug) {
+      this.settings.target.style.display = 'inherit'
+      this.gui.domElement.style.display = 'inherit'
+    }
+  }
+
+  /**
+   * Stops debugging
+   */
+  Handsfree.stopDebugging = function () {
+    this.settings.target.style.display = 'none'
+    this.gui.domElement.style.display = 'none'
+  }
 }

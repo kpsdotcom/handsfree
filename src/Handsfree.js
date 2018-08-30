@@ -77,7 +77,6 @@ class Handsfree {
    */
   start () {
     if (!this._isTracking && this.settings) {
-      if (this.settings.debug) this.settings.target.style.display = 'inherit'
       this._isTracking = true
       Handsfree.setupFeed.call(this)
       Handsfree.initPoseNet.call(this)
@@ -88,6 +87,7 @@ class Handsfree {
       document.body.classList.add('handsfree-is-started')
 
       this.startPlugins.call(this)
+      Handsfree.maybeStartDebugging.call(this)
     }
   }
 
@@ -95,8 +95,8 @@ class Handsfree {
    * Stop tracking poses:
    * - A process can be stopped to free up memory for other expensive processes
    *    or to save on power when idling with this
-   * [ ] Replaces `handsfree-is-started` with `handsfree-is-started`
-   * [-] Runs plugin stops
+   * - Replaces `handsfree-is-started` with `handsfree-is-started`
+   * - Runs plugin stops
    */
   stop () {
     if (this._isTracking) {
@@ -110,6 +110,7 @@ class Handsfree {
 
       // Stop running plugins. Deferred to run after final frame
       this.stopPlugins()
+      Handsfree.stopDebugging.call(this)
     }
   }
 
