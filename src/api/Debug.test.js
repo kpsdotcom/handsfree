@@ -57,13 +57,37 @@ it('Draw each tracked skeleton', () => {
 /**
  * Handsfree.drawSegment
  */
- it('Draws the skeleton segment', () => {
-   handsfree = new Handsfree()
+it('Draws the skeleton segment', () => {
+  handsfree = new Handsfree()
 
-   const $canvas = document.createElement('canvas')
-   const context = $canvas.getContext('2d')
-   context.stroke = jest.fn()
+  const $canvas = document.createElement('canvas')
+  const context = $canvas.getContext('2d')
+  context.stroke = jest.fn()
 
-   Handsfree.drawSegment([1, 2], [3, 4], context)
-   expect(context.stroke).toHaveBeenCalled()
- })
+  Handsfree.drawSegment([1, 2], [3, 4], context)
+  expect(context.stroke).toHaveBeenCalled()
+})
+
+
+it('Sets debug defaults', () => {
+  handsfree = new Handsfree({debug: false})
+
+  expect(handsfree.settings.debug.canvas.show).toBe(false)
+  expect(handsfree.settings.debug.stats.show).toBe(false)
+  expect(handsfree.settings.debug.settings.show).toBe(false)
+
+  handsfree.update({debug: {canvas: true, stats: true, settings: true}})
+  expect(handsfree.settings.debug.canvas.show).toBe(true)
+  expect(handsfree.settings.debug.stats.show).toBe(true)
+  expect(handsfree.settings.debug.settings.show).toBe(true)
+
+  handsfree.update({debug: true})
+  expect(handsfree.settings.debug.canvas.show).toBe(true)
+  expect(handsfree.settings.debug.stats.show).toBe(true)
+  expect(handsfree.settings.debug.settings.show).toBe(true)
+
+  handsfree.update({debug: {canvas: {show: false}, stats: {show: false}, settings: {show: false}}})
+  expect(handsfree.settings.debug.canvas.show).toBe(false)
+  expect(handsfree.settings.debug.stats.show).toBe(false)
+  expect(handsfree.settings.debug.settings.show).toBe(false)
+})

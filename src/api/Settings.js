@@ -16,28 +16,17 @@ module.exports = function (Handsfree) {
    * @param {Object} opts The settings passed into the constructor. Pass null to use all defaults
    */
   Handsfree.setDefaults = function (opts = {}) {
-    // Fallback for default target
-    if (!opts.target) {
-      // @TODO Let's document this
-      opts.target = document.getElementById('handsfree-debug')
-
-      if (!opts.target) {
-        opts.target = document.createElement('p')
-        opts.id = 'handsfree-debug'
-        opts.target.style.position = 'relative'
-        document.body.appendChild(opts.target)
-      }
-    }
-    opts.target.style.display = 'none'
+    // Setup complex defaults
+    opts.debug = Handsfree.debugSettingDefaults(opts)
 
     // Setup the video element
-    const video = opts.video || Handsfree.createDefaultVideo(opts.target)
+    const video = opts.video || Handsfree.createDefaultVideo(opts.debug.canvas.parent)
     this.initsettings = opts
 
     // Setup defaults
     this.settings = merge({
       autostart: false,
-      canvas: Handsfree.createDefaultCanvas(opts.target),
+      canvas: Handsfree.createDefaultCanvas(opts.debug.canvas.parent),
       debug: false,
       facingMode: 'user',
       poseStackSize: 8,
@@ -51,7 +40,6 @@ module.exports = function (Handsfree) {
         nmsRadius: 20,
         scoreThreshold: 0.5
       },
-      target: opts.target,
       video
     }, opts)
 

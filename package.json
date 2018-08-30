@@ -26,11 +26,13 @@
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "mock/"
+      "mock/",
+      "src/plugins"
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "mock/"
+      "mock/",
+      "src/plugins"
     ]
   },
   "repository": {
@@ -78,6 +80,7 @@
     "@tensorflow/tfjs": "^0.12.5",
     "custom-event-polyfill": "^1.0.6",
     "dat.gui": "^0.7.2",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "stats.js": "^0.17.0"
   }
 }

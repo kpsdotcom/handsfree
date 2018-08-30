@@ -4,6 +4,8 @@
  * A collection of helpers methods which may be helpful in your app outside
  * the context of Handsfree
  */
+const merge = require('lodash/merge')
+
 module.exports = function (Handsfree) {
   /**
    * Creates a default (flipped) video and adds it to the DOM:
@@ -84,5 +86,84 @@ module.exports = function (Handsfree) {
     adjacentPoints.forEach(keypoints => {
       Handsfree.drawSegment(Handsfree.toTuple(keypoints[0].position), Handsfree.toTuple(keypoints[1].position), context)
     })
+  }
+
+  /**
+   * Potentially starts debuggers
+   */
+  Handsfree.maybeStartDebugging = function () {
+    if (this._isTracking) {
+      this.settings.debug.canvas.parent.style.display = this.settings.debug.canvas.show ? 'inherit' : 'none'
+      this.gui.domElement.style.display = this.settings.debug.settings.show ? 'inherit' : 'none'
+      this.performance.dom.style.display = this.settings.debug.stats.show ? 'inherit' : 'none'
+    } else {
+      Handsfree.stopDebugging.call(this)
+    }
+  }
+
+  /**
+   * Stops debugging
+   */
+  Handsfree.stopDebugging = function () {
+    this.settings.debug.canvas.parent.style.display = 'none'
+    this.gui.domElement.style.display = 'none'
+    this.performance.dom.style.display = 'none'
+  }
+
+  /**
+   * Transforms the debug setting into an object with defaults
+   * @FIXME We need to refactor this
+   *
+   * @param {BOOLEAN|OBJECT} debug Whether to enable debug (true/false) or the debug config
+   * @return {OBJECT} The defaults
+   */
+  Handsfree.debugSettingDefaults = function (opts) {
+    let debugDefaults = {
+      canvas: {
+        show: false,
+        parent: document.getElementById('handsfree-debug')
+      },
+      stats: {
+        show: false,
+        parent: document.body
+      },
+      settings: {
+        show: false,
+        parent: document.body
+      }
+    }
+
+    // Setup default canvas parent
+    if (!opts.debug || !opts.debug.canvas || typeof opts.debug.canvas !== 'object') {
+      // Create the wrapping element
+      if (!debugDefaults.canvas.parent) {
+        debugDefaults.canvas.parent = document.createElement('p')
+        debugDefaults.canvas.parent.id = 'handsfree-debug'
+        debugDefaults.canvas.parent.style.position = 'relative'
+        document.body.appendChild(debugDefaults.canvas.parent)
+      }
+      debugDefaults.canvas.parent.style.display = 'none'
+
+      // Set the parent
+      if (!opts.debug) opts.debug = {canvas: {show: false}}
+      if (typeof opts.debug.canvas !== 'object')
+        opts.debug.canvas = {show: opts.debug.canvas}
+      opts.debug.canvas = merge(opts.debug.canvas, {parent: debugDefaults.canvas.parent})
+    }
+
+    // Set defaults
+    if (typeof opts.debug === 'boolean' && opts.debug) {
+      debugDefaults.canvas.show = true
+      debugDefaults.stats.show = true
+      debugDefaults.settings.show = true
+    }
+    if (typeof opts.debug === 'object') {
+      if (typeof opts.debug.canvas === 'boolean') opts.debug.canvas = {show: opts.debug.canvas}
+      if (typeof opts.debug.stats === 'boolean') opts.debug.stats = {show: opts.debug.stats}
+      if (typeof opts.debug.settings === 'boolean') opts.debug.settings = {show: opts.debug.settings}
+      debugDefaults = merge(debugDefaults, opts.debug)
+    }
+
+    return debugDefaults
   }
 }

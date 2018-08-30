@@ -8,6 +8,7 @@ require('./polyfills')
 const merge = require('lodash/merge')
 const forEach = require('lodash/forEach')
 const PoseNet = require('@tensorflow-models/posenet')
+const Stats = require('stats.js')
 let HandsfreeModuleInstances = []
 window.HandsfreeModuleInstances = HandsfreeModuleInstances
 
@@ -63,6 +64,12 @@ class Handsfree {
         !config.disabled && config.onLoad && config.onLoad.call(this)
       })
 
+      // Setup performance monitoring
+      this.performance = new Stats()
+      this.settings.debug.stats.parent.appendChild(this.performance.dom)
+      this.performance.dom.style.display = 'none'
+      this.performance.dom.classList.add('handsfree-performance')
+
       // Possibly autostart after plugins have been loaded
       this.settings.autostart && setTimeout(() => {this.start()})
     }
@@ -77,7 +84,6 @@ class Handsfree {
    */
   start () {
     if (!this._isTracking && this.settings) {
-      if (this.settings.debug) this.settings.target.style.display = 'inherit'
       this._isTracking = true
       Handsfree.setupFeed.call(this)
       Handsfree.initPoseNet.call(this)
@@ -88,6 +94,7 @@ class Handsfree {
       document.body.classList.add('handsfree-is-started')
 
       this.startPlugins.call(this)
+      Handsfree.maybeStartDebugging.call(this)
     }
   }
 
@@ -95,12 +102,12 @@ class Handsfree {
    * Stop tracking poses:
    * - A process can be stopped to free up memory for other expensive processes
    *    or to save on power when idling with this
-   * [ ] Replaces `handsfree-is-started` with `handsfree-is-started`
-   * [-] Runs plugin stops
+   * - Replaces `handsfree-is-started` with `handsfree-is-started`
+   * - Runs plugin stops
    */
   stop () {
     if (this._isTracking) {
-      this.settings.target.style.display = 'none'
+      this.settings.debug.canvas.parent.style.display = 'none'
       this._isTracking = false
       this.video.srcObject.getTracks().forEach(track => track.stop())
 
@@ -110,6 +117,7 @@ class Handsfree {
 
       // Stop running plugins. Deferred to run after final frame
       this.stopPlugins()
+      Handsfree.stopDebugging.call(this)
     }
   }
 
@@ -135,14 +143,18 @@ class Handsfree {
   /**
    * Updates this.settings with new ones
    * - Can update settings
+   * - Stops and starts to refresh settings
    *
    * @param  {Object} opts The settings set to update
    */
   update (opts = {}) {
     if (this.settings) {
-      let oldTarget = this.settings.target
       this.settings = merge(this.settings, opts)
-      opts.target && this.updateTarget.call(this, opts.target, oldTarget)
+
+      // Update debug mode
+      if (typeof opts.debug !== 'undefined')
+        this.settings.debug = Handsfree.debugSettingDefaults(this.settings)
+      Handsfree.maybeStartDebugging.call(this)
     } else {
       Handsfree.setDefaults.call(this, opts)
       Handsfree.setAliases.call(this)

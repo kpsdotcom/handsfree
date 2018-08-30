@@ -23,12 +23,15 @@ module.exports = function (Handsfree) {
    *    constructor scope now
    */
   Handsfree.trackPosesLoop = function (context) {
+    context.performance.begin()
+
     context.posenet && context.trackPoses()
     if (context.poses) {
       context.runCalculations()
       context.emitEvents()
     }
 
+    context.performance.end()
     context._isTracking && requestAnimationFrame(() => this.trackPosesLoop(context))
   }
 
@@ -59,7 +62,7 @@ module.exports = function (Handsfree) {
     this.poses = poses
 
     // Only draw when debug is on
-    this.settings.debug && poses && this.debugPoses()
+    this.settings.debug.canvas.show && poses && this.debugPoses()
   }
 
   /**
