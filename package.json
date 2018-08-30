@@ -26,11 +26,13 @@
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "mock/"
+      "mock/",
+      "src/plugins"
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "mock/"
+      "mock/",
+      "src/plugins"
     ]
   },
   "repository": {

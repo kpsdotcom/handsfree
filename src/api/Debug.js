@@ -156,7 +156,8 @@ module.exports = function (Handsfree) {
       debugDefaults.canvas.show = true
       debugDefaults.stats.show = true
       debugDefaults.settings.show = true
-    } else if (typeof opts.debug === 'object') {
+    }
+    if (typeof opts.debug === 'object') {
       if (typeof opts.debug.canvas === 'boolean') opts.debug.canvas = {show: opts.debug.canvas}
       if (typeof opts.debug.stats === 'boolean') opts.debug.stats = {show: opts.debug.stats}
       if (typeof opts.debug.settings === 'boolean') opts.debug.settings = {show: opts.debug.settings}
