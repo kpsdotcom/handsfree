@@ -31,20 +31,20 @@ module.exports = function (Handsfree) {
     opts.target.style.display = 'none'
 
     // Setup the video element
-    const video = opts.video || this.createDefaultVideo(opts.target)
+    const video = opts.video || Handsfree.createDefaultVideo(opts.target)
     this.initsettings = opts
 
     // Setup defaults
     this.settings = merge({
       autostart: false,
-      canvas: this.createDefaultCanvas(opts.target),
+      canvas: Handsfree.createDefaultCanvas(opts.target),
       debug: false,
       facingMode: 'user',
       poseStackSize: 8,
       posenet: {
         multiplier: 0.75,
         maxUsers: 1,
-        imageScaleFactor: 0.2,
+        imageScaleFactor: 0.4,
         minPoseConfidence: 0.1,
         minPartConfidence: 0.5,
         outputStride: 16,
@@ -76,5 +76,7 @@ module.exports = function (Handsfree) {
     folder.add(this.settings.posenet, 'minPartConfidence', 0.1, 1.0)
     folder.add(this.settings.posenet, 'minPoseConfidence', 0.1, 1.0)
     folder.add(this.settings.posenet, 'nmsRadius', 10, 100)
+
+    this.gui.domElement.style.display = 'none'
   }
 }

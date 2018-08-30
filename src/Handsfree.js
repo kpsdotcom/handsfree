@@ -49,7 +49,7 @@ class Handsfree {
     this._isSupported = false
 
     // Error out when webcams are not supported
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !this.isWebGLSupported()) {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !Handsfree.isWebGLSupported()) {
       throw new Error('ERROR: This browser does not support webcams, please try another browser...like Google Chrome!')
     } else {
       // We know the browser has full support now
@@ -69,65 +69,19 @@ class Handsfree {
   }
 
   /**
-   * Either assigns passed poses or estimates new poses
-   * - Automatically adjusts algorithm to match "single" or "multiple mode"
-   * - If debug is on, displays the points and skeletons overlays on the webcam
-   *
-   * @param {Null|Array} poses Either null to estimate poses, or an array of poses to track
-   */
-  async trackPoses (poses = null) {
-    if (!poses) {
-      // Get single pose
-      if (this.settings.posenet.maxUsers === 1) {
-        let pose = await this.posenet.estimateSinglePose(this.video, this.settings.posenet.imageScaleFactor, false, this.settings.posenet.outputStride)
-        poses = [pose]
-        // Get multiple poses
-      } else {
-        poses = await this.posenet.estimateMultiplePoses(
-          this.video, this.settings.posenet.imageScaleFactor, false, this.settings.posenet.outputStride,
-          this.settings.posenet.maxUsers, this.settings.posenet.scoreThreshold, this.settings.posenet.nmsRadius)
-      }
-    }
-
-    // Publicly set poses
-    this.poses = poses
-
-    // Only draw when debug is on
-    this.settings.debug && poses && this.debugPoses()
-  }
-
-  /**
-   * Loops through each pose and draws their keypoints/skeletons
-   * - Draws skeletons and keypoints
-   */
-  debugPoses () {
-    const context = this.canvas.getContext('2d')
-    context.clearRect(0, 0, this.canvas.width, this.canvas.height)
-
-    this.poses.forEach(({score, keypoints}) => {
-      if (score >= this.settings.posenet.minPoseConfidence) {
-        const adjacentKeypoints = PoseNet.getAdjacentKeyPoints(keypoints, this.settings.posenet.minPartConfidence, context)
-
-        this.drawSkeleton(adjacentKeypoints, context)
-        this.drawKeypoints(keypoints, this.settings.posenet.minPartConfidence, context)
-      }
-    })
-  }
-
-  /**
    * Start tracking poses:
    * - If this.settings.autostart is false, then you can manually start it
    *    later with this
    * - A check is made internally so that only one process is ever running
-   * [ ] Adds a `handsfree-is-started` to the body
+   * - Adds a `handsfree-is-started` to the body
    */
   start () {
     if (!this._isTracking && this.settings) {
       if (this.settings.debug) this.settings.target.style.display = 'inherit'
       this._isTracking = true
-      this.constructor.setupFeed.call(this)
-      this.constructor.initPoseNet.call(this)
-      this.constructor.trackPosesLoop(this)
+      Handsfree.setupFeed.call(this)
+      Handsfree.initPoseNet.call(this)
+      Handsfree.trackPosesLoop(this)
 
       // Set body classes
       document.body.classList.remove('handsfree-is-stopped')
@@ -190,21 +144,21 @@ class Handsfree {
       this.settings = merge(this.settings, opts)
       opts.target && this.updateTarget.call(this, opts.target, oldTarget)
     } else {
-      this.constructor.setDefaults.call(this, opts)
-      this.constructor.setAliases.call(this)
-      this.constructor.setupGUI.call(this)
+      Handsfree.setDefaults.call(this, opts)
+      Handsfree.setAliases.call(this)
+      Handsfree.setupGUI.call(this)
     }
   }
 
   /**
-   * @TODO Our calculation entry point. If you'd like to run your own calculations
+   * Our calculation entry point. If you'd like to run your own calculations
    * (either to make improvements or test with non-euclidean geometries) you can
    * overwrite this method (@FIXME let's provide an API for this).
    *
    * All you have to do is set: this.poses[index].lookingAt = {x, y}
    *
-   * [-] Runs hacky calculations (for now)
-   * [-] Emmits events
+   * - Runs hacky calculations (for now)
+   * - Emmits events
    */
   runCalculations () {
     // @SEE ./calculations/XY.js
@@ -213,6 +167,18 @@ class Handsfree {
     this.calculateZ()
     this.emitEvents()
     this._isTracking && this.runPlugins()
+  }
+
+  /**
+   * Emits events
+   * - Emits onHandsfreePoseUpdates with (this.poses, handsfree)
+   */
+  emitEvents () {
+    window.dispatchEvent(new CustomEvent('onHandsfreePoseUpdates', {
+      detail: {
+        context: this
+      }
+    }))
   }
 }
 
@@ -225,10 +191,12 @@ class Handsfree {
  */
 require('./calculations/XY')(Handsfree)
 require('./calculations/Z')(Handsfree)
-require('./Mixins')(Handsfree)
+require('./Setup')(Handsfree)
 require('./Helpers')(Handsfree)
-require('./Plugin')(Handsfree)
-require('./Settings')(Handsfree)
+require('./api/Debug')(Handsfree)
+require('./api/Plugin')(Handsfree)
+require('./api/Settings')(Handsfree)
+require('./api/PoseNet')(Handsfree)
 
 // Remember: to kick things off you'll want to instantiate this with `new`
 module.exports = Handsfree

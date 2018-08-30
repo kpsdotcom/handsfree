@@ -16,7 +16,7 @@ test('Entry point for our hacky calculations', () => {
   // Test when the left eye is closer
   handsfree = new Handsfree()
   handsfree.poses = STUBS.data.posenet.pose.single
-  handsfree.constructor.setupFeed.call(handsfree)
+  Handsfree.setupFeed.call(handsfree)
   handsfree.calculateXY()
 
   expect(handsfree.poses[0].pointedAt.x && handsfree.poses[0].pointedAt.y).toBeTruthy()
