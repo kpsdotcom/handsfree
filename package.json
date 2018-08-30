@@ -1,6 +1,6 @@
 {
   "name": "handsfree",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "description": "Add client side, multi-user, head-tracked-from-afar mouse cursors and handsfree user interfaces to your projects just...like...✨...that!",
   "main": "dist/handsfree.js",
   "scripts": {
