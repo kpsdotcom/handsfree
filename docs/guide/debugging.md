@@ -18,6 +18,10 @@ For example, to hide only the settings:
 ```js
 handsfree.update({debug: {settings: false}})
 handsfree.start()
+
+setTimeout(() => {
+  handsfree.update({debug: {settings: true}})
+}, 3000)
 ```
 
 <demo/>
