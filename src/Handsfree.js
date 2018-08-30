@@ -173,12 +173,12 @@ class Handsfree {
    * - Emmits events
    */
   runCalculations () {
-    // @SEE ./calculations/XY.js
-    this.calculateXY()
-    // @SEE ./calculations/Z.js
-    this.calculateZ()
-    this.emitEvents()
-    this._isTracking && this.runPlugins()
+    this.poses && this.poses.forEach((pose, index) => {
+      this.calculateUtils(pose, index)
+      this.calculateXY()
+      this.emitEvents()
+      this._isTracking && this.runPlugins()
+    })
   }
 
   /**
@@ -201,8 +201,8 @@ class Handsfree {
  *
  * Here are some more methods:
  */
+require('./calculations/Util')(Handsfree)
 require('./calculations/XY')(Handsfree)
-require('./calculations/Z')(Handsfree)
 require('./Setup')(Handsfree)
 require('./Helpers')(Handsfree)
 require('./api/Debug')(Handsfree)

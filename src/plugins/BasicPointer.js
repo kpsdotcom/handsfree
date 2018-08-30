@@ -33,6 +33,8 @@ module.exports = function (Handsfree) {
     callback ({x, y}) {
       $pointer.style.left = `${x * settings.sensitivity}px`
       $pointer.style.top = `${y * settings.sensitivity}px`
+      settings.pointerSize = this.poses[0].distanceFromScreen * 4
+      updateStyles()
     },
 
     /**

@@ -29,6 +29,7 @@ module.exports = function (Handsfree) {
     if (context.poses) {
       context.runCalculations()
       context.emitEvents()
+      context.settings.debug.canvas.show && context.debugPoses()
     }
 
     context.performance.end()
@@ -60,9 +61,6 @@ module.exports = function (Handsfree) {
 
     // Publicly set poses
     this.poses = poses
-
-    // Only draw when debug is on
-    this.settings.debug.canvas.show && poses && this.debugPoses()
   }
 
   /**
@@ -71,14 +69,15 @@ module.exports = function (Handsfree) {
    */
   Handsfree.prototype.debugPoses = function () {
     const context = this.canvas.getContext('2d')
+    const minPartConfidence = this.settings.posenet.minPartConfidence
     context.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-    this.poses.forEach(({score, keypoints}) => {
+    this.poses.forEach(({score, keypoints}, index) => {
       if (score >= this.settings.posenet.minPoseConfidence) {
-        const adjacentKeypoints = PoseNet.getAdjacentKeyPoints(keypoints, this.settings.posenet.minPartConfidence, context)
+        const adjacentKeypoints = PoseNet.getAdjacentKeyPoints(keypoints, minPartConfidence, context)
 
         Handsfree.drawSkeleton(adjacentKeypoints, context)
-        Handsfree.drawKeypoints(keypoints, this.settings.posenet.minPartConfidence, context)
+        Handsfree.drawKeypoints(this.poses[index], minPartConfidence, context)
       }
     })
   }

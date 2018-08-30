@@ -58,11 +58,14 @@ module.exports = function (Handsfree) {
    *
    * @see https://github.com/tensorflow/tfjs-models/tree/master/posenet
    *
-   * @param {ARR} keypoints The list of all keypoints
-   * @param {NUM} minConfidence The minimum keypoint score needed to track
-   * @param {OBJ} context The canvas context to draw into
+   * @param {INT} pose          The pose data
+   * @param {INT} minConfidence The minimum confidence required to show a keypoint
+   * @param {OBJ} context       The canvas context to draw into
    */
-  Handsfree.drawKeypoints = function (keypoints, minConfidence, context) {
+  Handsfree.drawKeypoints = function (pose, minConfidence, context) {
+    const keypoints = pose.keypoints
+    const eyeCenter = pose.eyeCenter
+
     keypoints.forEach(({position, score}) => {
       if (score > minConfidence) {
         context.beginPath()
@@ -71,6 +74,14 @@ module.exports = function (Handsfree) {
         context.fill()
       }
     })
+
+    // Draw point between eyes
+    if (keypoints[1].score > minConfidence && keypoints[2].score > minConfidence) {
+      context.beginPath()
+      context.arc(eyeCenter.x, eyeCenter.y, 5, 0, 2 * Math.PI)
+      context.fillStyle = '#ff0000'
+      context.fill()
+    }
   }
 
   /**
