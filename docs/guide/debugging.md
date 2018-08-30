@@ -1,17 +1,41 @@
 # Debugging
-You can activate debug mode by passing `{debug: true}` into `Handsfree` when instantiating, and turning it off with `{debug: false}`. An additional property `{target: DOM_ELEMENT}` allows you to set where to inject the debug canvas.
+You can activate debug mode by passing `{debug: true}` into `Handsfree` when instantiating, and turning it off with `{debug: false}`. You can also toggle debug mode with `handsfree.update({debug: BOOLEAN})` after instantiating.
 
-By default, `target` is defined with:
+Additionally, you can turn specific debug features on and off. To do so, set any of the following:
 
 ```js
 {
-  target: document.getElementById('handsfree-debug')
+  debug: {
+    canvas: BOOLEAN || {show: BOOLEAN, parent: DOM},
+    settings: BOOLEAN || {show: BOOLEAN, parent: DOM},
+    stats: BOOLEAN || {show: BOOLEAN, parent: DOM}
+  }
 }
 ```
 
-If the debug container element does not exist in the DOM, then the debugger is injected at the end of the document body.
+For example, to hide only the settings:
 
-## Creating Settings Panels
+```js
+handsfree.update({debug: {settings: false}})
+handsfree.start()
+```
+
+<demo/>
+
+To set where the debug canvases are placed, use the form `debug.FEATURE.parent = DOM`:
+
+```js
+new HandsfreeModule({
+  debug: {
+    canvas: {
+      show: true,
+      parent: document.getElementById('#my-target')
+    }
+  }
+})
+```
+
+## Adding Settings Panels
 
 Handsfree provides a simple settings panel API via [dat.gui](https://github.com/dataarts/dat.gui), which is accessible via `handsfree.gui`. The best way to see how this works is by creating a simple plugin:
 
