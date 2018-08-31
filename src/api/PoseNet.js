@@ -23,17 +23,23 @@ module.exports = function (Handsfree) {
    *    constructor scope now
    */
   Handsfree.trackPosesLoop = function (context) {
+    // Start performance and capture poses
     context.performance.begin()
-
     context.posenet && context.trackPoses()
+
+    // Run calculations, emit events, and debug poses
     if (context.poses) {
       context.runCalculations()
       context.emitEvents()
       context.settings.debug.canvas.show && context.debugPoses()
     }
 
+    // End performance, run plugins, loop
     context.performance.end()
-    context._isTracking && requestAnimationFrame(() => this.trackPosesLoop(context))
+    if (context._isTracking) {
+      requestAnimationFrame(() => this.trackPosesLoop(context))
+      context.runPlugins()
+    }
   }
 
 

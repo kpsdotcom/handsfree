@@ -72,9 +72,6 @@ class Handsfree {
 
       // Possibly autostart after plugins have been loaded
       this.settings.autostart && setTimeout(() => {this.start()})
-
-      // Cache window based dimensions
-      window.addEventListener('resize', () => {Handsfree.cacheWindowBasedVariables.call(this)})
     }
   }
 
@@ -167,25 +164,6 @@ class Handsfree {
   }
 
   /**
-   * Our calculation entry point. If you'd like to run your own calculations
-   * (either to make improvements or test with non-euclidean geometries) you can
-   * overwrite this method (@FIXME let's provide an API for this).
-   *
-   * All you have to do is set: this.poses[index].lookingAt = {x, y}
-   *
-   * - Runs hacky calculations (for now)
-   * - Emmits events
-   */
-  runCalculations () {
-    this.poses && this.poses.forEach((pose, index) => {
-      this.calculateUtils(pose, index)
-      this.calculateXY()
-      this.emitEvents()
-      this._isTracking && this.runPlugins()
-    })
-  }
-
-  /**
    * Emits events
    * - Emits onHandsfreePoseUpdates with (this.poses, handsfree)
    */
@@ -205,14 +183,13 @@ class Handsfree {
  *
  * Here are some more methods:
  */
-require('./calculations/Util')(Handsfree)
-require('./calculations/XY')(Handsfree)
 require('./Setup')(Handsfree)
 require('./Helpers')(Handsfree)
 require('./api/Debug')(Handsfree)
 require('./api/Plugin')(Handsfree)
 require('./api/Settings')(Handsfree)
 require('./api/PoseNet')(Handsfree)
+require('./api/Calculations')(Handsfree)
 
 // Remember: to kick things off you'll want to instantiate this with `new`
 module.exports = Handsfree

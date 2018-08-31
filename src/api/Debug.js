@@ -63,10 +63,7 @@ module.exports = function (Handsfree) {
    * @param {OBJ} context       The canvas context to draw into
    */
   Handsfree.drawKeypoints = function (pose, minConfidence, context) {
-    const keypoints = pose.keypoints
-    const eyeCenter = pose.eyeCenter
-
-    keypoints.forEach(({position, score}) => {
+    pose.keypoints.forEach(({position, score}) => {
       if (score > minConfidence) {
         context.beginPath()
         context.arc(position.x, position.y, 15, 0, 2 * Math.PI)
@@ -74,14 +71,6 @@ module.exports = function (Handsfree) {
         context.fill()
       }
     })
-
-    // Draw point between eyes
-    if (keypoints[1].score > minConfidence && keypoints[2].score > minConfidence) {
-      context.beginPath()
-      context.arc(eyeCenter.x, eyeCenter.y, 5, 0, 2 * Math.PI)
-      context.fillStyle = '#ff0000'
-      context.fill()
-    }
   }
 
   /**

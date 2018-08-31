@@ -54,11 +54,7 @@ module.exports = function (Handsfree) {
 
       this.poses && this.poses.forEach(pose => {
         if (!plugin.disabled) {
-          plugin.callback && plugin.callback.call(this, {
-            x: pose.pointedAt.x,
-            y: pose.pointedAt.y,
-            pose: this.pose
-          })
+          plugin.callback && plugin.callback.call(this, pose)
         }
       })
     })
