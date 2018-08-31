@@ -3,28 +3,103 @@
  * At 13.6 units away
  */
 
-// 🚨🚨🚨🚨🚨🚨🚨🚨
-// 🚨 DELETE THIS 🚨
-// 🚨🚨🚨🚨🚨🚨🚨🚨
+// 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+// 🚨 COMMENT THIS OUT WHEN NOT IN USE 🚨
+// 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
 const $x = document.querySelector('#x')
 const $y = document.querySelector('#y')
 const $z = document.querySelector('#z')
+const $yaw = document.querySelector('#yaw')
+const $pitch = document.querySelector('#pitch')
+const $roll = document.querySelector('#roll')
+const $eyeDistance = document.querySelector('#eye-distance')
+const $leftEyeNoseDistance = document.querySelector('#left-eye-nose-distance')
+const $rightEyeNoseDistance = document.querySelector('#right-eye-nose-distance')
+const $magicNumber = document.querySelector('#magic-number')
 
 module.exports = function (Handsfree) {
   Handsfree.prototype.calculateXY = function () {
     this.poses && this.poses.forEach((pose, index) => {
+      // The cursors predicted x,y
+      let x
+      let y
+      // Distance away from screen in units
+      let z
+      // Head yaw/pitch/roll
+      let yaw
+      let pitch
+      let roll
+      // Distance formula
+      let a
+      let b
+      // Distance between eyes and nose
+      let lEyeNoseDist
+      let rEyeNoseDist
+      // For calculating slopes
+      let deltaY
+      let deltaX
+      // Keypoints
+      let nose = pose.keypoints[0].position
+      let leftEye = pose.keypoints[1].position
+      let rightEye = pose.keypoints[2].position
+      // Used to help map a point on the canvas to a point on the window
       let canvasRatio = this.cache.window.canvasRatio
 
-      // First position the cursor assuming no head rotation
-      let x = (this.canvas.width - pose.eyeCenter.x) * canvasRatio.width
-      let y = (pose.eyeCenter.y) * canvasRatio.height
+      /**
+       * Position the cursor assuming no head rotation
+       */
+      x = (this.canvas.width - pose.eyeCenter.x) * canvasRatio.width
+      y = (pose.eyeCenter.y) * canvasRatio.height
+      z = pose.distanceFromScreen.toFixed(2)
 
+      /**
+       * Calculate Roll
+       */
+      deltaY = pose.keypoints[2].position.y - pose.keypoints[1].position.y
+      deltaX = pose.keypoints[1].position.x - pose.keypoints[2].position.x
+      roll = Handsfree.toDegrees(Math.atan2(deltaY, deltaX))
+
+      /**
+       * Calculate Eye-Nose distances
+       */
+      a = pose.keypoints[0].position.x - pose.keypoints[1].position.x
+      b = pose.keypoints[0].position.y - pose.keypoints[1].position.y
+      lEyeNoseDist = Math.sqrt(a*a + b*b)
+      a = pose.keypoints[0].position.x - pose.keypoints[2].position.x
+      b = pose.keypoints[0].position.y - pose.keypoints[2].position.y
+      rEyeNoseDist = Math.sqrt(a*a + b*b)
+
+      /**
+       * Store values
+       */
+      this.poses[index].pointedAt = {x, y}
+
+      /**
+       * Debug
+       */
+      // 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+      // 🚨 COMMENT THIS OUT WHEN NOT IN USE 🚨
+      // 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
       $x.innerText = Math.floor(x)
       $y.innerText = Math.floor(y)
-      $z.innerText = pose.distanceFromScreen.toFixed(2)
+      $z.innerText = z
+      $yaw.innerText = yaw
+      $pitch.innerText = pitch
+      $roll.innerText = roll.toFixed(2)
 
-      this.poses[index].pointedAt = {x, y}
+      $eyeDistance.innerText = pose.eyeDistance.toFixed(0)
+      $leftEyeNoseDistance.innerText = lEyeNoseDist.toFixed(2)
+      $rightEyeNoseDistance.innerText = rEyeNoseDist.toFixed(2)
+      $magicNumber.innerText = (lEyeNoseDist - rEyeNoseDist).toFixed(4)
     })
+  }
+
+  /**
+   * Converts radians to degrees
+   * @param {NUMBER} radian
+   */
+  Handsfree.toDegrees = function(radian) {
+    return radian * (180 / Math.PI)
   }
 
   // /**
