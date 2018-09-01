@@ -11,8 +11,10 @@ window.handsfree.use(require('plugins/mappedEyeCentroid'))
 // Log data
 const $x = document.querySelector('#x')
 const $y = document.querySelector('#y')
+const $roll = document.querySelector('#roll')
 window.addEventListener('onHandsfreePoseUpdates', function (e) {
   const me = e.detail.context
   $x.innerText = me.poses[0].part.eyeMidpoint.x
   $y.innerText = me.poses[0].part.eyeMidpoint.y
+  $roll.innerText = me.poses[0].part.head.roll
 })

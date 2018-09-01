@@ -24,6 +24,21 @@ module.exports = function (Handsfree) {
   const midpoint = (a, b) => {return {x: (a.x + b.x) / 2, y: (a.y + b.y) / 2}}
 
   /**
+   * Finds the slope between two points
+   * @param  {Point} a The first point
+   * @param  {Point} b The second point
+   * @return {Point}   The slope betweent the two points degress
+   */
+  const pointDeg = (b, a) => -radToDeg(Math.atan2(a.y - b.y, b.x - a.x))
+
+  /**
+   * Turns a radian to degrees
+   * @param  {Number} rad The radian
+   * @return {Number}     The degrees
+   */
+  const radToDeg = (rad) => rad * (180 / Math.PI)
+
+  /**
    * Run calculations
    */
   Handsfree.prototype.runCalculations = function () {
@@ -48,6 +63,10 @@ module.exports = function (Handsfree) {
 
       // Calculate eye midpoint
       pose.part.eyeMidpoint = midpoint(pose.part.eyeL.normal, pose.part.eyeR.normal),
+
+      // Calculate roll
+      pose.part.head = {}
+      pose.part.head.roll = pointDeg(pose.part.eyeL.normal, pose.part.eyeR.normal)
 
       // @FIXME let's only calculate the one's we need, like only the eyes and nose
       this.poses[index] = pose
