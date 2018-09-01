@@ -65,9 +65,7 @@ module.exports = function (Handsfree) {
    */
   Handsfree.prototype.stopPlugins = function () {
     forOwn(Handsfree.prototype.plugins, (config, name) => {
-      config.onStop && config.onStop.call(this, {
-        poses: this.poses
-      })
+      config.onStop && config.onStop.call(this)
     })
   }
 
@@ -100,9 +98,4 @@ module.exports = function (Handsfree) {
 
     Handsfree.prototype.sortedPlugins = plugins
   }
-
-  /**
-   * Load built in plugins
-   */
-  require('../plugins/BasicPointer.js')(Handsfree)
 }

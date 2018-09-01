@@ -3,27 +3,32 @@
  *
  * A collection of methods for calculating things
  */
-const merge = require('lodash/merge')
-const forOwn = require('lodash/forOwn')
-const once = require('lodash/once')
-const tf = require('@tensorflow/tfjs')
+const forEach = require('lodash/forEach')
 
 module.exports = function (Handsfree) {
-  const vals = Object.values
+  const normalize = (val, max, min) => (val - min) / (max - min)
 
   /**
    * Run calculations
    */
   Handsfree.prototype.runCalculations = function () {
     this.poses && this.poses.forEach((pose, index) => {
-      pose.norm = {
-        nose: tf.softmax(vals(pose.keypoints[0].position)),
-        leye: tf.softmax(vals(pose.keypoints[0].position)),
-        reye: tf.softmax(vals(pose.keypoints[0].position)),
-      }
+      const partNames = ['nose', 'eyeR', 'eyeL']
 
+      // Core calculations
+      pose.part = {}
+      partNames.forEach((partName, i) => {
+        const position = pose.keypoints[i].position
+        pose.part[partName] = {
+          position,
+          normal: {
+            x: normalize(position.x, 0, window.outerWidth),
+            y: normalize(position.x, 0, window.outerHeight)
+          }
+        }
+      })
 
-
+      // @FIXME let's only calculate the one's we need, like only the eyes and nose
       this.poses[index] = pose
     })
   }
