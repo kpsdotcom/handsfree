@@ -6,7 +6,8 @@ require('../assets/style.styl')
 window.handsfree = new HandsfreeModule({debug: true})
 
 // load plugins
-window.handsfree.use(require('plugins/mappedEyeCentroid'))
+window.handsfree.use(require('plugins/pointer/EyeCentroid'))
+window.handsfree.use(require('plugins/costume/Mask'))
 
 // Log data
 const $x = document.querySelector('#x')

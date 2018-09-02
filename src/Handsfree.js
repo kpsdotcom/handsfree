@@ -93,9 +93,17 @@ class Handsfree {
       document.body.classList.remove('handsfree-is-stopped')
       document.body.classList.add('handsfree-is-started')
 
+      // Start plugins, trigger resize events just to be safe
       this.startPlugins.call(this)
       Handsfree.maybeStartDebugging.call(this)
       window.dispatchEvent(new Event('resize'))
+
+      // Cache boundingBoxes
+      setTimeout(() => {
+        handsfree.canvas.cache = {
+          boundingBoxes: handsfree.canvas.getBoundingClientRect()
+        }
+      })
     }
   }
 

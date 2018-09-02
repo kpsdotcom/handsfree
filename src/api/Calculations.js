@@ -32,6 +32,18 @@ module.exports = function (Handsfree) {
   const pointDeg = (b, a) => -radToDeg(Math.atan2(a.y - b.y, b.x - a.x))
 
   /**
+   * Finds the distance between two points
+   * @param  {Point} p1 The first point
+   * @param  {Point} p2 The second point
+   * @return {Point}   The slope betweent the two points degress
+   */
+  const distance = (p1, p2) => {
+    const a = p1.x - p2.x
+    const b = p1.y - p2.y
+    return Math.sqrt(a*a + b*b)
+  }
+
+  /**
    * Turns a radian to degrees
    * @param  {Number} rad The radian
    * @return {Number}     The degrees
@@ -66,6 +78,7 @@ module.exports = function (Handsfree) {
 
       // Calculate roll
       pose.part.head = {}
+      pose.part.head.width = distance(pose.part.eyeL.position, pose.part.eyeR.position)
       pose.part.head.roll = pointDeg(pose.part.eyeL.normal, pose.part.eyeR.normal)
 
       // @FIXME let's only calculate the one's we need, like only the eyes and nose

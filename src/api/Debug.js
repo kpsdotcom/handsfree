@@ -66,8 +66,8 @@ module.exports = function (Handsfree) {
     pose.keypoints.forEach(({position, score}) => {
       if (score > minConfidence) {
         context.beginPath()
-        context.arc(position.x, position.y, 15, 0, 2 * Math.PI)
-        context.fillStyle = '#00ff00'
+        context.arc(position.x, position.y, 20, 0, 2 * Math.PI)
+        context.fillStyle = '#fff47d'
         context.fill()
       }
     })
@@ -86,6 +86,27 @@ module.exports = function (Handsfree) {
     adjacentPoints.forEach(keypoints => {
       Handsfree.drawSegment(Handsfree.toTuple(keypoints[0].position), Handsfree.toTuple(keypoints[1].position), context)
     })
+  }
+
+
+  /**
+   * Draws the skeleton segment
+   * - A segment is a straight line between two tuples
+   *
+   * @param {OBJ} fromTuple [ay, ax] The starting point
+   * @param {OBJ} toTuple [by, bx] The ending point
+   * @param {HEX} color The color to draw in
+   * @param {OBJ} context The canvas context to draw in
+   */
+  Handsfree.drawSegment = function ([ay, ax], [by, bx], context) {
+    const scale = 1
+
+    context.beginPath()
+    context.moveTo(ax * scale, ay * scale)
+    context.lineTo(bx * scale, by * scale)
+    context.lineWidth = 20
+    context.strokeStyle = '#6e4380'
+    context.stroke()
   }
 
   /**

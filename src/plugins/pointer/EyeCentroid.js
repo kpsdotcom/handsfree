@@ -3,11 +3,11 @@
  */
 // Create the pointer and styles
 const $pointer = document.createElement('div')
-$pointer.classList.add('handsfree-plugin-mappedEyeCentroid-pointer')
+$pointer.classList.add('handsfree-plugin-pointer-EyeCentroid-pointer')
 const $style = document.createElement('style')
 $style.type = 'text/css'
 $style.appendChild(document.createTextNode(`
-  .handsfree-plugin-mappedEyeCentroid-pointer {
+  .handsfree-plugin-pointer-EyeCentroid-pointer {
     z-index: 999999;
     display: none;
     position: fixed;
@@ -18,7 +18,7 @@ $style.appendChild(document.createTextNode(`
     border: 3px dashed rgba(0, 0, 0, 0.35);
   }
 
-  .handsfree-plugin-mappedEyeCentroid-pointer:before {
+  .handsfree-plugin-pointer-EyeCentroid-pointer:before {
     content: '';
     width: 0;
     height: 0;

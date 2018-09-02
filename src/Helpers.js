@@ -54,24 +54,4 @@ module.exports = function (Handsfree) {
    * @param {OBJ} position {x, y}
    */
   Handsfree.toTuple = function ({x, y}) { return [y, x] }
-
-  /**
-   * Draws the skeleton segment
-   * - A segment is a straight line between two tuples
-   *
-   * @param {OBJ} fromTuple [ay, ax] The starting point
-   * @param {OBJ} toTuple [by, bx] The ending point
-   * @param {HEX} color The color to draw in
-   * @param {OBJ} context The canvas context to draw in
-   */
-  Handsfree.drawSegment = function ([ay, ax], [by, bx], context) {
-    const scale = 1
-
-    context.beginPath()
-    context.moveTo(ax * scale, ay * scale)
-    context.lineTo(bx * scale, by * scale)
-    context.lineWidth = 10
-    context.strokeStyle = '#ff00ff'
-    context.stroke()
-  }
 }
