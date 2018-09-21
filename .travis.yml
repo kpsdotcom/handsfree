@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - "8"
+  - "10"
 install:
   - npm install -g codecov jest
   - npm install babel-preset-env jest-canvas-mock @tensorflow-models/posenet @tensorflow/tfjs lodash custom-event-polyfill dat.gui stats.js
